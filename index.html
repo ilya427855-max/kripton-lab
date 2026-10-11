@@ -555,23 +555,26 @@
     };
 
     function parseUrlParams() {
-        const p = new URLSearchParams(window.location.search);
-        if (p.has('user') || p.has('u')) userData.username = p.get('user') || p.get('u');
-        if (p.has('xp')) userData.xp = parseInt(p.get('xp')) || 0;
-        if (p.has('days')) userData.days = parseInt(p.get('days')) || 0;
-        if (p.has('chat')) userData.chat = parseInt(p.get('chat')) || 0;
-        if (p.has('exp')) userData.exp = parseInt(p.get('exp')) || 0;
-        if (p.has('ev')) userData.ev = parseInt(p.get('ev')) || 0;
-        if (p.has('anom')) userData.anom = parseInt(p.get('anom')) || 0;
-        if (p.has('cmd')) userData.cmd = parseInt(p.get('cmd')) || 0;
-        if (p.has('title')) userData.title = p.get('title');
-        if (p.has('badge')) userData.badge = p.get('badge');
-        if (p.has('ach')) {
-        if (p.has('ach')) {
-            const raw = p.get('ach');
-            const separator = raw.includes('-') ? '-' : ',';
-            const list = raw.split(separator).map(n => parseInt(n)).filter(n => !isNaN(n));
-            userData.unlockedAchs = new Set(list);
+        try {
+            const p = new URLSearchParams(window.location.search);
+            if (p.has('user') || p.has('u')) userData.username = p.get('user') || p.get('u');
+            if (p.has('xp')) userData.xp = parseInt(p.get('xp'), 10) || 0;
+            if (p.has('days')) userData.days = parseInt(p.get('days'), 10) || 0;
+            if (p.has('chat')) userData.chat = parseInt(p.get('chat'), 10) || 0;
+            if (p.has('exp')) userData.exp = parseInt(p.get('exp'), 10) || 0;
+            if (p.has('ev')) userData.ev = parseInt(p.get('ev'), 10) || 0;
+            if (p.has('anom')) userData.anom = parseInt(p.get('anom'), 10) || 0;
+            if (p.has('cmd')) userData.cmd = parseInt(p.get('cmd'), 10) || 0;
+            if (p.has('title')) userData.title = p.get('title') || "";
+            if (p.has('badge')) userData.badge = p.get('badge') || "";
+            if (p.has('ach')) {
+                const raw = p.get('ach');
+                const sep = raw.includes('-') ? '-' : ',';
+                const list = raw.split(sep).map(function(n) { return parseInt(n, 10); }).filter(function(n) { return !isNaN(n); });
+                userData.unlockedAchs = new Set(list);
+            }
+        } catch (e) {
+            console.error("Ошибка разбора URL параметров:", e);
         }
     }
 
