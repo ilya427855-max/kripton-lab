@@ -6,22 +6,24 @@
     <title>KRIPTON LAB — Терминал Исследователя</title>
     <style>
         :root {
-            --bg-dark: #0a0c10;
-            --bg-card: #12161f;
-            --border: #1e2638;
+            --bg-dark: #080a0f;
+            --bg-card: #0f141f;
+            --border: #1a2336;
+            --border-highlight: #283958;
             --neon-blue: #00f0ff;
-            --neon-purple: #9d4edd;
-            --neon-green: #00ff88;
-            --neon-gold: #ffb703;
-            --neon-red: #ff3366;
-            --text-main: #e2e8f0;
+            --neon-purple: #a855f7;
+            --neon-green: #10b981;
+            --neon-gold: #f59e0b;
+            --neon-red: #ef4444;
+            --text-main: #f1f5f9;
             --text-muted: #64748b;
+            --locked-bg: #0b0e14;
+            --locked-text: #475569;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-        body { background: var(--bg-dark); color: var(--text-main); min-height: 100vh; padding: 20px; }
-
-        .container { max-width: 1300px; margin: 0 auto; }
+        body { background: var(--bg-dark); color: var(--text-main); min-height: 100vh; padding: 24px 16px; line-height: 1.5; }
+        .container { max-width: 1280px; margin: 0 auto; }
 
         /* Шапка терминала */
         header {
@@ -31,97 +33,238 @@
             padding: 20px 24px;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 14px;
+            border-radius: 16px;
             margin-bottom: 24px;
-            box-shadow: 0 0 25px rgba(0, 240, 255, 0.05);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.04);
+            flex-wrap: wrap;
+            gap: 16px;
         }
 
         .logo { display: flex; align-items: center; gap: 14px; }
-        .logo-icon { font-size: 34px; filter: drop-shadow(0 0 10px var(--neon-blue)); }
-        .logo-text h1 { font-size: 24px; color: var(--neon-blue); letter-spacing: 2px; }
-        .logo-text p { font-size: 13px; color: var(--text-muted); }
+        .logo-icon { font-size: 36px; filter: drop-shadow(0 0 10px var(--neon-blue)); }
+        .logo-text h1 { font-size: 22px; color: var(--neon-blue); letter-spacing: 2px; text-transform: uppercase; }
+        .logo-text p { font-size: 12px; color: var(--text-muted); }
 
-        .header-stats { display: flex; gap: 12px; }
-        .stat-chip {
-            background: #0d1117;
-            padding: 8px 16px;
-            border-radius: 8px;
+        .auth-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #080c14;
+            padding: 8px 12px;
+            border-radius: 12px;
             border: 1px solid var(--border);
-            font-size: 13px;
         }
-        .stat-chip span { color: var(--neon-green); font-weight: bold; }
+        .auth-bar input {
+            background: transparent;
+            border: none;
+            color: #fff;
+            outline: none;
+            font-size: 14px;
+            width: 150px;
+        }
+        .auth-bar button {
+            background: rgba(0, 240, 255, 0.15);
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .auth-bar button:hover {
+            background: var(--neon-blue);
+            color: #000;
+        }
 
-        /* Навигация по разделам */
-        .main-nav {
+        /* 1. ПЛАШКА: ДОСЬЕ И ПРОФИЛЬ */
+        .profile-plaque {
+            background: linear-gradient(135deg, rgba(15, 20, 31, 0.95), rgba(20, 28, 44, 0.85));
+            border: 1px solid var(--border-highlight);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        .profile-plaque::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-green));
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        .profile-identity { display: flex; align-items: center; gap: 18px; }
+        .avatar-box {
+            width: 72px;
+            height: 72px;
+            border-radius: 16px;
+            background: #141c2c;
+            border: 2px solid var(--neon-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+        }
+        .id-details h2 { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 4px; display: flex; align-items: center; gap: 10px; }
+        .id-details .rank-tag {
+            font-size: 12px;
+            padding: 3px 10px;
+            border-radius: 6px;
+            background: rgba(0, 240, 255, 0.15);
+            color: var(--neon-blue);
+            font-weight: 600;
+        }
+        .user-cosmetics {
+            display: flex;
+            gap: 10px;
+            font-size: 13px;
+            margin-top: 6px;
+        }
+        .user-cosmetic-chip {
+            background: #080c14;
+            border: 1px solid var(--border);
+            padding: 4px 10px;
+            border-radius: 6px;
+            color: var(--text-muted);
+        }
+        .user-cosmetic-chip strong { color: var(--neon-gold); }
+
+        .level-widget {
+            min-width: 280px;
+            background: #090d16;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 18px;
+        }
+        .level-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; }
+        .level-label span:first-child { color: var(--text-muted); }
+        .level-label span:last-child { color: var(--neon-green); font-weight: 700; }
+        .progress-bar-bg {
+            height: 10px;
+            background: #141c2c;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-green));
+            border-radius: 6px;
+            transition: width 0.4s ease;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+        }
+        .stat-card {
+            background: #090d16;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            text-align: center;
+        }
+        .stat-card .val { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+        .stat-card .lbl { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* Вкладки навигации */
+        .section-nav {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
         }
-        .main-nav-btn {
-            background: var(--bg-card);
+        .nav-btn {
+            background: transparent;
             border: 1px solid var(--border);
             color: var(--text-muted);
-            padding: 12px 24px;
+            padding: 10px 20px;
             border-radius: 10px;
-            cursor: pointer;
             font-size: 14px;
             font-weight: 600;
+            cursor: pointer;
             transition: all 0.2s;
         }
-        .main-nav-btn.active {
+        .nav-btn:hover { border-color: var(--neon-blue); color: #fff; }
+        .nav-btn.active {
             background: rgba(0, 240, 255, 0.12);
             border-color: var(--neon-blue);
             color: var(--neon-blue);
-            box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
         }
 
-        /* Категории */
-        .tabs {
+        /* 2. ПЛАШКА: КАТАЛОГ ДОСТИЖЕНИЙ */
+        .cat-filters {
             display: flex;
             gap: 8px;
             overflow-x: auto;
-            padding-bottom: 8px;
-            margin-bottom: 20px;
+            padding-bottom: 10px;
+            margin-bottom: 16px;
         }
-        .tab-btn {
+        .cat-btn {
             background: var(--bg-card);
             border: 1px solid var(--border);
             color: var(--text-muted);
-            padding: 9px 15px;
+            padding: 8px 14px;
             border-radius: 8px;
+            font-size: 12px;
             cursor: pointer;
             white-space: nowrap;
-            font-size: 13px;
             transition: all 0.2s;
         }
-        .tab-btn:hover { border-color: var(--neon-blue); color: var(--text-main); }
-        .tab-btn.active {
-            background: rgba(0, 240, 255, 0.1);
-            border-color: var(--neon-blue);
-            color: var(--neon-blue);
-        }
+        .cat-btn:hover { border-color: var(--border-highlight); color: #fff; }
+        .cat-btn.active { background: rgba(0, 240, 255, 0.1); border-color: var(--neon-blue); color: var(--neon-blue); }
 
-        /* Поиск и фильтры */
-        .search-bar {
-            width: 100%;
+        .search-controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .search-input {
+            flex: 1;
+            min-width: 250px;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            padding: 12px 18px;
             border-radius: 10px;
+            padding: 12px 16px;
             color: #fff;
             outline: none;
-            margin-bottom: 24px;
-            font-size: 14px;
         }
-        .search-bar:focus { border-color: var(--neon-blue); }
+        .search-input:focus { border-color: var(--neon-blue); }
 
-        /* Сетка карточек */
-        .grid {
+        .filter-status-group { display: flex; gap: 8px; }
+        .filter-status-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 0 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .filter-status-btn.active { background: #141c2c; border-color: var(--neon-blue); color: #fff; }
+
+        .ach-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
             gap: 16px;
         }
-        .card {
+
+        .ach-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 12px;
@@ -129,70 +272,123 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.2s, border-color 0.2s;
+            position: relative;
+            transition: all 0.2s ease;
         }
-        .card:hover { transform: translateY(-2px); border-color: #2a354c; }
+        .ach-card:hover { transform: translateY(-2px); border-color: var(--border-highlight); }
 
-        .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .card-id { font-family: monospace; font-size: 12px; font-weight: bold; color: var(--text-muted); }
-        
-        .badge-rarity {
+        .ach-card.unlocked {
+            border-color: rgba(16, 185, 129, 0.4);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), var(--bg-card));
+        }
+        .ach-card.unlocked::before {
+            content: '✔ ПОЛУЧЕНО';
+            position: absolute;
+            top: 10px;
+            right: 12px;
             font-size: 10px;
-            text-transform: uppercase;
-            font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 4px;
+            font-weight: 800;
+            color: var(--neon-green);
             letter-spacing: 0.5px;
         }
-        .rarity-обычная { background: #1a2233; color: #94a3b8; }
-        .rarity-редкая { background: rgba(0, 240, 255, 0.15); color: var(--neon-blue); }
-        .rarity-эпическая { background: rgba(157, 78, 221, 0.2); color: var(--neon-purple); }
-        .rarity-легендарная { background: rgba(255, 183, 3, 0.2); color: var(--neon-gold); }
-        .rarity-абсолютная { background: rgba(255, 51, 102, 0.25); color: var(--neon-red); }
 
-        .card-title { font-size: 16px; font-weight: bold; margin-bottom: 6px; }
-        .card-desc { font-size: 13px; color: var(--text-muted); line-height: 1.4; margin-bottom: 12px; }
+        .ach-card.locked {
+            background: var(--locked-bg);
+            border-color: #141a26;
+            opacity: 0.75;
+        }
+        .ach-card.locked:hover { opacity: 0.95; border-color: var(--border); }
 
-        .card-bottom {
+        .ach-card.secret-locked {
+            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.1), var(--locked-bg));
+            border-color: rgba(168, 85, 247, 0.3);
+            border-style: dashed;
+        }
+
+        .ach-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .ach-code { font-family: monospace; font-size: 11px; font-weight: 700; color: var(--text-muted); }
+        .rarity-pill {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        .r-обычная { background: #1e2638; color: #94a3b8; }
+        .r-редкая { background: rgba(0, 240, 255, 0.15); color: var(--neon-blue); }
+        .r-эпическая { background: rgba(168, 85, 247, 0.2); color: var(--neon-purple); }
+        .r-легендарная { background: rgba(245, 158, 11, 0.2); color: var(--neon-gold); }
+        .r-абсолютная { background: rgba(239, 68, 68, 0.25); color: var(--neon-red); }
+
+        .ach-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; color: #fff; }
+        .ach-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; min-height: 36px; line-height: 1.4; }
+
+        .ach-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 10px;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 12px;
+            padding-top: 10px;
+            font-size: 11px;
         }
-        .card-reward { color: var(--neon-green); font-weight: 600; }
+        .ach-reward { color: var(--neon-green); font-weight: 600; }
+        .ach-req { color: var(--text-muted); }
 
-        /* Раздел Гардероба */
+        /* 3. ПЛАШКА: ГАРДЕРОБ */
         .wardrobe-section { display: none; }
-        .wardrobe-block { margin-bottom: 30px; }
-        .wardrobe-block h2 { font-size: 18px; margin-bottom: 14px; color: var(--neon-blue); display: flex; align-items: center; gap: 8px; }
-        
-        .cosmetic-grid {
+        .wardrobe-block { margin-bottom: 32px; }
+        .wardrobe-block h3 { font-size: 18px; margin-bottom: 16px; color: var(--neon-blue); display: flex; align-items: center; gap: 8px; }
+        .wardrobe-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 12px;
         }
+
         .cosmetic-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 14px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            cursor: pointer;
             transition: all 0.2s;
         }
-        .cosmetic-card:hover {
-            border-color: var(--neon-blue);
-            transform: translateX(3px);
-            background: rgba(0, 240, 255, 0.04);
+        .cosmetic-card.unlocked {
+            border-color: rgba(0, 240, 255, 0.35);
+            cursor: pointer;
         }
-        .cosmetic-name { font-weight: 600; font-size: 14px; }
-        .cosmetic-action { font-size: 12px; color: var(--neon-green); }
+        .cosmetic-card.unlocked:hover {
+            border-color: var(--neon-blue);
+            background: rgba(0, 240, 255, 0.05);
+            transform: translateY(-2px);
+        }
+        .cosmetic-card.locked {
+            background: var(--locked-bg);
+            border-color: #151b27;
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
 
-        /* Всплывающее уведомление */
+        .cosmetic-info .c-name { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+        .cosmetic-info .c-source { font-size: 11px; color: var(--text-muted); }
+        .cosmetic-action {
+            font-size: 12px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        .cosmetic-card.unlocked .cosmetic-action {
+            background: rgba(0, 240, 255, 0.15);
+            color: var(--neon-blue);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+        }
+        .cosmetic-card.locked .cosmetic-action {
+            background: #141c2c;
+            color: var(--locked-text);
+        }
+
+        /* Всплывающий тост */
         .toast {
             position: fixed;
             bottom: 24px;
@@ -204,7 +400,7 @@
             font-weight: 700;
             box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
             display: none;
-            z-index: 1000;
+            z-index: 9999;
         }
     </style>
 </head>
@@ -216,221 +412,569 @@
             <div class="logo-icon">⚗️</div>
             <div class="logo-text">
                 <h1>KRIPTON LAB</h1>
-                <p>Исследовательский комплекс стрима</p>
+                <p>Исследовательский комплекс Twitch-канала</p>
             </div>
         </div>
-        <div class="header-stats">
-            <div class="stat-chip">Каталог: <span>336</span> наград</div>
-            <div class="stat-chip">Титулов: <span>34</span></div>
-            <div class="stat-chip">Значков: <span>29</span></div>
+        <div class="auth-bar">
+            <span>👤 Исследователь:</span>
+            <input type="text" id="username-input" placeholder="Введите ник Twitch">
+            <button onclick="applyUser()">Загрузить</button>
         </div>
     </header>
 
-    <div class="main-nav">
-        <button class="main-nav-btn active" onclick="switchMainView('achievements')">🏆 Каталог Достижений</button>
-        <button class="main-nav-btn" onclick="switchMainView('wardrobe')">🏷️ Гардероб (Титулы и Значки)</button>
-    </div>
+    <!-- ПЛАШКА 1: ДОСЬЕ И ПРОФИЛЬ -->
+    <section class="profile-plaque">
+        <div class="profile-header">
+            <div class="profile-identity">
+                <div class="avatar-box" id="avatar-icon">🔬</div>
+                <div class="id-details">
+                    <h2><span id="p-username">ryblyan_bor</span> <span class="rank-tag" id="p-level-tag">Уровень 4</span></h2>
+                    <div class="user-cosmetics">
+                        <div class="user-cosmetic-chip">Звание: <strong id="p-active-title">«Инженер»</strong></div>
+                        <div class="user-cosmetic-chip">Значок: <strong id="p-active-badge">[Опора]</strong></div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Вью Каталога -->
-    <div id="view-achievements">
-        <div class="tabs" id="cat-tabs">
-            <button class="tab-btn active" onclick="filterCat('ALL')">Все (336)</button>
-            <button class="tab-btn" onclick="filterCat(1)">1. Дни (45)</button>
-            <button class="tab-btn" onclick="filterCat(2)">2. Опыт (35)</button>
-            <button class="tab-btn" onclick="filterCat(3)">3. Чат (40)</button>
-            <button class="tab-btn" onclick="filterCat(4)">4. Эксперименты (40)</button>
-            <button class="tab-btn" onclick="filterCat(5)">5. Вылазки (35)</button>
-            <button class="tab-btn" onclick="filterCat(6)">6. Инциденты (40)</button>
-            <button class="tab-btn" onclick="filterCat(7)">7. Консоль (30)</button>
-            <button class="tab-btn" onclick="filterCat(8)">8. Тайны (30)</button>
-            <button class="tab-btn" onclick="filterCat(9)">9. Теория Всего (41)</button>
+            <div class="level-widget">
+                <div class="level-label">
+                    <span id="p-rank-name">Ранг: Инженер</span>
+                    <span id="p-xp-text">456 / 700 XP</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="p-xp-bar" style="width: 65%;"></div>
+                </div>
+            </div>
         </div>
 
-        <input type="text" id="search" class="search-bar" placeholder="Поиск по названию, номеру LAB или описанию..." oninput="renderAchievements()">
-        <div class="grid" id="achievements-grid"></div>
-    </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="val" id="stat-ach">17 / 336</div>
+                <div class="lbl">Достижения</div>
+            </div>
+            <div class="stat-card">
+                <div class="val" id="stat-days">3</div>
+                <div class="lbl">Дней в лабе</div>
+            </div>
+            <div class="stat-card">
+                <div class="val" id="stat-chat">45</div>
+                <div class="lbl">Сообщений</div>
+            </div>
+            <div class="stat-card">
+                <div class="val" id="stat-exp">1</div>
+                <div class="lbl">Экспериментов</div>
+            </div>
+            <div class="stat-card">
+                <div class="val" id="stat-ev">1</div>
+                <div class="lbl">Вылазок</div>
+            </div>
+            <div class="stat-card">
+                <div class="val" id="stat-anom">0</div>
+                <div class="lbl">Аномалий</div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Вью Гардероба -->
-    <div id="view-wardrobe" class="wardrobe-section">
+    <!-- Навигация: Каталог / Гардероб -->
+    <nav class="section-nav">
+        <button class="nav-btn active" onclick="switchTab('catalog')">🏆 База 336 Достижений</button>
+        <button class="nav-btn" onclick="switchTab('wardrobe')">🏷️ Гардероб (Титулы и Значки)</button>
+    </nav>
+
+    <!-- ПЛАШКА 2: КАТАЛОГ ДОСТИЖЕНИЙ -->
+    <main id="tab-catalog">
+        <div class="cat-filters" id="cat-filters">
+            <button class="cat-btn active" onclick="setCategoryFilter('ALL')">Все (336)</button>
+            <button class="cat-btn" onclick="setCategoryFilter(1)">1. Дни (45)</button>
+            <button class="cat-btn" onclick="setCategoryFilter(2)">2. Опыт (35)</button>
+            <button class="cat-btn" onclick="setCategoryFilter(3)">3. Чат (40)</button>
+            <button class="cat-btn" onclick="setCategoryFilter(4)">4. Эксперименты (40)</button>
+            <button class="cat-btn" onclick="setCategoryFilter(5)">5. Вылазки (35)</button>
+            <button class="cat-btn" onclick="setCategoryFilter(6)">6. Инциденты (40)</button>
+            <button class="cat-btn" onclick="setCategoryFilter(7)">7. Консоль (30)</button>
+            <button class="cat-btn" onclick="setCategoryFilter(8)">8. Тайны (30)</button>
+            <button class="cat-btn" onclick="setCategoryFilter(9)">9. Теория Всего (41)</button>
+        </div>
+
+        <div class="search-controls">
+            <input type="text" id="search-box" class="search-input" placeholder="Поиск по названию или коду LAB-XXX..." oninput="renderAchievements()">
+            <div class="filter-status-group">
+                <button class="filter-status-btn active" onclick="setStatusFilter('ALL')">Все</button>
+                <button class="filter-status-btn" onclick="setStatusFilter('UNLOCKED')">🔓 Полученные</button>
+                <button class="filter-status-btn" onclick="setStatusFilter('LOCKED')">🔒 Закрытые</button>
+            </div>
+        </div>
+
+        <div class="ach-grid" id="achievements-container"></div>
+    </main>
+
+    <!-- ПЛАШКА 3: ГАРДЕРОБ -->
+    <section id="tab-wardrobe" class="wardrobe-section">
         <div class="wardrobe-block">
-            <h2>🏷️ Доступные Титулы (Кликните, чтобы скопировать команду для чата)</h2>
-            <div class="cosmetic-grid" id="titles-grid"></div>
+            <h3>🏷️ Доступные Титулы (Звания)</h3>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">Кликните по разблокированному титулу, чтобы скопировать команду экипировки в буфер обмена.</p>
+            <div class="wardrobe-grid" id="titles-container"></div>
         </div>
 
         <div class="wardrobe-block">
-            <h2>🔰 Нагрудные Значки (Кликните, чтобы скопировать команду)</h2>
-            <div class="cosmetic-grid" id="badges-grid"></div>
+            <h3>🔰 Нагрудные Значки Лаборатории</h3>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">Кликните по открытому значку для закрепления в карточке профиля.</p>
+            <div class="wardrobe-grid" id="badges-container"></div>
         </div>
-    </div>
+    </section>
 </div>
 
-<div class="toast" id="toast">Скопировано в буфер обмена!</div>
+<div class="toast" id="toast-msg">Команда скопирована!</div>
 
 <script>
-    // 1. База титулов и значков
-    const TITLES = [
-        "На связи", "За гранью", "Неугасающий интерес", "На пороге легенды", "Проверен временем",
-        "Следопыт лаборатории", "Память лаборатории", "Три года открытий", "Элемент системы",
-        "Секретный ингредиент", "Уравнение хаоса", "Перегрев установки", "Эксперимент вне протокола", "Сверхкритическая реакция",
-        "Ветеран вылазок", "Сквозь огонь", "Повелитель пустошей", "Триста вылазок", "Герой сопротивления", "Легенда операций", "Эпицентр аномалии",
-        "Ликвидатор", "Ходячая катастрофа", "Первооткрыватель", "Творец аномалий", "Мастер синтеза", "Безупречный", "Укротитель хаоса", "Магистр флуктуаций", "Константа",
-        "Хладнокровный", "Полевой испытатель", "Ключник Аномалий", "Создатель Вселенной"
+    const XP_THRESHOLDS = [
+        0, 100, 250, 450, 700,
+        1000, 1400, 1900, 2500, 3200,
+        4200, 5400, 6800, 8400, 10200,
+        12200, 14400, 16800, 18500, 20000
+    ];
+    const LEVEL_TITLES = [
+        "Стажёр", "Младший исследователь", "Лаборант", "Инженер", "Старший исследователь",
+        "Специалист реактора", "Ведущий инженер", "Научный сотрудник", "Руководитель отдела", "Директор лаборатории",
+        "Главный конструктор", "Куратор спецпроектов", "Архитектор квантовых систем", "Действительный академик", "Магистр тёмной материи",
+        "Хранитель сингулярности", "Смотритель реактора Криптона", "Повелитель цепных реакций", "Творец квантовых измерений", "Верховный Архитектор Сингулярности"
     ];
 
-    const BADGES = [
-        "Золотой след", "Свой", "Опора", "500+", "Хранитель", "Архивариус",
-        "Стабильная Нестабильность", "Переменная Найдена", "Лабораторный Прорыв", "Эффект Криптона", "Реакция Пошла", "Новый Закон", "На Грани", "Алхимия Электричества", "Невозможное Соединение", "Великий Эксперимент",
-        "Сотня Сражений", "Мастер Обороны", "Несокрушимый", "Стальной Заслон", "Пятьсот Тревог", "Хранитель Рубежей", "Абсолютный Триумф",
-        "Взрывоустойчивый", "Эврика", "Чистый Синтез", "Нестабильный", "По Протоколу", "Под Сирену"
-    ];
-
-    // 2. Имена категорий
-    const CAT_NAMES = {
-        1: "Дни активности",
-        2: "Опыт и ранги",
-        3: "Сообщения в чате",
-        4: "Эксперименты",
-        5: "Вылазки и тревоги",
-        6: "Журнал инцидентов",
-        7: "Протоколы консоли",
-        8: "Тайны и пасхалки",
-        9: "Теория Всего"
+    let userData = {
+        username: "Исследователь",
+        xp: 456,
+        days: 3,
+        chat: 45,
+        exp: 1,
+        ev: 1,
+        anom: 0,
+        cmd: 4,
+        title: "Инженер",
+        badge: "Опора",
+        unlockedAchs: new Set([1, 2, 3, 46, 47, 48, 49, 81, 82, 83, 121, 161, 236, 237, 238, 259, 296])
     };
 
-    // Генерация каталога 336 достижений
-    const ACHIEVEMENTS = [];
-    const catRanges = [
-        [1, 45, 1], [46, 80, 2], [81, 120, 3], [121, 160, 4],
-        [161, 195, 5], [196, 235, 6], [236, 265, 7], [266, 295, 8], [296, 336, 9]
-    ];
-
-    const sampleNames = {
-        1: ["Первый контакт", "Повторный визит", "Свой человек", "Неделя в лаборатории", "Месяц исследований", "Годовой рубеж", "История лаборатории", "Последний рубеж"],
-        2: ["Искра опыта", "Первые баллы", "Набор мощности", "Разгон системы", "Критическая масса", "Мастер накопления", "Источник энергии"],
-        3: ["Голос в эфире", "Первое сообщение", "Разговор пошёл", "Мастер диалога", "Голос лаборатории", "Центр притяжения", "Главный по атмосфере"],
-        4: ["Первый запуск", "Искра в пробирке", "Опыт удался", "Секретный ингредиент", "Лабораторный прорыв", "Уравнение хаоса", "Великий эксперимент"],
-        5: ["Боевое крещение", "Первая тревога", "Полевой агент", "Ветеран рейдов", "Сквозь огонь", "Повелитель пустошей", "Абсолютный триумф"],
-        6: ["Первая трещина", "Огнетушитель", "Ходячая катастрофа", "Эврика!", "Творец аномалий", "Мастер синтеза", "Эксперимент на передовой"],
-        7: ["Первый запрос", "Допуск к терминалу", "Оператор базы", "Инженер консоли", "Властелин строки", "Архивариус штата"],
-        8: ["Эхо Сингулярности", "Шёпот Криптона", "Секрет Реактора", "Изотопный Код", "Шифровальщик Криптона", "Хозяин ночного эфира"],
-        9: ["Рубеж 25", "Рубеж 100", "Рубеж 200", "Рубеж 300", "Специалист Лаборатории", "Директор Лаборатории", "ТЕОРИЯ ВСЕГО"]
-    };
-
-    catRanges.forEach(([start, end, catId]) => {
-        const pool = sampleNames[catId];
-        for (let i = start; i <= end; i++) {
-            let rarity = "обычная";
-            if (i === 336) rarity = "абсолютная";
-            else if (i % 25 === 0) rarity = "легендарная";
-            else if (i % 8 === 0) rarity = "эпическая";
-            else if (i % 3 === 0) rarity = "редкая";
-
-            let name = pool[(i - start) % pool.length];
-            if ((i - start) >= pool.length) name += ` (Ур. ${(i - start) + 1})`;
-
-            ACHIEVEMENTS.push({
-                id: i,
-                code: "LAB-" + String(i).padStart(3, '0'),
-                category: catId,
-                name: (i === 336) ? "ТЕОРИЯ ВСЕГО" : name,
-                rarity: rarity,
-                desc: `Исследовательский протокол категории «${CAT_NAMES[catId]}». Выполняется в ходе стримов комплекса KRIPTON LAB.`,
-                reward: `+${(i % 10 + 2) * 10} XP`
-            });
-        }
-    });
-
-    let currentCatFilter = 'ALL';
-
-    function switchMainView(view) {
-        document.querySelectorAll('.main-nav-btn').forEach(b => b.classList.remove('active'));
-        event.target.classList.add('active');
-        if (view === 'achievements') {
-            document.getElementById('view-achievements').style.display = 'block';
-            document.getElementById('view-wardrobe').style.display = 'none';
-        } else {
-            document.getElementById('view-achievements').style.display = 'none';
-            document.getElementById('view-wardrobe').style.display = 'block';
-            renderWardrobe();
+    function parseUrlParams() {
+        const p = new URLSearchParams(window.location.search);
+        if (p.has('user') || p.has('u')) userData.username = p.get('user') || p.get('u');
+        if (p.has('xp')) userData.xp = parseInt(p.get('xp')) || 0;
+        if (p.has('days')) userData.days = parseInt(p.get('days')) || 0;
+        if (p.has('chat')) userData.chat = parseInt(p.get('chat')) || 0;
+        if (p.has('exp')) userData.exp = parseInt(p.get('exp')) || 0;
+        if (p.has('ev')) userData.ev = parseInt(p.get('ev')) || 0;
+        if (p.has('anom')) userData.anom = parseInt(p.get('anom')) || 0;
+        if (p.has('cmd')) userData.cmd = parseInt(p.get('cmd')) || 0;
+        if (p.has('title')) userData.title = p.get('title');
+        if (p.has('badge')) userData.badge = p.get('badge');
+        if (p.has('ach')) {
+            const list = p.get('ach').split(',').map(n => parseInt(n)).filter(n => !isNaN(n));
+            userData.unlockedAchs = new Set(list);
         }
     }
 
-    function filterCat(cat) {
-        currentCatFilter = cat;
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    const COSMETIC_TITLES = [
+        { name: "На связи", achId: 25 },
+        { name: "За гранью", achId: 27 },
+        { name: "Неугасающий интерес", achId: 29 },
+        { name: "На пороге легенды", achId: 31 },
+        { name: "Проверен временем", achId: 33 },
+        { name: "Следопыт лаборатории", achId: 35 },
+        { name: "Память лаборатории", achId: 36 },
+        { name: "Три года открытий", achId: 38 },
+        { name: "Элемент системы", achId: 40 },
+        { name: "Секретный ингредиент", achId: 142 },
+        { name: "Уравнение хаоса", achId: 146 },
+        { name: "Перегрев установки", achId: 150 },
+        { name: "Эксперимент вне протокола", achId: 154 },
+        { name: "Сверхкритическая реакция", achId: 158 },
+        { name: "Ветеран вылазок", achId: 179 },
+        { name: "Сквозь огонь", achId: 182 },
+        { name: "Повелитель пустошей", achId: 185 },
+        { name: "Триста вылазок", achId: 187 },
+        { name: "Герой сопротивления", achId: 190 },
+        { name: "Легенда операций", achId: 192 },
+        { name: "Эпицентр аномалии", achId: 194 },
+        { name: "Ликвидатор", achId: 202 },
+        { name: "Ходячая катастрофа", achId: 203 },
+        { name: "Первооткрыватель", achId: 207 },
+        { name: "Творец аномалий", achId: 209 },
+        { name: "Мастер синтеза", achId: 216 },
+        { name: "Безупречный", achId: 217 },
+        { name: "Укротитель хаоса", achId: 223 },
+        { name: "Магистр флуктуаций", achId: 224 },
+        { name: "Константа", achId: 231 },
+        { name: "Хладнокровный", achId: 234 },
+        { name: "Полевой испытатель", achId: 235 },
+        { name: "Ключник Аномалий", achId: 273 },
+        { name: "Создатель Вселенной", achId: 336 }
+    ];
+
+    const COSMETIC_BADGES = [
+        { name: "Золотой след", achId: 26 },
+        { name: "Свой", achId: 28 },
+        { name: "Опора", achId: 30 },
+        { name: "500+", achId: 32 },
+        { name: "Хранитель", achId: 34 },
+        { name: "Архивариус", achId: 39 },
+        { name: "Стабильная Нестабильность", achId: 141 },
+        { name: "Переменная Найдена", achId: 144 },
+        { name: "Лабораторный Прорыв", achId: 145 },
+        { name: "Эффект Криптона", achId: 148 },
+        { name: "Реакция Пошла", achId: 149 },
+        { name: "Новый Закон", achId: 152 },
+        { name: "На Грани", achId: 153 },
+        { name: "Алхимия Электричества", achId: 156 },
+        { name: "Невозможное Соединение", achId: 157 },
+        { name: "Великий Эксперимент", achId: 160 },
+        { name: "Сотня Сражений", achId: 178 },
+        { name: "Мастер Обороны", achId: 181 },
+        { name: "Несокрушимый", achId: 184 },
+        { name: "Стальной Заслон", achId: 188 },
+        { name: "Пятьсот Тревог", achId: 191 },
+        { name: "Хранитель Рубежей", achId: 193 },
+        { name: "Абсолютный Триумф", achId: 195 },
+        { name: "Взрывоустойчивый", achId: 201 },
+        { name: "Эврика", achId: 206 },
+        { name: "Чистый Синтез", achId: 215 },
+        { name: "Нестабильный", achId: 222 },
+        { name: "По Протоколу", achId: 230 },
+        { name: "Под Сирену", achId: 233 }
+    ];
+
+    const ALL_ACHIEVEMENTS = [];
+
+    function generateCatalog() {
+        const dayNames = [
+            "Первый контакт", "Повторный визит", "Уже знакомы", "Свой человек", "Неделя в лаборатории",
+            "Постоянный гость", "Второе дыхание", "Надёжный сотрудник", "Знакомое лицо", "Три недели вместе",
+            "Месяц исследований", "Вошло в привычку", "Полсотни визитов", "Сотрудник месяца", "Уже часть команды",
+            "Целая сотня", "Закалённый исследователь", "Полтора века дней", "Двести отметок", "Долгий путь",
+            "Триста дней открытий", "Годовой рубеж", "Пятьсот отметок", "Два года присутствия",
+            "Пульс лаборатории", "Золотая отметка", "За гранью сотни", "Не случайный гость",
+            "Двести пятьдесят причин вернуться", "Опора коллектива", "Почти легенда", "Полтысячи позади",
+            "Испытание временем", "Старший хранитель", "След исследователя", "Непрерывность памяти",
+            "Тысяча возвращений", "За пределами календаря", "Архивариус присутствия", "Неизменный элемент",
+            "История лаборатории", "Сердце лаборатории", "Хроники Криптона", "Вечный сотрудник", "Последний рубеж"
+        ];
+        const daySecret = [
+            true, false, false, false, false, false, true, false, false, false,
+            false, false, true, false, false, false, false, false, true, false,
+            false, false, false, false, true, false, false, false, false, false,
+            true, false, false, false, false, false, false, true, false, false,
+            false, false, false, true, false
+        ];
+
+        for (let i = 1; i <= 45; i++) {
+            ALL_ACHIEVEMENTS.push({
+                id: i,
+                code: "LAB-" + String(i).padStart(3, '0'),
+                cat: 1,
+                name: dayNames[i - 1],
+                isSecret: daySecret[i - 1],
+                rarity: i > 40 ? "легендарная" : i > 35 ? "эпическая" : i > 24 ? "редкая" : "обычная",
+                desc: `Провести активных дней на стримах лаборатории: ${i}.`,
+                reward: "+25 XP"
+            });
+        }
+
+        for (let i = 46; i <= 80; i++) {
+            ALL_ACHIEVEMENTS.push({
+                id: i,
+                code: "LAB-" + String(i).padStart(3, '0'),
+                cat: 2,
+                name: `Энергетический импульс #${i - 45}`,
+                isSecret: (i % 6 === 0),
+                rarity: i > 75 ? "эпическая" : i > 65 ? "редкая" : "обычная",
+                desc: `Накопить исследовательский опыт и достичь новых высот в квалификации.`,
+                reward: "+20 XP"
+            });
+        }
+
+        for (let i = 81; i <= 120; i++) {
+            ALL_ACHIEVEMENTS.push({
+                id: i,
+                code: "LAB-" + String(i).padStart(3, '0'),
+                cat: 3,
+                name: `Связь с комплексом #${i - 80}`,
+                isSecret: (i % 7 === 0),
+                rarity: i > 115 ? "эпическая" : i > 100 ? "редкая" : "обычная",
+                desc: `Активно участвовать в обсуждениях и передавать научные протоколы в чат.`,
+                reward: "+15 XP"
+            });
+        }
+
+        for (let i = 121; i <= 160; i++) {
+            ALL_ACHIEVEMENTS.push({
+                id: i,
+                code: "LAB-" + String(i).padStart(3, '0'),
+                cat: 4,
+                name: `Эксперимент #${i - 120}`,
+                isSecret: (i % 5 === 0),
+                rarity: i > 155 ? "эпическая" : i > 140 ? "редкая" : "обычная",
+                desc: `Запустить ежедневную синтез-реакцию командой !эксперимент.`,
+                reward: "+25 XP"
+            });
+        }
+
+        for (let i = 161; i <= 195; i++) {
+            ALL_ACHIEVEMENTS.push({
+                id: i,
+                code: "LAB-" + String(i).padStart(3, '0'),
+                cat: 5,
+                name: `Боевая тревога #${i - 160}`,
+                isSecret: (i % 8 === 0),
+                rarity: i > 192 ? "легендарная" : i > 185 ? "эпическая" : "редкая",
+                desc: `Принять участие в отражении аномальной угрозы или рейдовой операции.`,
+                reward: "+35 XP"
+            });
+        }
+
+        for (let i = 196; i <= 235; i++) {
+            ALL_ACHIEVEMENTS.push({
+                id: i,
+                code: "LAB-" + String(i).padStart(3, '0'),
+                cat: 6,
+                name: `Инцидент реактора #${i - 195}`,
+                isSecret: false,
+                rarity: i > 230 ? "легендарная" : i > 220 ? "эпическая" : "редкая",
+                desc: `Пережить нестабильную флуктуацию, аварию колбы или научное открытие.`,
+                reward: "+30 XP"
+            });
+        }
+
+        for (let i = 236; i <= 265; i++) {
+            ALL_ACHIEVEMENTS.push({
+                id: i,
+                code: "LAB-" + String(i).padStart(3, '0'),
+                cat: 7,
+                name: `Консольный протокол #${i - 235}`,
+                isSecret: false,
+                rarity: i > 260 ? "эпическая" : "обычная",
+                desc: `Обратиться к терминалу через команды !профиль, !уровень или аудит коллег.`,
+                reward: "+20 XP"
+            });
+        }
+
+        const secretRealNames = [
+            "Эхо Сингулярности", "Шёпот Криптона", "Секрет Реактора", "Колба Судьбы",
+            "Изотопный Код", "Квантовое Слово", "Истинная Наука", "Шифровальщик Криптона"
+        ];
+        for (let i = 266; i <= 295; i++) {
+            let rName = secretRealNames[(i - 266) % secretRealNames.length];
+            if (i > 273) rName = `Ночной страж #${i - 273}`;
+            ALL_ACHIEVEMENTS.push({
+                id: i,
+                code: "LAB-" + String(i).padStart(3, '0'),
+                cat: 8,
+                name: rName,
+                isSecret: true,
+                rarity: i === 273 ? "эпическая" : "редкая",
+                desc: "Засекреченный протокол лаборатории. Разгадайте кодовые фразы и особые обстоятельства эфира.",
+                reward: "+50 XP"
+            });
+        }
+
+        for (let i = 296; i <= 336; i++) {
+            let name = `Рубеж открытий #${i - 295}`;
+            let rarity = "редкая";
+            if (i === 336) {
+                name = "ТЕОРИЯ ВСЕГО";
+                rarity = "абсолютная";
+            } else if (i >= 332) {
+                rarity = "легендарная";
+            }
+            ALL_ACHIEVEMENTS.push({
+                id: i,
+                code: "LAB-" + String(i).padStart(3, '0'),
+                cat: 9,
+                name: name,
+                isSecret: (i === 336),
+                rarity: rarity,
+                desc: (i === 336) ? "Открыть ВСЕ 335 достижений комплекса KRIPTON LAB." : `Достичь глобального рубежа открытий в лаборатории.`,
+                reward: (i === 336) ? "+500 XP" : "+40 XP"
+            });
+        }
+    }
+
+    generateCatalog();
+
+    function calcLevel(xp) {
+        let lvl = 1;
+        for (let i = 0; i < XP_THRESHOLDS.length; i++) {
+            if (xp >= XP_THRESHOLDS[i]) lvl = i + 1;
+        }
+        return Math.min(lvl, XP_THRESHOLDS.length);
+    }
+
+    function updateProfileUI() {
+        document.getElementById('p-username').innerText = userData.username;
+        document.getElementById('username-input').value = userData.username;
+
+        const lvl = calcLevel(userData.xp);
+        const rankName = LEVEL_TITLES[lvl - 1] || "Исследователь";
+        document.getElementById('p-level-tag').innerText = `Уровень ${lvl}`;
+        document.getElementById('p-rank-name').innerText = `Ранг: ${rankName}`;
+
+        const curThresh = XP_THRESHOLDS[lvl - 1];
+        const nextThresh = (lvl < XP_THRESHOLDS.length) ? XP_THRESHOLDS[lvl] : XP_THRESHOLDS[lvl - 1];
+        
+        let percent = 100;
+        let xpLabel = `${userData.xp} XP (Макс.)`;
+        if (lvl < XP_THRESHOLDS.length) {
+            const needed = nextThresh - curThresh;
+            const progress = userData.xp - curThresh;
+            percent = Math.min(100, Math.max(0, Math.round((progress / needed) * 100)));
+            xpLabel = `${userData.xp} / ${nextThresh} XP`;
+        }
+        document.getElementById('p-xp-text').innerText = xpLabel;
+        document.getElementById('p-xp-bar').style.width = percent + '%';
+
+        document.getElementById('p-active-title').innerText = `«${userData.title || 'Не выбран'}»`;
+        document.getElementById('p-active-badge').innerText = `[${userData.badge || 'Не выбран'}]`;
+
+        document.getElementById('stat-ach').innerText = `${userData.unlockedAchs.size} / 336`;
+        document.getElementById('stat-days').innerText = userData.days;
+        document.getElementById('stat-chat').innerText = userData.chat;
+        document.getElementById('stat-exp').innerText = userData.exp;
+        document.getElementById('stat-ev').innerText = userData.ev;
+        document.getElementById('stat-anom').innerText = userData.anom;
+    }
+
+    let activeCatFilter = 'ALL';
+    let activeStatusFilter = 'ALL';
+
+    function setCategoryFilter(cat) {
+        activeCatFilter = cat;
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+        renderAchievements();
+    }
+
+    function setStatusFilter(status) {
+        activeStatusFilter = status;
+        document.querySelectorAll('.filter-status-btn').forEach(b => b.classList.remove('active'));
         event.target.classList.add('active');
         renderAchievements();
     }
 
     function renderAchievements() {
-        const query = document.getElementById('search').value.toLowerCase().trim();
-        const grid = document.getElementById('achievements-grid');
-        grid.innerHTML = '';
+        const query = document.getElementById('search-box').value.toLowerCase().trim();
+        const container = document.getElementById('achievements-container');
+        container.innerHTML = '';
 
-        const filtered = ACHIEVEMENTS.filter(item => {
-            const matchesCat = currentCatFilter === 'ALL' || item.category === currentCatFilter;
-            const matchesQuery = !query || item.code.toLowerCase().includes(query) || item.name.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query);
-            return matchesCat && matchesQuery;
-        });
+        ALL_ACHIEVEMENTS.forEach(item => {
+            const isUnlocked = userData.unlockedAchs.has(item.id);
 
-        filtered.forEach(item => {
+            if (activeCatFilter !== 'ALL' && item.cat !== activeCatFilter) return;
+            if (activeStatusFilter === 'UNLOCKED' && !isUnlocked) return;
+            if (activeStatusFilter === 'LOCKED' && isUnlocked) return;
+
+            const isHiddenSecret = item.isSecret && !isUnlocked;
+            const displayName = isHiddenSecret ? "«??? [ЗАСЕКРЕЧЕНО]»" : item.name;
+            const displayDesc = isHiddenSecret ? "Секретный протокол лаборатории. Условия скрыты. Исследуйте эфир, находите кодовые слова и аномалии." : item.desc;
+            const displayReward = isHiddenSecret ? "??? XP" : item.reward;
+
+            if (query) {
+                const matchCode = item.code.toLowerCase().includes(query);
+                const matchName = displayName.toLowerCase().includes(query);
+                if (!matchCode && !matchName) return;
+            }
+
             const card = document.createElement('div');
-            card.className = 'card';
+            card.className = `ach-card ${isUnlocked ? 'unlocked' : 'locked'} ${isHiddenSecret ? 'secret-locked' : ''}`;
+
             card.innerHTML = `
                 <div>
-                    <div class="card-top">
-                        <span class="card-id">${item.code}</span>
-                        <span class="badge-rarity rarity-${item.rarity}">${item.rarity}</span>
+                    <div class="ach-top">
+                        <span class="ach-code">${item.code}</span>
+                        <span class="rarity-pill r-${item.rarity}">${isHiddenSecret ? 'СЕКРЕТ' : item.rarity}</span>
                     </div>
-                    <div class="card-title">${item.name}</div>
-                    <div class="card-desc">${item.desc}</div>
+                    <div class="ach-title">${isUnlocked ? '✔ ' : isHiddenSecret ? '🔮 ' : '🔒 '}${displayName}</div>
+                    <div class="ach-desc">${displayDesc}</div>
                 </div>
-                <div class="card-bottom">
-                    <span class="card-reward">${item.reward}</span>
-                    <span style="color: var(--text-muted); font-size: 11px;">${CAT_NAMES[item.category]}</span>
+                <div class="ach-footer">
+                    <span class="ach-reward">${displayReward}</span>
+                    <span class="ach-req">${isUnlocked ? 'Получено' : 'Заблокировано'}</span>
                 </div>
             `;
-            grid.appendChild(card);
+            container.appendChild(card);
         });
+    }
+
+    function renderWardrobe() {
+        const tBox = document.getElementById('titles-container');
+        const bBox = document.getElementById('badges-container');
+        tBox.innerHTML = '';
+        bBox.innerHTML = '';
+
+        COSMETIC_TITLES.forEach(item => {
+            const isUnlocked = userData.unlockedAchs.has(item.achId);
+            const card = document.createElement('div');
+            card.className = `cosmetic-card ${isUnlocked ? 'unlocked' : 'locked'}`;
+            card.innerHTML = `
+                <div class="cosmetic-info">
+                    <div class="c-name">${isUnlocked ? '✨ ' : '🔒 '}«${item.name}»</div>
+                    <div class="c-source">${isUnlocked ? 'Доступен для экипировки' : `Требуется LAB-${String(item.achId).padStart(3, '0')}`}</div>
+                </div>
+                <div class="cosmetic-action">${isUnlocked ? 'Экипировать' : 'Закрыто'}</div>
+            `;
+            if (isUnlocked) {
+                card.onclick = () => copyCmd(`!титул ${item.name}`);
+            }
+            tBox.appendChild(card);
+        });
+
+        COSMETIC_BADGES.forEach(item => {
+            const isUnlocked = userData.unlockedAchs.has(item.achId);
+            const card = document.createElement('div');
+            card.className = `cosmetic-card ${isUnlocked ? 'unlocked' : 'locked'}`;
+            card.innerHTML = `
+                <div class="cosmetic-info">
+                    <div class="c-name">${isUnlocked ? '🔰 ' : '🔒 '}[${item.name}]</div>
+                    <div class="c-source">${isUnlocked ? 'Доступен для карточки' : `Требуется LAB-${String(item.achId).padStart(3, '0')}`}</div>
+                </div>
+                <div class="cosmetic-action">${isUnlocked ? 'Закрепить' : 'Закрыто'}</div>
+            `;
+            if (isUnlocked) {
+                card.onclick = () => copyCmd(`!значок ${item.name}`);
+            }
+            bBox.appendChild(card);
+        });
+    }
+
+    function switchTab(tab) {
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+        if (tab === 'catalog') {
+            document.getElementById('tab-catalog').style.display = 'block';
+            document.getElementById('tab-wardrobe').style.display = 'none';
+        } else {
+            document.getElementById('tab-catalog').style.display = 'none';
+            document.getElementById('tab-wardrobe').style.display = 'block';
+            renderWardrobe();
+        }
     }
 
     function copyCmd(cmd) {
         navigator.clipboard.writeText(cmd);
-        const toast = document.getElementById('toast');
-        toast.innerText = `Скопировано: ${cmd}`;
+        const toast = document.getElementById('toast-msg');
+        toast.innerText = `Скопировано: ${cmd} (отправьте в чат Twitch)`;
         toast.style.display = 'block';
-        setTimeout(() => toast.style.display = 'none', 2500);
+        setTimeout(() => toast.style.display = 'none', 3000);
     }
 
-    function renderWardrobe() {
-        const tGrid = document.getElementById('titles-grid');
-        const bGrid = document.getElementById('badges-grid');
-        tGrid.innerHTML = '';
-        bGrid.innerHTML = '';
-
-        TITLES.forEach(t => {
-            const el = document.createElement('div');
-            el.className = 'cosmetic-card';
-            el.innerHTML = `
-                <div class="cosmetic-name">«${t}»</div>
-                <div class="cosmetic-action">Копировать команду</div>
-            `;
-            el.onclick = () => copyCmd(`!титул ${t}`);
-            tGrid.appendChild(el);
-        });
-
-        BADGES.forEach(b => {
-            const el = document.createElement('div');
-            el.className = 'cosmetic-card';
-            el.innerHTML = `
-                <div class="cosmetic-name">[${b}]</div>
-                <div class="cosmetic-action">Копировать команду</div>
-            `;
-            el.onclick = () => copyCmd(`!значок ${b}`);
-            bGrid.appendChild(el);
-        });
+    function applyUser() {
+        const val = document.getElementById('username-input').value.trim();
+        if (val) {
+            userData.username = val;
+            updateProfileUI();
+            renderAchievements();
+            renderWardrobe();
+        }
     }
 
+    parseUrlParams();
+    updateProfileUI();
     renderAchievements();
 </script>
 </body>
