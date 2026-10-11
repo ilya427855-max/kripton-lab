@@ -567,7 +567,10 @@
         if (p.has('title')) userData.title = p.get('title');
         if (p.has('badge')) userData.badge = p.get('badge');
         if (p.has('ach')) {
-            const list = p.get('ach').split(',').map(n => parseInt(n)).filter(n => !isNaN(n));
+        if (p.has('ach')) {
+            const raw = p.get('ach');
+            const separator = raw.includes('-') ? '-' : ',';
+            const list = raw.split(separator).map(n => parseInt(n)).filter(n => !isNaN(n));
             userData.unlockedAchs = new Set(list);
         }
     }
