@@ -25,6 +25,7 @@
         body { background: var(--bg-dark); color: var(--text-main); min-height: 100vh; padding: 20px 14px; line-height: 1.5; }
         .container { max-width: 1280px; margin: 0 auto; }
 
+        /* Шапка терминала */
         header {
             display: flex;
             justify-content: space-between;
@@ -77,7 +78,7 @@
             color: #000;
         }
 
-        /* Плашка профиля */
+        /* 1. ПЛАШКА: ДОСЬЕ И ПРОФИЛЬ */
         .profile-plaque {
             background: linear-gradient(135deg, rgba(15, 20, 31, 0.95), rgba(20, 28, 44, 0.85));
             border: 1px solid var(--border-highlight);
@@ -181,7 +182,7 @@
         .stat-card .val { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 2px; }
         .stat-card .lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* Навигация */
+        /* Вкладки навигации */
         .section-nav {
             display: flex;
             gap: 10px;
@@ -207,7 +208,7 @@
             color: var(--neon-blue);
         }
 
-        /* Фильтры категорий */
+        /* 2. ПЛАШКА: КАТАЛОГ ДОСТИЖЕНИЙ */
         .cat-filters {
             display: flex;
             gap: 6px;
@@ -337,7 +338,7 @@
         .ach-reward { color: var(--neon-green); font-weight: 600; }
         .ach-req { color: var(--text-muted); }
 
-        /* Гардероб */
+        /* 3. ПЛАШКА: ГАРДЕРОБ */
         .wardrobe-section { display: none; }
         .wardrobe-block { margin-bottom: 28px; }
         .wardrobe-block h3 { font-size: 17px; margin-bottom: 12px; color: var(--neon-blue); display: flex; align-items: center; gap: 8px; }
@@ -392,6 +393,7 @@
             color: var(--locked-text);
         }
 
+        /* Всплывающий тост */
         .toast {
             position: fixed;
             bottom: 20px;
@@ -562,16 +564,47 @@
         try {
             const p = new URLSearchParams(window.location.search);
             if (p.has('user') || p.has('u')) userData.username = p.get('user') || p.get('u');
-            if (p.has('xp')) userData.xp = parseInt(p.get('xp'), 10) || 0;
-            if (p.has('days')) userData.days = parseInt(p.get('days'), 10) || 0;
-            if (p.has('chat')) userData.chat = parseInt(p.get('chat'), 10) || 0;
-            if (p.has('exp')) userData.exp = parseInt(p.get('exp'), 10) || 0;
-            if (p.has('ev')) userData.ev = parseInt(p.get('ev'), 10) || 0;
-            if (p.has('anom')) userData.anom = parseInt(p.get('anom'), 10) || 0;
-            if (p.has('cmd')) userData.cmd = parseInt(p.get('cmd'), 10) || 0;
-            if (p.has('title')) userData.title = p.get('title') || "";
-            if (p.has('badge')) userData.badge = p.get('badge') || "";
-            if (p.has('ach')) {
+
+            // Компактные статы: s=xp.days.chat.exp.ev.anom
+            if (p.has('s')) {
+                const parts = p.get('s').split('.');
+                if (parts.length >= 1) userData.xp = parseInt(parts[0], 10) || 0;
+                if (parts.length >= 2) userData.days = parseInt(parts[1], 10) || 0;
+                if (parts.length >= 3) userData.chat = parseInt(parts[2], 10) || 0;
+                if (parts.length >= 4) userData.exp = parseInt(parts[3], 10) || 0;
+                if (parts.length >= 5) userData.ev = parseInt(parts[4], 10) || 0;
+                if (parts.length >= 6) userData.anom = parseInt(parts[5], 10) || 0;
+            } else {
+                if (p.has('xp')) userData.xp = parseInt(p.get('xp'), 10) || 0;
+                if (p.has('days')) userData.days = parseInt(p.get('days'), 10) || 0;
+                if (p.has('chat')) userData.chat = parseInt(p.get('chat'), 10) || 0;
+                if (p.has('exp')) userData.exp = parseInt(p.get('exp'), 10) || 0;
+                if (p.has('ev')) userData.ev = parseInt(p.get('ev'), 10) || 0;
+                if (p.has('anom')) userData.anom = parseInt(p.get('anom'), 10) || 0;
+            }
+
+            if (p.has('t')) userData.title = p.get('t') || "";
+            else if (p.has('title')) userData.title = p.get('title') || "";
+
+            if (p.has('b')) userData.badge = p.get('b') || "";
+            else if (p.has('badge')) userData.badge = p.get('badge') || "";
+
+            // Битовая маска ачивок: a=Base64
+            if (p.has('a')) {
+                let b64 = p.get('a').replace(/-/g, '+').replace(/_/g, '/');
+                while (b64.length % 4 !== 0) b64 += '=';
+                const binStr = atob(b64);
+                const list = [];
+                for (let i = 0; i < binStr.length; i++) {
+                    const byteVal = binStr.charCodeAt(i);
+                    for (let bit = 0; bit < 8; bit++) {
+                        if ((byteVal & (1 << bit)) !== 0) {
+                            list.push((i * 8) + bit + 1);
+                        }
+                    }
+                }
+                userData.unlockedAchs = new Set(list);
+            } else if (p.has('ach')) {
                 const raw = p.get('ach');
                 const sep = raw.includes('-') ? '-' : ',';
                 const list = raw.split(sep).map(function(n) { return parseInt(n, 10); }).filter(function(n) { return !isNaN(n); });
@@ -998,6 +1031,7 @@
         }
     }
 
+    // Инициализация при открытии страницы
     parseUrlParams();
     updateProfileUI();
     renderAchievements();
