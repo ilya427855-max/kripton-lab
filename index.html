@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KRIPTON LAB — Терминал Исследователя</title>
+    <style>
+        :root {
+            --bg-dark: #0a0c10;
+            --bg-card: #12161f;
+            --border: #1e2638;
+            --neon-blue: #00f0ff;
+            --neon-purple: #9d4edd;
+            --neon-green: #00ff88;
+            --neon-gold: #ffb703;
+            --text-main: #e2e8f0;
+            --text-muted: #64748b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background: var(--bg-dark); color: var(--text-main); min-height: 100vh; padding: 20px; }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        /* Шапка */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.05);
+        }
+
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo-icon { font-size: 32px; filter: drop-shadow(0 0 8px var(--neon-blue)); }
+        .logo-text h1 { font-size: 22px; color: var(--neon-blue); letter-spacing: 2px; }
+        .logo-text p { font-size: 12px; color: var(--text-muted); }
+
+        .stats-badge {
+            background: #0d1117;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            font-size: 14px;
+        }
+        .stats-badge span { color: var(--neon-green); font-weight: bold; }
+
+        /* Навигация категорий */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+        .tab-btn:hover { border-color: var(--neon-blue); color: var(--text-main); }
+        .tab-btn.active {
+            background: rgba(0, 240, 255, 0.1);
+            border-color: var(--neon-blue);
+            color: var(--neon-blue);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+        }
+
+        /* Поиск и фильтры */
+        .controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .search-input {
+            flex: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: #fff;
+            outline: none;
+        }
+        .search-input:focus { border-color: var(--neon-blue); }
+
+        /* Сетка карточек */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+            position: relative;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .card:hover { transform: translateY(-2px); border-color: #2e3852; }
+        
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+        .card-id { font-size: 11px; font-weight: bold; color: var(--text-muted); font-family: monospace; }
+        .rarity {
+            font-size: 10px;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .rarity-обычная { background: #1e2638; color: #94a3b8; }
+        .rarity-редкая { background: rgba(0, 240, 255, 0.15); color: var(--neon-blue); }
+        .rarity-эпическая { background: rgba(157, 78, 221, 0.2); color: var(--neon-purple); }
+        .rarity-легендарная { background: rgba(255, 183, 3, 0.2); color: var(--neon-gold); }
+
+        .card-title { font-size: 16px; font-weight: bold; margin-bottom: 6px; }
+        .card-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; min-height: 32px; }
+        
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            border-top: 1px solid #1a202c;
+            padding-top: 8px;
+        }
+        .reward { color: var(--neon-green); font-weight: 500; }
+
+        /* Уведомление о копировании */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--neon-blue);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none;
+            box-shadow: 0 0 15px rgba(0,240,255,0.4);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo">
+            <div class="logo-icon">⚗️</div>
+            <div class="logo-text">
+                <h1>KRIPTON LAB</h1>
+                <p>База Данных Исследовательского Комплекса</p>
+            </div>
+        </div>
+        <div class="stats-badge">
+            Каталог: <span id="total-count">336</span> Достижений
+        </div>
+    </header>
+
+    <div class="tabs" id="tabs-container">
+        <button class="tab-btn active" onclick="switchCategory('ALL')">Все (336)</button>
+        <button class="tab-btn" onclick="switchCategory('CAT1')">Дни (45)</button>
+        <button class="tab-btn" onclick="switchCategory('CAT2')">Опыт (35)</button>
+        <button class="tab-btn" onclick="switchCategory('CAT3')">Чат (40)</button>
+        <button class="tab-btn" onclick="switchCategory('CAT4')">Опыты (40)</button>
+        <button class="tab-btn" onclick="switchCategory('CAT5')">Вылазки (35)</button>
+        <button class="tab-btn" onclick="switchCategory('CAT6')">Инциденты (40)</button>
+        <button class="tab-btn" onclick="switchCategory('CAT7')">Консоль (30)</button>
+        <button class="tab-btn" onclick="switchCategory('CAT8')">Тайны (30)</button>
+        <button class="tab-btn" onclick="switchCategory('CAT9')">Мета (41)</button>
+    </div>
+
+    <div class="controls">
+        <input type="text" id="search" class="search-input" placeholder="Поиск по названию или ID..." oninput="renderCards()">
+    </div>
+
+    <div class="grid" id="cards-grid"></div>
+</div>
+
+<div class="toast" id="toast">Скопировано в буфер обмена!</div>
+
+<script>
+    // Базовый генератор каталога 336 достижений
+    const categories = {
+        CAT1: { name: "Дни активности", range: [1, 45], prefix: "Посетить стрим: " },
+        CAT2: { name: "Опыт и уровни", range: [46, 80], prefix: "Накопить исследовательский опыт: " },
+        CAT3: { name: "Общение в чате", range: [81, 120], prefix: "Отправить сообщений: " },
+        CAT4: { name: "Эксперименты", range: [121, 160], prefix: "Провести экспериментов: " },
+        CAT5: { name: "Вылазки и тревоги", range: [161, 195], prefix: "Участий в боевых тревогах: " },
+        CAT6: { name: "Журнал аномалий", range: [196, 235], prefix: "Зафиксировать инцидентов: " },
+        CAT7: { name: "Протоколы консоли", range: [236, 265], prefix: "Использовать команд: " },
+        CAT8: { name: "Тайны и пасхалки", range: [266, 295], prefix: "Секретное условие лаборатории" },
+        CAT9: { name: "Теория Всего (Мета)", range: [296, 336], prefix: "Открыть достижений: " }
+    };
+
+    let currentCat = 'ALL';
+
+    function getRarity(id) {
+        if (id === 336) return 'легендарная';
+        if (id % 15 === 0) return 'легендарная';
+        if (id % 5 === 0) return 'эпическая';
+        if (id % 2 === 0) return 'редкая';
+        return 'обычная';
+    }
+
+    function switchCategory(cat) {
+        currentCat = cat;
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+        renderCards();
+    }
+
+    function renderCards() {
+        const query = document.getElementById('search').value.toLowerCase();
+        const grid = document.getElementById('cards-grid');
+        grid.innerHTML = '';
+
+        for (let i = 1; i <= 336; i++) {
+            const idStr = "LAB-" + String(i).padStart(3, '0');
+            
+            // Фильтр по категории
+            if (currentCat !== 'ALL') {
+                const conf = categories[currentCat];
+                if (i < conf.range[0] || i > conf.range[1]) continue;
+            }
+
+            const rarity = getRarity(i);
+            const title = `Открытие #${i}`;
+
+            if (query && !idStr.toLowerCase().includes(query) && !title.toLowerCase().includes(query)) {
+                continue;
+            }
+
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="card-header">
+                    <span class="card-id">${idStr}</span>
+                    <span class="rarity rarity-${rarity}">${rarity}</span>
+                </div>
+                <div class="card-title">${title}</div>
+                <div class="card-desc">Исследовательский протокол засекречен или находится в разработке.</div>
+                <div class="card-footer">
+                    <span class="reward">+${i % 10 * 5 + 10} XP</span>
+                    <span style="color: var(--text-muted); font-size: 11px;">Криптон LAB</span>
+                </div>
+            `;
+            grid.appendChild(card);
+        }
+    }
+
+    renderCards();
+</script>
+</body>
+</html>
