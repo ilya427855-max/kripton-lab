@@ -13,55 +13,81 @@
             --neon-purple: #9d4edd;
             --neon-green: #00ff88;
             --neon-gold: #ffb703;
+            --neon-red: #ff3366;
             --text-main: #e2e8f0;
             --text-muted: #64748b;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
         body { background: var(--bg-dark); color: var(--text-main); min-height: 100vh; padding: 20px; }
 
-        .container { max-width: 1200px; margin: 0 auto; }
-        
-        /* Шапка */
+        .container { max-width: 1300px; margin: 0 auto; }
+
+        /* Шапка терминала */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px;
+            padding: 20px 24px;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.05);
+            border-radius: 14px;
+            margin-bottom: 24px;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.05);
         }
 
-        .logo { display: flex; align-items: center; gap: 12px; }
-        .logo-icon { font-size: 32px; filter: drop-shadow(0 0 8px var(--neon-blue)); }
-        .logo-text h1 { font-size: 22px; color: var(--neon-blue); letter-spacing: 2px; }
-        .logo-text p { font-size: 12px; color: var(--text-muted); }
+        .logo { display: flex; align-items: center; gap: 14px; }
+        .logo-icon { font-size: 34px; filter: drop-shadow(0 0 10px var(--neon-blue)); }
+        .logo-text h1 { font-size: 24px; color: var(--neon-blue); letter-spacing: 2px; }
+        .logo-text p { font-size: 13px; color: var(--text-muted); }
 
-        .stats-badge {
+        .header-stats { display: flex; gap: 12px; }
+        .stat-chip {
             background: #0d1117;
             padding: 8px 16px;
             border-radius: 8px;
             border: 1px solid var(--border);
-            font-size: 14px;
+            font-size: 13px;
         }
-        .stats-badge span { color: var(--neon-green); font-weight: bold; }
+        .stat-chip span { color: var(--neon-green); font-weight: bold; }
 
-        /* Навигация категорий */
+        /* Навигация по разделам */
+        .main-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .main-nav-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .main-nav-btn.active {
+            background: rgba(0, 240, 255, 0.12);
+            border-color: var(--neon-blue);
+            color: var(--neon-blue);
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+        }
+
+        /* Категории */
         .tabs {
             display: flex;
             gap: 8px;
             overflow-x: auto;
-            padding-bottom: 10px;
+            padding-bottom: 8px;
             margin-bottom: 20px;
         }
         .tab-btn {
             background: var(--bg-card);
             border: 1px solid var(--border);
             color: var(--text-muted);
-            padding: 10px 16px;
+            padding: 9px 15px;
             border-radius: 8px;
             cursor: pointer;
             white-space: nowrap;
@@ -73,81 +99,112 @@
             background: rgba(0, 240, 255, 0.1);
             border-color: var(--neon-blue);
             color: var(--neon-blue);
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
         }
 
         /* Поиск и фильтры */
-        .controls {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        .search-input {
-            flex: 1;
+        .search-bar {
+            width: 100%;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            padding: 12px 16px;
-            border-radius: 8px;
+            padding: 12px 18px;
+            border-radius: 10px;
             color: #fff;
             outline: none;
+            margin-bottom: 24px;
+            font-size: 14px;
         }
-        .search-input:focus { border-color: var(--neon-blue); }
+        .search-bar:focus { border-color: var(--neon-blue); }
 
         /* Сетка карточек */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
             gap: 16px;
         }
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 16px;
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             transition: transform 0.2s, border-color 0.2s;
         }
-        .card:hover { transform: translateY(-2px); border-color: #2e3852; }
+        .card:hover { transform: translateY(-2px); border-color: #2a354c; }
+
+        .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .card-id { font-family: monospace; font-size: 12px; font-weight: bold; color: var(--text-muted); }
         
-        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
-        .card-id { font-size: 11px; font-weight: bold; color: var(--text-muted); font-family: monospace; }
-        .rarity {
+        .badge-rarity {
             font-size: 10px;
             text-transform: uppercase;
-            padding: 2px 8px;
+            font-weight: 700;
+            padding: 3px 8px;
             border-radius: 4px;
-            font-weight: bold;
+            letter-spacing: 0.5px;
         }
-        .rarity-обычная { background: #1e2638; color: #94a3b8; }
+        .rarity-обычная { background: #1a2233; color: #94a3b8; }
         .rarity-редкая { background: rgba(0, 240, 255, 0.15); color: var(--neon-blue); }
         .rarity-эпическая { background: rgba(157, 78, 221, 0.2); color: var(--neon-purple); }
         .rarity-легендарная { background: rgba(255, 183, 3, 0.2); color: var(--neon-gold); }
+        .rarity-абсолютная { background: rgba(255, 51, 102, 0.25); color: var(--neon-red); }
 
         .card-title { font-size: 16px; font-weight: bold; margin-bottom: 6px; }
-        .card-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; min-height: 32px; }
-        
-        .card-footer {
+        .card-desc { font-size: 13px; color: var(--text-muted); line-height: 1.4; margin-bottom: 12px; }
+
+        .card-bottom {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
             font-size: 12px;
-            border-top: 1px solid #1a202c;
-            padding-top: 8px;
         }
-        .reward { color: var(--neon-green); font-weight: 500; }
+        .card-reward { color: var(--neon-green); font-weight: 600; }
 
-        /* Уведомление о копировании */
+        /* Раздел Гардероба */
+        .wardrobe-section { display: none; }
+        .wardrobe-block { margin-bottom: 30px; }
+        .wardrobe-block h2 { font-size: 18px; margin-bottom: 14px; color: var(--neon-blue); display: flex; align-items: center; gap: 8px; }
+        
+        .cosmetic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 12px;
+        }
+        .cosmetic-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .cosmetic-card:hover {
+            border-color: var(--neon-blue);
+            transform: translateX(3px);
+            background: rgba(0, 240, 255, 0.04);
+        }
+        .cosmetic-name { font-weight: 600; font-size: 14px; }
+        .cosmetic-action { font-size: 12px; color: var(--neon-green); }
+
+        /* Всплывающее уведомление */
         .toast {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 24px;
+            right: 24px;
             background: var(--neon-blue);
             color: #000;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: bold;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 700;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
             display: none;
-            box-shadow: 0 0 15px rgba(0,240,255,0.4);
+            z-index: 1000;
         }
     </style>
 </head>
@@ -159,107 +216,222 @@
             <div class="logo-icon">⚗️</div>
             <div class="logo-text">
                 <h1>KRIPTON LAB</h1>
-                <p>База Данных Исследовательского Комплекса</p>
+                <p>Исследовательский комплекс стрима</p>
             </div>
         </div>
-        <div class="stats-badge">
-            Каталог: <span id="total-count">336</span> Достижений
+        <div class="header-stats">
+            <div class="stat-chip">Каталог: <span>336</span> наград</div>
+            <div class="stat-chip">Титулов: <span>34</span></div>
+            <div class="stat-chip">Значков: <span>29</span></div>
         </div>
     </header>
 
-    <div class="tabs" id="tabs-container">
-        <button class="tab-btn active" onclick="switchCategory('ALL')">Все (336)</button>
-        <button class="tab-btn" onclick="switchCategory('CAT1')">Дни (45)</button>
-        <button class="tab-btn" onclick="switchCategory('CAT2')">Опыт (35)</button>
-        <button class="tab-btn" onclick="switchCategory('CAT3')">Чат (40)</button>
-        <button class="tab-btn" onclick="switchCategory('CAT4')">Опыты (40)</button>
-        <button class="tab-btn" onclick="switchCategory('CAT5')">Вылазки (35)</button>
-        <button class="tab-btn" onclick="switchCategory('CAT6')">Инциденты (40)</button>
-        <button class="tab-btn" onclick="switchCategory('CAT7')">Консоль (30)</button>
-        <button class="tab-btn" onclick="switchCategory('CAT8')">Тайны (30)</button>
-        <button class="tab-btn" onclick="switchCategory('CAT9')">Мета (41)</button>
+    <div class="main-nav">
+        <button class="main-nav-btn active" onclick="switchMainView('achievements')">🏆 Каталог Достижений</button>
+        <button class="main-nav-btn" onclick="switchMainView('wardrobe')">🏷️ Гардероб (Титулы и Значки)</button>
     </div>
 
-    <div class="controls">
-        <input type="text" id="search" class="search-input" placeholder="Поиск по названию или ID..." oninput="renderCards()">
+    <!-- Вью Каталога -->
+    <div id="view-achievements">
+        <div class="tabs" id="cat-tabs">
+            <button class="tab-btn active" onclick="filterCat('ALL')">Все (336)</button>
+            <button class="tab-btn" onclick="filterCat(1)">1. Дни (45)</button>
+            <button class="tab-btn" onclick="filterCat(2)">2. Опыт (35)</button>
+            <button class="tab-btn" onclick="filterCat(3)">3. Чат (40)</button>
+            <button class="tab-btn" onclick="filterCat(4)">4. Эксперименты (40)</button>
+            <button class="tab-btn" onclick="filterCat(5)">5. Вылазки (35)</button>
+            <button class="tab-btn" onclick="filterCat(6)">6. Инциденты (40)</button>
+            <button class="tab-btn" onclick="filterCat(7)">7. Консоль (30)</button>
+            <button class="tab-btn" onclick="filterCat(8)">8. Тайны (30)</button>
+            <button class="tab-btn" onclick="filterCat(9)">9. Теория Всего (41)</button>
+        </div>
+
+        <input type="text" id="search" class="search-bar" placeholder="Поиск по названию, номеру LAB или описанию..." oninput="renderAchievements()">
+        <div class="grid" id="achievements-grid"></div>
     </div>
 
-    <div class="grid" id="cards-grid"></div>
+    <!-- Вью Гардероба -->
+    <div id="view-wardrobe" class="wardrobe-section">
+        <div class="wardrobe-block">
+            <h2>🏷️ Доступные Титулы (Кликните, чтобы скопировать команду для чата)</h2>
+            <div class="cosmetic-grid" id="titles-grid"></div>
+        </div>
+
+        <div class="wardrobe-block">
+            <h2>🔰 Нагрудные Значки (Кликните, чтобы скопировать команду)</h2>
+            <div class="cosmetic-grid" id="badges-grid"></div>
+        </div>
+    </div>
 </div>
 
 <div class="toast" id="toast">Скопировано в буфер обмена!</div>
 
 <script>
-    // Базовый генератор каталога 336 достижений
-    const categories = {
-        CAT1: { name: "Дни активности", range: [1, 45], prefix: "Посетить стрим: " },
-        CAT2: { name: "Опыт и уровни", range: [46, 80], prefix: "Накопить исследовательский опыт: " },
-        CAT3: { name: "Общение в чате", range: [81, 120], prefix: "Отправить сообщений: " },
-        CAT4: { name: "Эксперименты", range: [121, 160], prefix: "Провести экспериментов: " },
-        CAT5: { name: "Вылазки и тревоги", range: [161, 195], prefix: "Участий в боевых тревогах: " },
-        CAT6: { name: "Журнал аномалий", range: [196, 235], prefix: "Зафиксировать инцидентов: " },
-        CAT7: { name: "Протоколы консоли", range: [236, 265], prefix: "Использовать команд: " },
-        CAT8: { name: "Тайны и пасхалки", range: [266, 295], prefix: "Секретное условие лаборатории" },
-        CAT9: { name: "Теория Всего (Мета)", range: [296, 336], prefix: "Открыть достижений: " }
+    // 1. База титулов и значков
+    const TITLES = [
+        "На связи", "За гранью", "Неугасающий интерес", "На пороге легенды", "Проверен временем",
+        "Следопыт лаборатории", "Память лаборатории", "Три года открытий", "Элемент системы",
+        "Секретный ингредиент", "Уравнение хаоса", "Перегрев установки", "Эксперимент вне протокола", "Сверхкритическая реакция",
+        "Ветеран вылазок", "Сквозь огонь", "Повелитель пустошей", "Триста вылазок", "Герой сопротивления", "Легенда операций", "Эпицентр аномалии",
+        "Ликвидатор", "Ходячая катастрофа", "Первооткрыватель", "Творец аномалий", "Мастер синтеза", "Безупречный", "Укротитель хаоса", "Магистр флуктуаций", "Константа",
+        "Хладнокровный", "Полевой испытатель", "Ключник Аномалий", "Создатель Вселенной"
+    ];
+
+    const BADGES = [
+        "Золотой след", "Свой", "Опора", "500+", "Хранитель", "Архивариус",
+        "Стабильная Нестабильность", "Переменная Найдена", "Лабораторный Прорыв", "Эффект Криптона", "Реакция Пошла", "Новый Закон", "На Грани", "Алхимия Электричества", "Невозможное Соединение", "Великий Эксперимент",
+        "Сотня Сражений", "Мастер Обороны", "Несокрушимый", "Стальной Заслон", "Пятьсот Тревог", "Хранитель Рубежей", "Абсолютный Триумф",
+        "Взрывоустойчивый", "Эврика", "Чистый Синтез", "Нестабильный", "По Протоколу", "Под Сирену"
+    ];
+
+    // 2. Имена категорий
+    const CAT_NAMES = {
+        1: "Дни активности",
+        2: "Опыт и ранги",
+        3: "Сообщения в чате",
+        4: "Эксперименты",
+        5: "Вылазки и тревоги",
+        6: "Журнал инцидентов",
+        7: "Протоколы консоли",
+        8: "Тайны и пасхалки",
+        9: "Теория Всего"
     };
 
-    let currentCat = 'ALL';
+    // Генерация каталога 336 достижений
+    const ACHIEVEMENTS = [];
+    const catRanges = [
+        [1, 45, 1], [46, 80, 2], [81, 120, 3], [121, 160, 4],
+        [161, 195, 5], [196, 235, 6], [236, 265, 7], [266, 295, 8], [296, 336, 9]
+    ];
 
-    function getRarity(id) {
-        if (id === 336) return 'легендарная';
-        if (id % 15 === 0) return 'легендарная';
-        if (id % 5 === 0) return 'эпическая';
-        if (id % 2 === 0) return 'редкая';
-        return 'обычная';
-    }
+    const sampleNames = {
+        1: ["Первый контакт", "Повторный визит", "Свой человек", "Неделя в лаборатории", "Месяц исследований", "Годовой рубеж", "История лаборатории", "Последний рубеж"],
+        2: ["Искра опыта", "Первые баллы", "Набор мощности", "Разгон системы", "Критическая масса", "Мастер накопления", "Источник энергии"],
+        3: ["Голос в эфире", "Первое сообщение", "Разговор пошёл", "Мастер диалога", "Голос лаборатории", "Центр притяжения", "Главный по атмосфере"],
+        4: ["Первый запуск", "Искра в пробирке", "Опыт удался", "Секретный ингредиент", "Лабораторный прорыв", "Уравнение хаоса", "Великий эксперимент"],
+        5: ["Боевое крещение", "Первая тревога", "Полевой агент", "Ветеран рейдов", "Сквозь огонь", "Повелитель пустошей", "Абсолютный триумф"],
+        6: ["Первая трещина", "Огнетушитель", "Ходячая катастрофа", "Эврика!", "Творец аномалий", "Мастер синтеза", "Эксперимент на передовой"],
+        7: ["Первый запрос", "Допуск к терминалу", "Оператор базы", "Инженер консоли", "Властелин строки", "Архивариус штата"],
+        8: ["Эхо Сингулярности", "Шёпот Криптона", "Секрет Реактора", "Изотопный Код", "Шифровальщик Криптона", "Хозяин ночного эфира"],
+        9: ["Рубеж 25", "Рубеж 100", "Рубеж 200", "Рубеж 300", "Специалист Лаборатории", "Директор Лаборатории", "ТЕОРИЯ ВСЕГО"]
+    };
 
-    function switchCategory(cat) {
-        currentCat = cat;
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    catRanges.forEach(([start, end, catId]) => {
+        const pool = sampleNames[catId];
+        for (let i = start; i <= end; i++) {
+            let rarity = "обычная";
+            if (i === 336) rarity = "абсолютная";
+            else if (i % 25 === 0) rarity = "легендарная";
+            else if (i % 8 === 0) rarity = "эпическая";
+            else if (i % 3 === 0) rarity = "редкая";
+
+            let name = pool[(i - start) % pool.length];
+            if ((i - start) >= pool.length) name += ` (Ур. ${(i - start) + 1})`;
+
+            ACHIEVEMENTS.push({
+                id: i,
+                code: "LAB-" + String(i).padStart(3, '0'),
+                category: catId,
+                name: (i === 336) ? "ТЕОРИЯ ВСЕГО" : name,
+                rarity: rarity,
+                desc: `Исследовательский протокол категории «${CAT_NAMES[catId]}». Выполняется в ходе стримов комплекса KRIPTON LAB.`,
+                reward: `+${(i % 10 + 2) * 10} XP`
+            });
+        }
+    });
+
+    let currentCatFilter = 'ALL';
+
+    function switchMainView(view) {
+        document.querySelectorAll('.main-nav-btn').forEach(b => b.classList.remove('active'));
         event.target.classList.add('active');
-        renderCards();
-    }
-
-    function renderCards() {
-        const query = document.getElementById('search').value.toLowerCase();
-        const grid = document.getElementById('cards-grid');
-        grid.innerHTML = '';
-
-        for (let i = 1; i <= 336; i++) {
-            const idStr = "LAB-" + String(i).padStart(3, '0');
-            
-            // Фильтр по категории
-            if (currentCat !== 'ALL') {
-                const conf = categories[currentCat];
-                if (i < conf.range[0] || i > conf.range[1]) continue;
-            }
-
-            const rarity = getRarity(i);
-            const title = `Открытие #${i}`;
-
-            if (query && !idStr.toLowerCase().includes(query) && !title.toLowerCase().includes(query)) {
-                continue;
-            }
-
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-                <div class="card-header">
-                    <span class="card-id">${idStr}</span>
-                    <span class="rarity rarity-${rarity}">${rarity}</span>
-                </div>
-                <div class="card-title">${title}</div>
-                <div class="card-desc">Исследовательский протокол засекречен или находится в разработке.</div>
-                <div class="card-footer">
-                    <span class="reward">+${i % 10 * 5 + 10} XP</span>
-                    <span style="color: var(--text-muted); font-size: 11px;">Криптон LAB</span>
-                </div>
-            `;
-            grid.appendChild(card);
+        if (view === 'achievements') {
+            document.getElementById('view-achievements').style.display = 'block';
+            document.getElementById('view-wardrobe').style.display = 'none';
+        } else {
+            document.getElementById('view-achievements').style.display = 'none';
+            document.getElementById('view-wardrobe').style.display = 'block';
+            renderWardrobe();
         }
     }
 
-    renderCards();
+    function filterCat(cat) {
+        currentCatFilter = cat;
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+        renderAchievements();
+    }
+
+    function renderAchievements() {
+        const query = document.getElementById('search').value.toLowerCase().trim();
+        const grid = document.getElementById('achievements-grid');
+        grid.innerHTML = '';
+
+        const filtered = ACHIEVEMENTS.filter(item => {
+            const matchesCat = currentCatFilter === 'ALL' || item.category === currentCatFilter;
+            const matchesQuery = !query || item.code.toLowerCase().includes(query) || item.name.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query);
+            return matchesCat && matchesQuery;
+        });
+
+        filtered.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div>
+                    <div class="card-top">
+                        <span class="card-id">${item.code}</span>
+                        <span class="badge-rarity rarity-${item.rarity}">${item.rarity}</span>
+                    </div>
+                    <div class="card-title">${item.name}</div>
+                    <div class="card-desc">${item.desc}</div>
+                </div>
+                <div class="card-bottom">
+                    <span class="card-reward">${item.reward}</span>
+                    <span style="color: var(--text-muted); font-size: 11px;">${CAT_NAMES[item.category]}</span>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    function copyCmd(cmd) {
+        navigator.clipboard.writeText(cmd);
+        const toast = document.getElementById('toast');
+        toast.innerText = `Скопировано: ${cmd}`;
+        toast.style.display = 'block';
+        setTimeout(() => toast.style.display = 'none', 2500);
+    }
+
+    function renderWardrobe() {
+        const tGrid = document.getElementById('titles-grid');
+        const bGrid = document.getElementById('badges-grid');
+        tGrid.innerHTML = '';
+        bGrid.innerHTML = '';
+
+        TITLES.forEach(t => {
+            const el = document.createElement('div');
+            el.className = 'cosmetic-card';
+            el.innerHTML = `
+                <div class="cosmetic-name">«${t}»</div>
+                <div class="cosmetic-action">Копировать команду</div>
+            `;
+            el.onclick = () => copyCmd(`!титул ${t}`);
+            tGrid.appendChild(el);
+        });
+
+        BADGES.forEach(b => {
+            const el = document.createElement('div');
+            el.className = 'cosmetic-card';
+            el.innerHTML = `
+                <div class="cosmetic-name">[${b}]</div>
+                <div class="cosmetic-action">Копировать команду</div>
+            `;
+            el.onclick = () => copyCmd(`!значок ${b}`);
+            bGrid.appendChild(el);
+        });
+    }
+
+    renderAchievements();
 </script>
 </body>
 </html>
