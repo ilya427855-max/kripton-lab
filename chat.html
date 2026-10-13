@@ -22,21 +22,35 @@
             justify-content: flex-end;
         }
 
-        /* Индикатор подключения в углу */
-        #status-dot {
+        /* Индикатор подключения */
+        #debug-box {
             position: absolute;
             top: 10px;
+            left: 10px;
             right: 10px;
+            background: rgba(0, 0, 0, 0.75);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 11px;
+            font-family: monospace;
+            color: #94a3b8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #status-dot {
+            display: inline-block;
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #ef4444; /* По умолчанию красный */
-            box-shadow: 0 0 8px rgba(239, 68, 68, 0.8);
-            transition: all 0.3s ease;
+            background: #ef4444;
+            margin-right: 6px;
         }
         #status-dot.online {
             background: #10b981;
-            box-shadow: 0 0 8px rgba(16, 185, 129, 0.8);
+            box-shadow: 0 0 8px #10b981;
         }
 
         #chat-container {
@@ -47,17 +61,15 @@
         }
 
         .chat-msg {
-            background: rgba(10, 14, 23, 0.9);
-            border: 1px solid rgba(0, 240, 255, 0.25);
+            background: rgba(10, 14, 23, 0.94);
+            border: 1px solid rgba(0, 240, 255, 0.3);
             border-left: 3px solid #00f0ff;
             border-radius: 8px;
             padding: 10px 14px;
             color: #f1f5f9;
             font-size: 14px;
-            line-height: 1.4;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 240, 255, 0.08);
-            backdrop-filter: blur(6px);
-            animation: slideIn 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+            animation: slideIn 0.3s ease forwards;
             transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
@@ -86,9 +98,9 @@
         }
 
         .chip-badge {
-            background: rgba(245, 158, 11, 0.18);
+            background: rgba(245, 158, 11, 0.2);
             color: #f59e0b;
-            border: 1px solid rgba(245, 158, 11, 0.45);
+            border: 1px solid rgba(245, 158, 11, 0.5);
             padding: 1px 6px;
             border-radius: 4px;
             font-weight: 700;
@@ -96,7 +108,7 @@
         }
 
         .chip-title {
-            background: rgba(168, 85, 247, 0.18);
+            background: rgba(168, 85, 247, 0.2);
             color: #c084fc;
             border: 1px solid rgba(168, 85, 247, 0.4);
             padding: 1px 6px;
@@ -105,26 +117,22 @@
             font-weight: 600;
         }
 
-        .user-name {
-            font-weight: 700;
-            font-size: 13px;
-        }
-
-        .msg-text {
-            word-break: break-word;
-            color: #e2e8f0;
-            font-size: 13px;
-        }
+        .user-name { font-weight: 700; font-size: 13px; }
+        .msg-text { word-break: break-word; color: #e2e8f0; font-size: 13px; }
 
         @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px) scale(0.96); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-<div id="status-dot" title="Статус WebSocket"></div>
+<div id="debug-box">
+    <span><span id="status-dot"></span><span id="status-text">Подключение...</span></span>
+    <span id="last-msg-info">Ожидание рукопожатия</span>
+</div>
+
 <div id="chat-container"></div>
 
 <script>
@@ -134,6 +142,9 @@
 
     const container = document.getElementById('chat-container');
     const dot = document.getElementById('status-dot');
+    const statusText = document.getElementById('status-text');
+    const lastMsgInfo = document.getElementById('last-msg-info');
+
     let ws = null;
 
     function connect() {
@@ -141,21 +152,78 @@
 
         ws.onopen = function () {
             dot.classList.add('online');
-            dot.title = "WebSocket активен";
+            statusText.innerText = "Соединение установлено";
         };
 
         ws.onmessage = function (e) {
+            console.log("[WS ПОЛУЧЕНО]:", e.data);
             try {
-                const data = JSON.parse(e.data);
-                if (data.event === "LAB_CHAT") {
-                    addMessage(data);
+                let raw = JSON.parse(e.data);
+
+                // 1. Рукопожатие Streamer.bot: в ответ на Hello отправляем Subscribe
+                if (raw.request === "Hello") {
+                    ws.send(JSON.stringify({
+                        request: "Subscribe",
+                        id: "kripton-chat-sub",
+                        events: {
+                            General: ["Custom"],
+                            Twitch: ["ChatMessage"]
+                        }
+                    }));
+                    statusText.innerText = "Подписка отправлена боту";
+                    lastMsgInfo.innerText = "Рукопожатие успешно";
+                    return;
                 }
-            } catch (err) {}
+
+                // 2. Подтверждение подписки от Streamer.bot
+                if (raw.id === "kripton-chat-sub") {
+                    statusText.innerText = "Связь активна (слушает чат)";
+                    return;
+                }
+
+                // 3. Кастомный лабораторный пакет из C# (с уровнем, титулом и значком)
+                let p = raw.data ? (typeof raw.data === 'string' ? JSON.parse(raw.data) : raw.data) : raw;
+                if (p.labEvent === "CHAT_MSG" || (p.user && p.message && p.level !== undefined)) {
+                    lastMsgInfo.innerText = "LAB сообщение: @" + p.user;
+                    addMessage({
+                        user: p.user,
+                        color: p.color || "#00f0ff",
+                        level: p.level || 1,
+                        title: p.title || "",
+                        badge: p.badge || "",
+                        message: p.message,
+                        isMod: p.isMod || false,
+                        isSub: p.isSub || false
+                    });
+                    return;
+                }
+
+                // 4. Прямое стандартное событие Twitch от Streamer.bot (страховка)
+                if (raw.event && raw.event.source === "Twitch" && raw.event.type === "ChatMessage") {
+                    let msgData = raw.data.message;
+                    // Игнорируем команды на !
+                    if (msgData.message.trim().startsWith("!")) return;
+
+                    lastMsgInfo.innerText = "Twitch сообщение: @" + (msgData.displayName || msgData.username);
+                    addMessage({
+                        user: msgData.displayName || msgData.username,
+                        color: msgData.color || "#00f0ff",
+                        level: 1,
+                        title: "",
+                        badge: "",
+                        message: msgData.message,
+                        isMod: msgData.isMod || false,
+                        isSub: msgData.isSub || false
+                    });
+                }
+            } catch (err) {
+                console.error("Ошибка парсинга:", err);
+            }
         };
 
         ws.onclose = function () {
             dot.classList.remove('online');
-            dot.title = "WebSocket отключен";
+            statusText.innerText = "Отключено от сокета";
             setTimeout(connect, 2500);
         };
 
@@ -169,21 +237,21 @@
         msgEl.className = 'chat-msg';
 
         let badgesHtml = '';
-        if (data.isMod) badgesHtml += '<span title="Модератор">🛡️</span>';
-        if (data.isSub) badgesHtml += '<span title="Подписчик">⭐</span>';
+        if (data.isMod) badgesHtml += '🛡️ ';
+        if (data.isSub) badgesHtml += '⭐ ';
         badgesHtml += `<span class="chip-lvl">УР.${data.level}</span>`;
 
         if (data.badge && data.badge.trim() !== '') {
-            badgesHtml += `<span class="chip-badge">[${escapeHtml(data.badge)}]</span>`;
+            badgesHtml += ` <span class="chip-badge">[${escapeHtml(data.badge)}]</span>`;
         }
         if (data.title && data.title.trim() !== '') {
-            badgesHtml += `<span class="chip-title">«${escapeHtml(data.title)}»</span>`;
+            badgesHtml += ` <span class="chip-title">«${escapeHtml(data.title)}»</span>`;
         }
 
         msgEl.innerHTML = `
             <div class="msg-header">
                 ${badgesHtml}
-                <span class="user-name" style="color: ${data.color || '#00f0ff'};">${escapeHtml(data.user)}:</span>
+                <span class="user-name" style="color: ${data.color};">${escapeHtml(data.user)}:</span>
             </div>
             <div class="msg-text">${escapeHtml(data.message)}</div>
         `;
@@ -203,6 +271,7 @@
     }
 
     function escapeHtml(text) {
+        if (!text) return "";
         const div = document.createElement('div');
         div.innerText = text;
         return div.innerHTML;
