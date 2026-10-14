@@ -186,6 +186,8 @@
             margin-bottom: 16px;
             border-bottom: 1px solid var(--border);
             padding-bottom: 10px;
+            flex-wrap: wrap;
+            align-items: center;
         }
         .nav-btn {
             background: transparent;
@@ -204,6 +206,134 @@
             border-color: var(--neon-blue);
             color: var(--neon-blue);
         }
+
+        /* Кнопка и контейнер для ЛОРА */
+        .lore-toggle-btn {
+            background: rgba(0, 229, 255, 0.08);
+            border: 1px solid #00e5ff;
+            color: #00e5ff;
+            padding: 9px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.15);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-right: auto; /* Отодвигает кнопку достижений правее при желании */
+        }
+        .lore-toggle-btn:hover, .lore-toggle-btn.active {
+            background: #00e5ff;
+            color: #080a0f;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
+        }
+
+        .lore-container {
+            display: none;
+            background: rgba(15, 20, 31, 0.96);
+            border: 1px solid rgba(0, 229, 255, 0.4);
+            border-left: 4px solid #00e5ff;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.12);
+            color: #e0f7fa;
+            line-height: 1.6;
+            animation: loreFadeIn 0.3s ease-out;
+        }
+
+        @keyframes loreFadeIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .lore-header {
+            border-bottom: 1px dashed rgba(0, 229, 255, 0.3);
+            padding-bottom: 14px;
+            margin-bottom: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .lore-title {
+            color: #00e5ff;
+            font-size: 20px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin: 0;
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+        }
+
+        .lore-badge {
+            background: rgba(0, 229, 255, 0.12);
+            border: 1px solid #00e5ff;
+            color: #00e5ff;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-family: monospace;
+        }
+
+        .lore-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .lore-card {
+            background: rgba(0, 229, 255, 0.02);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            border-radius: 8px;
+            padding: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .lore-card:hover { border-color: #00e5ff; }
+
+        .lore-card h3 {
+            color: #00e5ff;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lore-quote {
+            background: rgba(0, 229, 255, 0.06);
+            border-left: 3px solid #00e5ff;
+            padding: 12px 16px;
+            margin-top: 10px;
+            font-style: italic;
+            color: #b2ebf2;
+            border-radius: 0 6px 6px 0;
+            font-size: 13px;
+        }
+
+        .lore-list {
+            padding-left: 18px;
+            margin: 8px 0;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .lore-list li { margin-bottom: 5px; }
+        .lore-list li strong { color: #f1f5f9; }
+
+        .neon-text {
+            color: #00e5ff;
+            font-weight: bold;
+            text-shadow: 0 0 6px rgba(0, 229, 255, 0.4);
+        }
+        /* Конец стилей лора */
 
         .cat-filters {
             display: flex;
@@ -475,11 +605,88 @@
         </div>
     </section>
 
-    <!-- Навигация -->
+    <!-- Навигация и кнопка вызова ЛОРА прямо перед Достижениями -->
     <nav class="section-nav">
+        <button class="lore-toggle-btn" id="loreBtn" onclick="toggleLore()">
+            📁 АРХИВ СЕКТОРА №36 (ЛОР)
+        </button>
         <button class="nav-btn active" id="nav-btn-catalog" onclick="switchTab('catalog', this)">🏆 База 336 Достижений</button>
         <button class="nav-btn" id="nav-btn-wardrobe" onclick="switchTab('wardrobe', this)">🏷️ Гардероб (Титулы и Значки)</button>
     </nav>
+
+    <!-- Выпадающий Блок ЛОРА -->
+    <div id="lore-section" class="lore-container">
+        <div class="lore-header">
+            <h2 class="lore-title">☢️ СЕКРЕТНЫЙ АРХИВ СЕКТОРА №36: ДОСЬЕ KRIPTON LAB</h2>
+            <span class="lore-badge">СТАТУС РЕАКТОРА: ИОНИЗАЦИЯ 100%</span>
+        </div>
+
+        <p style="margin-bottom: 16px;">
+            Добро пожаловать в бортовой терминал спец-лаборатории <span class="neon-text">«Дурка» (Сектор №36)</span>. 
+            Если вы читаете этот файл — ваше сознание уже пробило защитный периметр через квантовую червоточину Twitch-трансляции и занесено в базу данных испытуемых.
+        </p>
+
+        <div class="lore-grid">
+            <div class="lore-card">
+                <h3>👨‍🔬 Главный Научный Сотрудник</h3>
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">
+                    Во главе бункера стоит <strong>Илья</strong> (в закрытых базах — <span class="neon-text">kriptoniya36</span>). 
+                    Физик и программист, отработавший 2 года в настоящей Дурке. Поняв главную аксиому мультивселенной — <strong>безумие — это не баг, а фича</strong>, он приватизировал заброшенный бункер и переоборудовал его в полигон для тестов.
+                </p>
+            </div>
+
+            <div class="lore-card">
+                <h3>⚡ Тайна 36-го Элемента и Бирюзовый Неон</h3>
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">
+                    Ядро лаборатории — Реактор Хаоса на инертном газе <strong>Криптоне (элемент №36)</strong>. 
+                    После ночного разгона кода газ вступил в реакцию с трафиком и мутировал в <span class="neon-text">Криптоний-36</span>, залив бункер ослепительным <strong>бирюзовым неоном</strong>. Пока чат молчит — газ спокоен. Любой ваш мем или донат подает ток в колбу, заставляя неон пылать!
+                </p>
+            </div>
+
+            <div class="lore-card">
+                <h3>🖥️ Цифровой Надзор: 336 Ачивок</h3>
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">
+                    Вы находитесь внутри самописной нейросети Лаборатории:
+                </p>
+                <ul class="lore-list">
+                    <li><strong>9 Секторов:</strong> База данных хранит <span class="neon-text">336 засекреченных достижений</span>.</li>
+                    <li><strong>Гардероб:</strong> Система выдаёт значки (29 шт.) и научные титулы (34 звания) для карточки профиля.</li>
+                </ul>
+            </div>
+
+            <div class="lore-card">
+                <h3>🐾 Обитатели и Иерархия Бункера</h3>
+                <ul class="lore-list">
+                    <li><strong>Подопытные (Зрители):</strong> Главные генераторы электричества, угара и тактического бреда.</li>
+                    <li><strong>Кибер-Санитары (Модеры):</strong> Элитный отряд с заряженными банхаммерами, охраняющий Мем-Зону.</li>
+                    <li><strong>Кот в наушниках:</strong> Светлый маскот комплекса. Молча осуждает стримера за каждый слитый раунд через смайлы.</li>
+                </ul>
+            </div>
+
+            <div class="lore-card">
+                <h3>🚨 Шкала Ионизации (Тесты)</h3>
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px;">Техника безопасности отсутствует. В эфире проводятся:</p>
+                <ul class="lore-list">
+                    <li>🧪 <strong>Препарирование новинок:</strong> Ломаем физику игр на белоснежном ПК (Xeon + белая периферия).</li>
+                    <li>🧪 <strong>Челленджи от чата:</strong> Опасные опыты над нервной системой и катки без прицела.</li>
+                    <li>🧪 <strong>Мем-Анатомия:</strong> Документирование эпичных затупов на клипы (если Илья упал в пропасть — это замер гравитации!).</li>
+                </ul>
+            </div>
+
+            <div class="lore-card">
+                <h3>📜 Законы физики Дурки</h3>
+                <ul class="lore-list">
+                    <li><strong>Сохранение угара:</strong> 5 минут смеха в чате заменяют 2 часа сна и визит к психиатру.</li>
+                    <li><strong>Принцип неопределённости:</strong> Финал стрима предсказать невозможно — это либо победа, либо депортация в палату.</li>
+                    <li><strong>Квантовая связь:</strong> Ваш прогресс в этом терминале вечен, пока горит бирюзовый неон.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="lore-quote">
+            💡 <strong>Главный девиз Сектора №36:</strong> «Нет ничего невозможного. Есть только то, что мы ещё не успели взорвать, закодить и протестировать!» Наливай чай с галоперидолом и приступай к изучению своего досье ниже! ⚡
+        </div>
+    </div>
 
     <!-- Плашка 2: Каталог 336 достижений -->
     <main id="tab-catalog">
@@ -679,7 +886,6 @@
     const ALL_ACHIEVEMENTS = [];
 
     function generateCatalog() {
-        // 1. Дни активности (1..45)
         const cat1Data = [
             ["Первый контакт", "Заглянуть на стрим комплекса KRIPTON LAB впервые.", true],
             ["Повторный визит", "Вернуться на второй день трансляции.", false],
@@ -733,7 +939,6 @@
             ALL_ACHIEVEMENTS.push({ id: id, code: "LAB-" + String(id).padStart(3, '0'), cat: 1, name: item[0], desc: item[1], isSecret: item[2], rarity: rarity, reward: "+" + (20 + id) + " XP" });
         });
 
-        // 2. Опыт и ранги (46..80)
         const cat2Data = [
             [46, "Первые импульсы", "Накопить 100 исследовательского опыта (XP).", false],
             [47, "Заряд конденсатора", "Накопить 250 XP в комплексе.", false],
@@ -777,7 +982,6 @@
             ALL_ACHIEVEMENTS.push({ id: id, code: "LAB-" + String(id).padStart(3, '0'), cat: 2, name: item[1], desc: item[2], isSecret: item[3], rarity: rarity, reward: "+" + (25 + (id - 45)) + " XP" });
         });
 
-        // 3. Сообщения в чате (81..120)
         const cat3Data = [
             [81, "Первая реплика", "Отправить 1 сообщение в чат лаборатории.", false],
             [82, "Выход в эфир", "Отправить 5 сообщений во время трансляций.", false],
@@ -826,7 +1030,6 @@
             ALL_ACHIEVEMENTS.push({ id: id, code: "LAB-" + String(id).padStart(3, '0'), cat: 3, name: item[1], desc: item[2], isSecret: item[3], rarity: rarity, reward: "+" + (15 + (id - 80)) + " XP" });
         });
 
-        // 4. Эксперименты (121..160)
         const cat4Data = [
             [121, "Первая колба", "Запустить синтез командой !эксперимент 1 раз.", false],
             [122, "Запах озона", "Провести 3 эксперимента в лаборатории.", false],
@@ -875,7 +1078,6 @@
             ALL_ACHIEVEMENTS.push({ id: id, code: "LAB-" + String(id).padStart(3, '0'), cat: 4, name: item[1], desc: item[2], isSecret: item[3], rarity: rarity, reward: "+" + (25 + (id - 120)) + " XP" });
         });
 
-        // 5. Вылазки и тревоги (161..195)
         const cat5Data = [
             [161, "Первый сигнал сирены", "Принять участие в 1 боевой тревоге / вылазке.", false],
             [162, "Сбор по тревоге", "Успешно отреагировать на 2 тревоги.", false],
@@ -919,9 +1121,8 @@
             ALL_ACHIEVEMENTS.push({ id: id, code: "LAB-" + String(id).padStart(3, '0'), cat: 5, name: item[1], desc: item[2], isSecret: item[3], rarity: rarity, reward: "+" + (30 + (id - 160)) + " XP" });
         });
 
-        // 6. Журнал инцидентов (196..235)
         const cat6Data = [
-            [196, "Первая трещина", "Столкнуться с 1 аварией или инцидентом в лаборатории.", false],
+            [196, "Первая трещина", "Столкнуться с 1 аварий или инцидентом в лаборатории.", false],
             [197, "Осколки на полу", "Пережить 2 аварийных сбоя реактора.", false],
             [198, "Запах палёного", "Столкнуться с 4 авариями установки.", false],
             [199, "Огнетушитель к бою", "Пережить 6 лабораторных инцидентов.", false],
@@ -968,7 +1169,6 @@
             ALL_ACHIEVEMENTS.push({ id: id, code: "LAB-" + String(id).padStart(3, '0'), cat: 6, name: item[1], desc: item[2], isSecret: item[3], rarity: rarity, reward: "+" + (30 + (id - 195)) + " XP" });
         });
 
-        // 7. Протоколы консоли (236..265)
         const cat7Data = [
             [236, "Первый ввод", "Впервые отправить команду терминала в чат стрима.", false],
             [237, "Проверка терминала", "Использовать команды бота 3 раза.", false],
@@ -1007,7 +1207,6 @@
             ALL_ACHIEVEMENTS.push({ id: id, code: "LAB-" + String(id).padStart(3, '0'), cat: 7, name: item[1], desc: item[2], isSecret: item[3], rarity: rarity, reward: "+" + (20 + (id - 235)) + " XP" });
         });
 
-        // 8. Тайны и пасхалки (266..295) — ВСЕ 30 СЕКРЕТНЫЕ
         const cat8Data = [
             [266, "Эхо Сингулярности", "Написать кодовую фразу сингулярности в чат."],
             [267, "Шёпот Криптона", "Поймать редкую реплику бота в ночном эфире."],
@@ -1046,7 +1245,6 @@
             ALL_ACHIEVEMENTS.push({ id: id, code: "LAB-" + String(id).padStart(3, '0'), cat: 8, name: item[1], desc: item[2], isSecret: true, rarity: rarity, reward: "+" + (50 + (id - 265) * 5) + " XP" });
         });
 
-        // 9. Мета и Теория Всего (296..336)
         const cat9Data = [
             [296, "Первые шаги исследователя", "Открыть 10 любых достижений комплекса.", false, "обычная", "+30 XP"],
             [297, "Начало коллекции", "Открыть 15 достижений лаборатории.", false, "обычная", "+30 XP"],
@@ -1255,6 +1453,22 @@
             document.getElementById('tab-catalog').style.display = 'none';
             document.getElementById('tab-wardrobe').style.display = 'block';
             renderWardrobe();
+        }
+    }
+
+    // Функция переключения видимости блока ЛОРА
+    function toggleLore() {
+        const loreSection = document.getElementById('lore-section');
+        const loreBtn = document.getElementById('loreBtn');
+        
+        if (loreSection.style.display === 'block') {
+            loreSection.style.display = 'none';
+            loreBtn.classList.remove('active');
+            loreBtn.innerHTML = '📁 АРХИВ СЕКТОРА №36 (ЛОР)';
+        } else {
+            loreSection.style.display = 'block';
+            loreBtn.classList.add('active');
+            loreBtn.innerHTML = '❌ ЗАКРЫТЬ АРХИВ ЛОРА';
         }
     }
 
