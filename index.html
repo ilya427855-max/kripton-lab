@@ -1037,78 +1037,99 @@
         }
     }
 
-    // Генерация кода капсулы
-    function generateDailyCode(username) {
-        const today = new Date().toISOString().slice(0, 10);
-        const seed = username.trim().toLowerCase() + "_" + today + "_KRIPTON36";
-        let hash = 0;
-        for (let i = 0; i < seed.length; i++) {
-            hash = ((hash << 5) - hash) + seed.charCodeAt(i);
-            hash |= 0;
-        }
-        return "KRP-" + (Math.abs(hash) % 9000 + 1000);
+   // Генерация кода капсулы и персонального токена безопасности
+function generateDailyCode(username) {
+    const cleanUser = username.trim().toLowerCase();
+    const today = new Date().toISOString().slice(0, 10);
+    
+    // Пин-код
+    const seed = cleanUser + "_" + today + "_KRIPTON36_SECURE_KEY";
+    let hash = 0;
+    for (let i = 0; i < seed.length; i++) {
+        hash = ((hash << 5) - hash) + seed.charCodeAt(i);
+        hash |= 0;
+    }
+    const pin = Math.abs(hash) % 9000 + 1000;
+
+    // Секретный токен сессии
+    let tokenHash = 0;
+    const tokenSeed = cleanUser + "_TOKEN_" + today + "_LAB36";
+    for (let i = 0; i < tokenSeed.length; i++) {
+        tokenHash = ((tokenHash << 5) - tokenHash) + tokenSeed.charCodeAt(i);
+        tokenHash |= 0;
+    }
+    const token = "SEC-" + Math.abs(tokenHash).toString(16).toUpperCase();
+
+    return {
+        code: "KRP-" + pin,
+        token: token,
+        fullCommand: `!код KRP-${pin} ${token}`
+    };
+}
+
+function checkCapsuleAvailability() {
+    const btn = document.getElementById('capsule-btn');
+    const desc = document.getElementById('capsule-status-desc');
+    const section = document.getElementById('capsule-section');
+    if (!btn || !desc) return;
+
+    if (!userData.username || userData.username === "Гость Лаборатории") {
+        btn.disabled = true;
+        btn.innerText = "Требуется авторизация";
+        desc.innerText = "Введите ник вверху или откройте свою персональную ссылку.";
+        section.classList.remove('ready');
+        return;
     }
 
-    function checkCapsuleAvailability() {
-        const btn = document.getElementById('capsule-btn');
-        const desc = document.getElementById('capsule-status-desc');
-        const section = document.getElementById('capsule-section');
-        if (!btn || !desc) return;
+    const today = new Date().toISOString().slice(0, 10);
+    const lastOpened = localStorage.getItem("lab_capsule_" + userData.username.toLowerCase());
 
-        if (!userData.username || userData.username === "Гость Лаборатории") {
-            btn.disabled = true;
-            btn.innerText = "Требуется авторизация";
-            desc.innerText = "Введите ник вверху или откройте свою персональную ссылку.";
-            section.classList.remove('ready');
-            return;
-        }
-
-        const today = new Date().toISOString().slice(0, 10);
-        const lastOpened = localStorage.getItem("lab_capsule_" + userData.username.toLowerCase());
-
-        if (lastOpened === today) {
-            btn.disabled = true;
-            btn.innerText = "Перезарядка ⏳";
-            desc.innerText = "Капсула за сегодня уже вскрыта. Следующий шлюз откроется в полночь.";
-            section.classList.remove('ready');
-        } else {
-            btn.disabled = false;
-            btn.innerHTML = '<span>Вскрыть Шлюз</span> 🔓';
-            desc.innerText = "Ежедневный контейнер готов к разгерметизации. Заберите свой лут!";
-            section.classList.add('ready');
-        }
+    if (lastOpened === today) {
+        btn.disabled = true;
+        btn.innerText = "Перезарядка ⏳";
+        desc.innerText = "Капсула за сегодня уже вскрыта. Следующий шлюз откроется в полночь.";
+        section.classList.remove('ready');
+    } else {
+        btn.disabled = false;
+        btn.innerHTML = '<span>Вскрыть Шлюз</span> 🔓';
+        desc.innerText = "Ежедневный контейнер готов к разгерметизации. Заберите свой лут!";
+        section.classList.add('ready');
     }
+}
 
-    function openCapsuleModal() {
-        const modal = document.getElementById('capsule-modal');
-        const vault = document.getElementById('vault-anim');
-        const codeDisplay = document.getElementById('modal-code-display');
-        const cmdText = document.getElementById('modal-cmd-text');
+function openCapsuleModal() {
+    const modal = document.getElementById('capsule-modal');
+    const vault = document.getElementById('vault-anim');
+    const codeDisplay = document.getElementById('modal-code-display');
+    const cmdText = document.getElementById('modal-cmd-text');
+    
+    modal.style.display = 'flex';
+    vault.className = "capsule-vault-anim shaking";
+    vault.innerText = "☣️";
+
+    setTimeout(() => {
+        vault.className = "capsule-vault-anim";
+        vault.innerText = "💎";
+        const capsuleData = generateDailyCode(userData.username);
         
-        modal.style.display = 'flex';
-        vault.className = "capsule-vault-anim shaking";
-        vault.innerText = "☣️";
+        // Выводим код и защитный токен
+        codeDisplay.innerText = `${capsuleData.code} ${capsuleData.token}`;
+        cmdText.innerText = capsuleData.fullCommand;
 
-        setTimeout(() => {
-            vault.className = "capsule-vault-anim";
-            vault.innerText = "💎";
-            const code = generateDailyCode(userData.username);
-            codeDisplay.innerText = code;
-            cmdText.innerText = "!код " + code;
+        const today = new Date().toISOString().slice(0, 10);
+        localStorage.setItem("lab_capsule_" + userData.username.toLowerCase(), today);
+        checkCapsuleAvailability();
+    }, 700);
+}
 
-            const today = new Date().toISOString().slice(0, 10);
-            localStorage.setItem("lab_capsule_" + userData.username.toLowerCase(), today);
-            checkCapsuleAvailability();
-        }, 700);
-    }
+function closeCapsuleModal() {
+    document.getElementById('capsule-modal').style.display = 'none';
+}
 
-    function closeCapsuleModal() {
-        document.getElementById('capsule-modal').style.display = 'none';
-    }
-
-    function copyModalCode() {
-        const code = document.getElementById('modal-code-display').innerText;
-        copyCmd("!код " + code);
+function copyModalCode() {
+    const cmd = document.getElementById('modal-cmd-text').innerText;
+    copyCmd(cmd);
+}
     }
 
     const COSMETIC_TITLES = [
