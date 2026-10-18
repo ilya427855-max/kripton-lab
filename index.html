@@ -59,7 +59,7 @@
             color: #fff;
             outline: none;
             font-size: 13px;
-            width: 140px;
+            width: 150px;
         }
         .auth-bar button {
             background: rgba(0, 240, 255, 0.15);
@@ -124,12 +124,19 @@
             color: var(--neon-blue);
             font-weight: 600;
         }
+        .sync-indicator {
+            font-size: 11px;
+            color: var(--neon-blue);
+            font-family: monospace;
+            margin-top: 2px;
+            opacity: 0.85;
+        }
         .user-cosmetics {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
             font-size: 12px;
-            margin-top: 4px;
+            margin-top: 6px;
         }
         .user-cosmetic-chip {
             background: #080c14;
@@ -180,6 +187,129 @@
         .stat-card .val { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 2px; }
         .stat-card .lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
+        /* Квантовая Капсула Дня */
+        .capsule-widget {
+            background: linear-gradient(135deg, rgba(10, 15, 26, 0.95), rgba(15, 23, 42, 0.9));
+            border: 1px solid var(--border-highlight);
+            border-radius: 14px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        .capsule-widget::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--neon-blue);
+            box-shadow: 0 0 12px var(--neon-blue);
+        }
+        .capsule-left { display: flex; align-items: center; gap: 14px; }
+        .capsule-icon-box {
+            width: 54px; height: 54px;
+            border-radius: 12px;
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid var(--neon-blue);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 26px;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+            transition: transform 0.3s ease;
+        }
+        .capsule-widget.ready .capsule-icon-box {
+            animation: capsulePulse 2s infinite ease-in-out;
+        }
+        @keyframes capsulePulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 12px rgba(0, 240, 255, 0.3); }
+            50% { transform: scale(1.08); box-shadow: 0 0 22px rgba(0, 240, 255, 0.6); }
+        }
+        .capsule-info h3 { font-size: 16px; color: #fff; font-weight: 700; margin-bottom: 2px; }
+        .capsule-info p { font-size: 12px; color: var(--text-muted); }
+        .capsule-action-btn {
+            background: rgba(0, 240, 255, 0.15);
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.25s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .capsule-action-btn:hover:not(:disabled) {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        .capsule-action-btn:disabled {
+            background: #141c2c;
+            border-color: #283958;
+            color: #64748b;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Модальное окно вскрытия */
+        .capsule-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+        .capsule-modal {
+            background: #0d121d;
+            border: 2px solid var(--neon-blue);
+            border-radius: 16px;
+            max-width: 440px;
+            width: 90%;
+            padding: 26px;
+            text-align: center;
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.35);
+            position: relative;
+            animation: modalPop 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+        @keyframes modalPop {
+            from { opacity: 0; transform: scale(0.85); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .capsule-vault-anim { font-size: 56px; margin: 15px 0; filter: drop-shadow(0 0 15px var(--neon-blue)); display: inline-block; }
+        .capsule-vault-anim.shaking { animation: shakeVault 0.6s infinite ease-in-out; }
+        @keyframes shakeVault {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(-8deg) scale(1.05); }
+            75% { transform: rotate(8deg) scale(1.05); }
+        }
+        .capsule-result-code {
+            background: #070a10;
+            border: 1px dashed var(--neon-blue);
+            border-radius: 8px;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--neon-blue);
+            letter-spacing: 2px;
+            margin: 16px 0;
+            user-select: all;
+            cursor: pointer;
+            box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.1);
+        }
+
         .section-nav {
             display: flex;
             gap: 10px;
@@ -222,7 +352,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin-right: auto; /* Отодвигает кнопку достижений правее при желании */
+            margin-right: auto;
         }
         .lore-toggle-btn:hover, .lore-toggle-btn.active {
             background: #00e5ff;
@@ -333,7 +463,6 @@
             font-weight: bold;
             text-shadow: 0 0 6px rgba(0, 229, 255, 0.4);
         }
-        /* Конец стилей лора */
 
         .cat-filters {
             display: flex;
@@ -547,7 +676,7 @@
         </div>
         <div class="auth-bar">
             <span>👤 Исследователь:</span>
-            <input type="text" id="username-input" placeholder="Введите ник Twitch">
+            <input type="text" id="username-input" placeholder="Введите ник Twitch" onkeydown="if(event.key==='Enter') applyUser()">
             <button onclick="applyUser()">Загрузить</button>
         </div>
     </header>
@@ -559,6 +688,7 @@
                 <div class="avatar-box" id="avatar-icon">🔬</div>
                 <div class="id-details">
                     <h2><span id="p-username">Гость Лаборатории</span> <span class="rank-tag" id="p-level-tag">Уровень 1</span></h2>
+                    <div class="sync-indicator" id="sync-status">📡 Ожидание авторизации сотрудника...</div>
                     <div class="user-cosmetics">
                         <div class="user-cosmetic-chip">Звание: <strong id="p-active-title">«Не выбрано»</strong></div>
                         <div class="user-cosmetic-chip">Значок: <strong id="p-active-badge">[Не выбран]</strong></div>
@@ -604,6 +734,45 @@
             </div>
         </div>
     </section>
+
+    <!-- Виджет Квантовой Капсулы Дня -->
+    <section class="capsule-widget ready" id="capsule-section">
+        <div class="capsule-left">
+            <div class="capsule-icon-box" id="capsule-icon">☢️</div>
+            <div class="capsule-info">
+                <h3>Квантовая Капсула Дня</h3>
+                <p id="capsule-status-desc">Ежедневный контейнер готов к разгерметизации. Внутри: изотопы, опыт или шифры.</p>
+            </div>
+        </div>
+        <button class="capsule-action-btn" id="capsule-btn" onclick="openCapsuleModal()">
+            <span>Вскрыть Шлюз</span> 🔓
+        </button>
+    </section>
+
+    <!-- Модальное Окно Вскрытия Капсулы -->
+    <div class="capsule-modal-overlay" id="capsule-modal">
+        <div class="capsule-modal">
+            <h2 style="color: var(--neon-blue); font-size: 18px; text-transform: uppercase; letter-spacing: 1px;">
+                Разгерметизация Сектора
+            </h2>
+            <div class="capsule-vault-anim" id="vault-anim">📦</div>
+            <div>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.4;">
+                    Идёт откачка паров криптона... Контейнер раскрыт!
+                </p>
+                <div class="capsule-result-code" id="modal-code-display" onclick="copyModalCode()" title="Нажмите, чтобы скопировать">
+                    KRP-XXXX
+                </div>
+                <p style="font-size: 12px; color: #94a3b8; margin-bottom: 16px;">
+                    Отправьте команду <strong style="color: #fff;" id="modal-cmd-text">!код KRP-XXXX</strong> в чат трансляции, чтобы забрать лут!
+                </p>
+                <button class="capsule-action-btn" style="width: 100%; justify-content: center;" onclick="copyModalCode()">
+                    📋 Скопировать команду
+                </button>
+            </div>
+            <button style="position: absolute; top: 12px; right: 14px; background: none; border: none; color: #64748b; font-size: 18px; cursor: pointer;" onclick="closeCapsuleModal()">✕</button>
+        </div>
+    </div>
 
     <!-- Навигация и кнопка вызова ЛОРА прямо перед Достижениями -->
     <nav class="section-nav">
@@ -734,6 +903,8 @@
 <div class="toast" id="toast-msg">Команда скопирована!</div>
 
 <script>
+    const FIREBASE_BASE_URL = "https://kripton-lab-db-default-rtdb.europe-west1.firebasedatabase.app/";
+
     const XP_THRESHOLDS = [
         0, 100, 250, 450, 700,
         1000, 1400, 1900, 2500, 3200,
@@ -761,6 +932,66 @@
         unlockedAchs: new Set()
     };
 
+    async function loadUserData(targetUser, updateUrl = false) {
+        if (!targetUser || targetUser.trim() === "" || targetUser === "Гость Лаборатории") {
+            setSyncStatus("Ожидание авторизации сотрудника... (напишите !сайт в чат)");
+            return;
+        }
+
+        const cleanUser = targetUser.trim().toLowerCase().replace(/^@/, '');
+        setSyncStatus("⏳ Запрос данных из квантового хранилища...");
+
+        try {
+            const endpoint = `${FIREBASE_BASE_URL}users/${encodeURIComponent(cleanUser)}.json`;
+            const response = await fetch(endpoint);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+            const cloudData = await response.json();
+            if (cloudData) {
+                userData.username = cloudData.user || targetUser;
+                userData.xp = parseInt(cloudData.xp, 10) || 0;
+                userData.days = parseInt(cloudData.days, 10) || 0;
+                userData.chat = parseInt(cloudData.chatMessages, 10) || 0;
+                userData.exp = parseInt(cloudData.experiments, 10) || 0;
+                userData.ev = parseInt(cloudData.events, 10) || 0;
+                userData.anom = parseInt(cloudData.accidents, 10) || 0;
+                userData.title = cloudData.title || "";
+                userData.badge = cloudData.badge || "";
+
+                if (Array.isArray(cloudData.achievements)) {
+                    const ids = cloudData.achievements.map(code => {
+                        return typeof code === 'string' && code.startsWith('LAB-') ? parseInt(code.replace('LAB-', ''), 10) : parseInt(code, 10);
+                    }).filter(n => !isNaN(n));
+                    userData.unlockedAchs = new Set(ids);
+                } else {
+                    userData.unlockedAchs = new Set();
+                }
+
+                if (updateUrl && window.history && window.history.replaceState) {
+                    window.history.replaceState(null, '', `?u=${encodeURIComponent(cleanUser)}`);
+                }
+
+                setSyncStatus(`✔ Синхронизировано по Cloud Sync [${new Date().toLocaleTimeString()}]`);
+                updateProfileUI();
+                renderAchievements();
+                renderWardrobe();
+                return;
+            }
+        } catch (err) {
+            console.warn("[KRIPTON SYNC] Ошибка Firebase:", err);
+        }
+
+        parseUrlParams();
+        updateProfileUI();
+        renderAchievements();
+        renderWardrobe();
+    }
+
+    function setSyncStatus(text) {
+        const el = document.getElementById('sync-status');
+        if (el) el.innerText = text;
+    }
+
     function parseUrlParams() {
         try {
             const p = new URLSearchParams(window.location.search);
@@ -784,10 +1015,7 @@
             }
 
             if (p.has('t')) userData.title = p.get('t') || "";
-            else if (p.has('title')) userData.title = p.get('title') || "";
-
             if (p.has('b')) userData.badge = p.get('b') || "";
-            else if (p.has('badge')) userData.badge = p.get('badge') || "";
 
             if (p.has('a')) {
                 let b64 = p.get('a').replace(/-/g, '+').replace(/_/g, '/');
@@ -803,84 +1031,112 @@
                     }
                 }
                 userData.unlockedAchs = new Set(list);
-            } else if (p.has('ach')) {
-                const raw = p.get('ach');
-                const sep = raw.includes('-') ? '-' : ',';
-                const list = raw.split(sep).map(function(n) { return parseInt(n, 10); }).filter(function(n) { return !isNaN(n); });
-                userData.unlockedAchs = new Set(list);
             }
         } catch (e) {
             console.error("Ошибка разбора URL параметров:", e);
         }
     }
 
+    // Генерация кода капсулы
+    function generateDailyCode(username) {
+        const today = new Date().toISOString().slice(0, 10);
+        const seed = username.trim().toLowerCase() + "_" + today + "_KRIPTON36";
+        let hash = 0;
+        for (let i = 0; i < seed.length; i++) {
+            hash = ((hash << 5) - hash) + seed.charCodeAt(i);
+            hash |= 0;
+        }
+        return "KRP-" + (Math.abs(hash) % 9000 + 1000);
+    }
+
+    function checkCapsuleAvailability() {
+        const btn = document.getElementById('capsule-btn');
+        const desc = document.getElementById('capsule-status-desc');
+        const section = document.getElementById('capsule-section');
+        if (!btn || !desc) return;
+
+        if (!userData.username || userData.username === "Гость Лаборатории") {
+            btn.disabled = true;
+            btn.innerText = "Требуется авторизация";
+            desc.innerText = "Введите ник вверху или откройте свою персональную ссылку.";
+            section.classList.remove('ready');
+            return;
+        }
+
+        const today = new Date().toISOString().slice(0, 10);
+        const lastOpened = localStorage.getItem("lab_capsule_" + userData.username.toLowerCase());
+
+        if (lastOpened === today) {
+            btn.disabled = true;
+            btn.innerText = "Перезарядка ⏳";
+            desc.innerText = "Капсула за сегодня уже вскрыта. Следующий шлюз откроется в полночь.";
+            section.classList.remove('ready');
+        } else {
+            btn.disabled = false;
+            btn.innerHTML = '<span>Вскрыть Шлюз</span> 🔓';
+            desc.innerText = "Ежедневный контейнер готов к разгерметизации. Заберите свой лут!";
+            section.classList.add('ready');
+        }
+    }
+
+    function openCapsuleModal() {
+        const modal = document.getElementById('capsule-modal');
+        const vault = document.getElementById('vault-anim');
+        const codeDisplay = document.getElementById('modal-code-display');
+        const cmdText = document.getElementById('modal-cmd-text');
+        
+        modal.style.display = 'flex';
+        vault.className = "capsule-vault-anim shaking";
+        vault.innerText = "☣️";
+
+        setTimeout(() => {
+            vault.className = "capsule-vault-anim";
+            vault.innerText = "💎";
+            const code = generateDailyCode(userData.username);
+            codeDisplay.innerText = code;
+            cmdText.innerText = "!код " + code;
+
+            const today = new Date().toISOString().slice(0, 10);
+            localStorage.setItem("lab_capsule_" + userData.username.toLowerCase(), today);
+            checkCapsuleAvailability();
+        }, 700);
+    }
+
+    function closeCapsuleModal() {
+        document.getElementById('capsule-modal').style.display = 'none';
+    }
+
+    function copyModalCode() {
+        const code = document.getElementById('modal-code-display').innerText;
+        copyCmd("!код " + code);
+    }
+
     const COSMETIC_TITLES = [
-        { name: "На связи", achId: 25 },
-        { name: "За гранью", achId: 27 },
-        { name: "Неугасающий интерес", achId: 29 },
-        { name: "На пороге легенды", achId: 31 },
-        { name: "Проверен временем", achId: 33 },
-        { name: "Следопыт лаборатории", achId: 35 },
-        { name: "Память лаборатории", achId: 36 },
-        { name: "Три года открытий", achId: 38 },
-        { name: "Элемент системы", achId: 40 },
-        { name: "Секретный ингредиент", achId: 142 },
-        { name: "Уравнение хаоса", achId: 146 },
-        { name: "Перегрев установки", achId: 150 },
-        { name: "Эксперимент вне протокола", achId: 154 },
-        { name: "Сверхкритическая реакция", achId: 158 },
-        { name: "Ветеран вылазок", achId: 179 },
-        { name: "Сквозь огонь", achId: 182 },
-        { name: "Повелитель пустошей", achId: 185 },
-        { name: "Триста вылазок", achId: 187 },
-        { name: "Герой сопротивления", achId: 190 },
-        { name: "Легенда операций", achId: 192 },
-        { name: "Эпицентр аномалии", achId: 194 },
-        { name: "Ликвидатор", achId: 202 },
-        { name: "Ходячая катастрофа", achId: 203 },
-        { name: "Первооткрыватель", achId: 207 },
-        { name: "Творец аномалий", achId: 209 },
-        { name: "Мастер синтеза", achId: 216 },
-        { name: "Безупречный", achId: 217 },
-        { name: "Укротитель хаоса", achId: 223 },
-        { name: "Магистр флуктуаций", achId: 224 },
-        { name: "Константа", achId: 231 },
-        { name: "Хладнокровный", achId: 234 },
-        { name: "Полевой испытатель", achId: 235 },
-        { name: "Ключник Аномалий", achId: 273 },
+        { name: "На связи", achId: 25 }, { name: "За гранью", achId: 27 }, { name: "Неугасающий интерес", achId: 29 },
+        { name: "На пороге легенды", achId: 31 }, { name: "Проверен временем", achId: 33 }, { name: "Следопыт лаборатории", achId: 35 },
+        { name: "Память лаборатории", achId: 36 }, { name: "Три года открытий", achId: 38 }, { name: "Элемент системы", achId: 40 },
+        { name: "Секретный ингредиент", achId: 142 }, { name: "Уравнение хаоса", achId: 146 }, { name: "Перегрев установки", achId: 150 },
+        { name: "Эксперимент вне протокола", achId: 154 }, { name: "Сверхкритическая реакция", achId: 158 }, { name: "Ветеран вылазок", achId: 179 },
+        { name: "Сквозь огонь", achId: 182 }, { name: "Повелитель пустошей", achId: 185 }, { name: "Триста вылазок", achId: 187 },
+        { name: "Герой сопротивления", achId: 190 }, { name: "Легенда операций", achId: 192 }, { name: "Эпицентр аномалии", achId: 194 },
+        { name: "Ликвидатор", achId: 202 }, { name: "Ходячая катастрофа", achId: 203 }, { name: "Первооткрыватель", achId: 207 },
+        { name: "Творец аномалий", achId: 209 }, { name: "Мастер синтеза", achId: 216 }, { name: "Безупречный", achId: 217 },
+        { name: "Укротитель хаоса", achId: 223 }, { name: "Магистр флуктуаций", achId: 224 }, { name: "Константа", achId: 231 },
+        { name: "Хладнокровный", achId: 234 }, { name: "Полевой испытатель", achId: 235 }, { name: "Ключник Аномалий", achId: 273 },
         { name: "Создатель Вселенной", achId: 336 }
     ];
 
     const COSMETIC_BADGES = [
-        { name: "Золотой след", achId: 26 },
-        { name: "Свой", achId: 28 },
-        { name: "Опора", achId: 30 },
-        { name: "500+", achId: 32 },
-        { name: "Хранитель", achId: 34 },
-        { name: "Архивариус", achId: 39 },
-        { name: "Стабильная Нестабильность", achId: 141 },
-        { name: "Переменная Найдена", achId: 144 },
-        { name: "Лабораторный Прорыв", achId: 145 },
-        { name: "Эффект Криптона", achId: 148 },
-        { name: "Реакция Пошла", achId: 149 },
-        { name: "Новый Закон", achId: 152 },
-        { name: "На Грани", achId: 153 },
-        { name: "Алхимия Электричества", achId: 156 },
-        { name: "Невозможное Соединение", achId: 157 },
-        { name: "Великий Эксперимент", achId: 160 },
-        { name: "Сотня Сражений", achId: 178 },
-        { name: "Мастер Обороны", achId: 181 },
-        { name: "Несокрушимый", achId: 184 },
-        { name: "Стальной Заслон", achId: 188 },
-        { name: "Пятьсот Тревог", achId: 191 },
-        { name: "Хранитель Рубежей", achId: 193 },
-        { name: "Абсолютный Триумф", achId: 195 },
-        { name: "Взрывоустойчивый", achId: 201 },
-        { name: "Эврика", achId: 206 },
-        { name: "Чистый Синтез", achId: 215 },
-        { name: "Нестабильный", achId: 222 },
-        { name: "По Протоколу", achId: 230 },
-        { name: "Под Сирену", achId: 233 }
+        { name: "Золотой след", achId: 26 }, { name: "Свой", achId: 28 }, { name: "Опора", achId: 30 },
+        { name: "500+", achId: 32 }, { name: "Хранитель", achId: 34 }, { name: "Архивариус", achId: 39 },
+        { name: "Стабильная Нестабильность", achId: 141 }, { name: "Переменная Найдена", achId: 144 }, { name: "Лабораторный Прорыв", achId: 145 },
+        { name: "Эффект Криптона", achId: 148 }, { name: "Реакция Пошла", achId: 149 }, { name: "Новый Закон", achId: 152 },
+        { name: "На Грани", achId: 153 }, { name: "Алхимия Электричества", achId: 156 }, { name: "Невозможное Соединение", achId: 157 },
+        { name: "Великий Эксперимент", achId: 160 }, { name: "Сотня Сражений", achId: 178 }, { name: "Мастер Обороны", achId: 181 },
+        { name: "Несокрушимый", achId: 184 }, { name: "Стальной Заслон", achId: 188 }, { name: "Пятьсот Тревог", achId: 191 },
+        { name: "Хранитель Рубежей", achId: 193 }, { name: "Абсолютный Триумф", achId: 195 }, { name: "Взрывоустойчивый", achId: 201 },
+        { name: "Эврика", achId: 206 }, { name: "Чистый Синтез", achId: 215 }, { name: "Нестабильный", achId: 222 },
+        { name: "По Протоколу", achId: 230 }, { name: "Под Сирену", achId: 233 }
     ];
 
     const ALL_ACHIEVEMENTS = [];
@@ -1335,6 +1591,8 @@
         document.getElementById('stat-exp').innerText = userData.exp;
         document.getElementById('stat-ev').innerText = userData.ev;
         document.getElementById('stat-anom').innerText = userData.anom;
+
+        checkCapsuleAvailability();
     }
 
     let activeCatFilter = 'ALL';
@@ -1456,7 +1714,6 @@
         }
     }
 
-    // Функция переключения видимости блока ЛОРА
     function toggleLore() {
         const loreSection = document.getElementById('lore-section');
         const loreBtn = document.getElementById('loreBtn');
@@ -1494,16 +1751,21 @@
     function applyUser() {
         const val = document.getElementById('username-input').value.trim();
         if (val) {
-            userData.username = val;
-            updateProfileUI();
-            renderAchievements();
-            renderWardrobe();
+            loadUserData(val, true);
         }
     }
 
-    parseUrlParams();
-    updateProfileUI();
-    renderAchievements();
+    window.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+        const userParam = params.get('u') || params.get('user');
+        if (userParam) {
+            loadUserData(userParam, false);
+        } else {
+            parseUrlParams();
+            updateProfileUI();
+            renderAchievements();
+        }
+    });
 </script>
 </body>
 </html>
