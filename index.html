@@ -22,7 +22,7 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-        body { background: var(--bg-dark); color: var(--text-main); min-height: 100vh; padding: 20px 14px; line-height: 1.5; }
+        body { background: var(--bg-dark); color: var(--text-main); min-height: 100vh; padding: 20px 14px; line-height: 1.5; transition: background 0.3s; }
         .container { max-width: 1280px; margin: 0 auto; }
 
         header {
@@ -39,8 +39,9 @@
             gap: 14px;
         }
 
-        .logo { display: flex; align-items: center; gap: 12px; }
-        .logo-icon { font-size: 32px; filter: drop-shadow(0 0 8px var(--neon-blue)); }
+        .logo { display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; }
+        .logo-icon { font-size: 32px; filter: drop-shadow(0 0 8px var(--neon-blue)); transition: transform 0.25s ease; }
+        .logo:hover .logo-icon { transform: rotate(15deg) scale(1.1); }
         .logo-text h1 { font-size: 20px; color: var(--neon-blue); letter-spacing: 2px; text-transform: uppercase; }
         .logo-text p { font-size: 11px; color: var(--text-muted); }
 
@@ -114,7 +115,10 @@
             justify-content: center;
             font-size: 28px;
             box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
+            user-select: none;
+            transition: transform 0.2s;
         }
+        .avatar-box:hover { transform: scale(1.05); }
         .id-details h2 { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 4px; display: flex; align-items: center; gap: 10px; }
         .id-details .rank-tag {
             font-size: 11px;
@@ -174,7 +178,7 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
             gap: 10px;
         }
         .stat-card {
@@ -183,7 +187,9 @@
             border-radius: 8px;
             padding: 10px 12px;
             text-align: center;
+            transition: border-color 0.2s;
         }
+        .stat-card:hover { border-color: var(--border-highlight); }
         .stat-card .val { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 2px; }
         .stat-card .lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
@@ -260,7 +266,7 @@
             box-shadow: none;
         }
 
-        /* Модальное окно вскрытия */
+        /* Модальные окна */
         .capsule-modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -300,7 +306,7 @@
             border-radius: 8px;
             padding: 12px;
             font-family: monospace;
-            font-size: 20px;
+            font-size: 19px;
             font-weight: 800;
             color: var(--neon-blue);
             letter-spacing: 2px;
@@ -667,7 +673,7 @@
 
 <div class="container">
     <header>
-        <div class="logo">
+        <div class="logo" id="main-logo" title="KRIPTON LAB Terminal">
             <div class="logo-icon">⚗️</div>
             <div class="logo-text">
                 <h1>KRIPTON LAB</h1>
@@ -732,6 +738,10 @@
                 <div class="val" id="stat-anom">0</div>
                 <div class="lbl">Аномалий</div>
             </div>
+            <div class="stat-card" style="border-color: rgba(0, 240, 255, 0.35);">
+                <div class="val" id="stat-iso" style="color: var(--neon-blue);">0</div>
+                <div class="lbl">Изотопов Kr-36</div>
+            </div>
         </div>
     </section>
 
@@ -761,10 +771,10 @@
                     Идёт откачка паров криптона... Контейнер раскрыт!
                 </p>
                 <div class="capsule-result-code" id="modal-code-display" onclick="copyModalCode()" title="Нажмите, чтобы скопировать">
-                    KRP-XXXX
+                    KRP-XXXX SEC-XXXX
                 </div>
                 <p style="font-size: 12px; color: #94a3b8; margin-bottom: 16px;">
-                    Отправьте команду <strong style="color: #fff;" id="modal-cmd-text">!код KRP-XXXX</strong> в чат трансляции, чтобы забрать лут!
+                    Отправьте команду <strong style="color: #fff;" id="modal-cmd-text">!код KRP-XXXX SEC-XXXX</strong> в чат трансляции, чтобы забрать лут!
                 </p>
                 <button class="capsule-action-btn" style="width: 100%; justify-content: center;" onclick="copyModalCode()">
                     📋 Скопировать команду
@@ -774,7 +784,29 @@
         </div>
     </div>
 
-    <!-- Навигация и кнопка вызова ЛОРА прямо перед Достижениями -->
+    <!-- Модальное Окно Спец-Сектора -->
+    <div class="capsule-modal-overlay" id="classified-modal">
+        <div class="capsule-modal" style="border-color: #00e5ff; box-shadow: 0 0 45px rgba(0, 229, 255, 0.45); max-width: 500px;">
+            <h2 style="color: #00e5ff; font-size: 17px; text-transform: uppercase; letter-spacing: 1.5px;">
+                🧬 ЗАСЕКРЕЧЕННЫЙ СЕКТОР №36
+            </h2>
+            <div style="font-size: 52px; margin: 15px 0;">⚡⚗️⚡</div>
+            <p style="font-size: 13px; color: #b2ebf2; line-height: 1.5; margin-bottom: 14px;">
+                Ионо-вихревой резонанс ядра Криптония-36 зафиксирован! Протокол прямого доступа разблокирован.
+            </p>
+            <div class="capsule-result-code" style="font-size: 16px; border-color: #00e5ff; color: #00e5ff;" onclick="copyCmd('!секрет 36')">
+                !секрет 36
+            </div>
+            <p style="font-size: 11px; color: #64748b; margin-bottom: 16px;">
+                Шифр скопирован в память. Введите его в чате стрима для калибровки ядра!
+            </p>
+            <button class="capsule-action-btn" style="width: 100%; justify-content: center;" onclick="closeClassifiedModal()">
+                Принять протокол 🔒
+            </button>
+        </div>
+    </div>
+
+    <!-- Навигация и кнопка вызова ЛОРА -->
     <nav class="section-nav">
         <button class="lore-toggle-btn" id="loreBtn" onclick="toggleLore()">
             📁 АРХИВ СЕКТОРА №36 (ЛОР)
@@ -799,7 +831,7 @@
             <div class="lore-card">
                 <h3>👨‍🔬 Главный Научный Сотрудник</h3>
                 <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">
-                    Во главе бункера стоит <strong>Илья</strong> (в закрытых базах — <span class="neon-text">kriptoniya36</span>). 
+                    Во главе бункера стоит <strong>Илья</strong> (в закрытых базах — <span class="neon-text">kriptonIlya36</span>). 
                     Физик и программист, отработавший 2 года в настоящей Дурке. Поняв главную аксиому мультивселенной — <strong>безумие — это не баг, а фича</strong>, он приватизировал заброшенный бункер и переоборудовал его в полигон для тестов.
                 </p>
             </div>
@@ -853,7 +885,7 @@
         </div>
 
         <div class="lore-quote">
-            💡 <strong>Главный девиз Сектора №36:</strong> «Нет ничего невозможного. Есть только то, что мы ещё не успели взорвать, закодить и протестировать!» Наливай чай с галоперидолом и приступай к изучению своего досье ниже! ⚡
+            💡 <strong>Главный девиз Сектора №36:</strong> «Нет ничего невозможного. Есть только то, что мы ещё не успели взорвать, закодить и протестировать!» Наливай чай и приступай к изучению своего досье ниже! ⚡
         </div>
     </div>
 
@@ -927,10 +959,40 @@
         ev: 0,
         anom: 0,
         cmd: 0,
+        isotopes: 0,
         title: "",
         badge: "",
         unlockedAchs: new Set()
     };
+
+    function playLabBeep(type) {
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            if (type === 'click') {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(750, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(350, ctx.currentTime + 0.08);
+                gain.gain.setValueAtTime(0.08, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+                osc.connect(gain); gain.connect(ctx.destination);
+                osc.start(); osc.stop(ctx.currentTime + 0.08);
+            } else if (type === 'secret') {
+                [440, 554, 659, 880, 1108].forEach((f, i) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(f, ctx.currentTime + i * 0.08);
+                    gain.gain.setValueAtTime(0.09, ctx.currentTime + i * 0.08);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.08 + 0.35);
+                    osc.connect(gain); gain.connect(ctx.destination);
+                    osc.start(ctx.currentTime + i * 0.08);
+                    osc.stop(ctx.currentTime + i * 0.08 + 0.35);
+                });
+            }
+        } catch(e) {}
+    }
 
     async function loadUserData(targetUser, updateUrl = false) {
         if (!targetUser || targetUser.trim() === "" || targetUser === "Гость Лаборатории") {
@@ -955,6 +1017,7 @@
                 userData.exp = parseInt(cloudData.experiments, 10) || 0;
                 userData.ev = parseInt(cloudData.events, 10) || 0;
                 userData.anom = parseInt(cloudData.accidents, 10) || 0;
+                userData.isotopes = parseInt(cloudData.isotopes, 10) || 0;
                 userData.title = cloudData.title || "";
                 userData.badge = cloudData.badge || "";
 
@@ -1012,6 +1075,7 @@
                 if (p.has('exp')) userData.exp = parseInt(p.get('exp'), 10) || 0;
                 if (p.has('ev')) userData.ev = parseInt(p.get('ev'), 10) || 0;
                 if (p.has('anom')) userData.anom = parseInt(p.get('anom'), 10) || 0;
+                if (p.has('iso')) userData.isotopes = parseInt(p.get('iso'), 10) || 0;
             }
 
             if (p.has('t')) userData.title = p.get('t') || "";
@@ -1037,99 +1101,102 @@
         }
     }
 
-   // Генерация кода капсулы и персонального токена безопасности
-function generateDailyCode(username) {
-    const cleanUser = username.trim().toLowerCase();
-    const today = new Date().toISOString().slice(0, 10);
-    
-    // Пин-код
-    const seed = cleanUser + "_" + today + "_KRIPTON36_SECURE_KEY";
-    let hash = 0;
-    for (let i = 0; i < seed.length; i++) {
-        hash = ((hash << 5) - hash) + seed.charCodeAt(i);
-        hash |= 0;
-    }
-    const pin = Math.abs(hash) % 9000 + 1000;
-
-    // Секретный токен сессии
-    let tokenHash = 0;
-    const tokenSeed = cleanUser + "_TOKEN_" + today + "_LAB36";
-    for (let i = 0; i < tokenSeed.length; i++) {
-        tokenHash = ((tokenHash << 5) - tokenHash) + tokenSeed.charCodeAt(i);
-        tokenHash |= 0;
-    }
-    const token = "SEC-" + Math.abs(tokenHash).toString(16).toUpperCase();
-
-    return {
-        code: "KRP-" + pin,
-        token: token,
-        fullCommand: `!код KRP-${pin} ${token}`
-    };
-}
-
-function checkCapsuleAvailability() {
-    const btn = document.getElementById('capsule-btn');
-    const desc = document.getElementById('capsule-status-desc');
-    const section = document.getElementById('capsule-section');
-    if (!btn || !desc) return;
-
-    if (!userData.username || userData.username === "Гость Лаборатории") {
-        btn.disabled = true;
-        btn.innerText = "Требуется авторизация";
-        desc.innerText = "Введите ник вверху или откройте свою персональную ссылку.";
-        section.classList.remove('ready');
-        return;
-    }
-
-    const today = new Date().toISOString().slice(0, 10);
-    const lastOpened = localStorage.getItem("lab_capsule_" + userData.username.toLowerCase());
-
-    if (lastOpened === today) {
-        btn.disabled = true;
-        btn.innerText = "Перезарядка ⏳";
-        desc.innerText = "Капсула за сегодня уже вскрыта. Следующий шлюз откроется в полночь.";
-        section.classList.remove('ready');
-    } else {
-        btn.disabled = false;
-        btn.innerHTML = '<span>Вскрыть Шлюз</span> 🔓';
-        desc.innerText = "Ежедневный контейнер готов к разгерметизации. Заберите свой лут!";
-        section.classList.add('ready');
-    }
-}
-
-function openCapsuleModal() {
-    const modal = document.getElementById('capsule-modal');
-    const vault = document.getElementById('vault-anim');
-    const codeDisplay = document.getElementById('modal-code-display');
-    const cmdText = document.getElementById('modal-cmd-text');
-    
-    modal.style.display = 'flex';
-    vault.className = "capsule-vault-anim shaking";
-    vault.innerText = "☣️";
-
-    setTimeout(() => {
-        vault.className = "capsule-vault-anim";
-        vault.innerText = "💎";
-        const capsuleData = generateDailyCode(userData.username);
+    function generateDailyCode(username) {
+        const cleanUser = username.trim().toLowerCase();
+        const today = new Date().toISOString().slice(0, 10);
         
-        // Выводим код и защитный токен
-        codeDisplay.innerText = `${capsuleData.code} ${capsuleData.token}`;
-        cmdText.innerText = capsuleData.fullCommand;
+        const seed = cleanUser + "_" + today + "_KRIPTON36_SECURE_KEY";
+        let hash = 0;
+        for (let i = 0; i < seed.length; i++) {
+            hash = ((hash << 5) - hash) + seed.charCodeAt(i);
+            hash |= 0;
+        }
+        const pin = Math.abs(hash) % 9000 + 1000;
+
+        let tokenHash = 0;
+        const tokenSeed = cleanUser + "_TOKEN_" + today + "_LAB36";
+        for (let i = 0; i < tokenSeed.Length || i < tokenSeed.length; i++) {
+            tokenHash = ((tokenHash << 5) - tokenHash) + tokenSeed.charCodeAt(i);
+            tokenHash |= 0;
+        }
+        const token = "SEC-" + Math.abs(tokenHash).toString(16).toUpperCase();
+
+        return {
+            code: "KRP-" + pin,
+            token: token,
+            fullCommand: `!код KRP-${pin} ${token}`
+        };
+    }
+
+    function checkCapsuleAvailability() {
+        const btn = document.getElementById('capsule-btn');
+        const desc = document.getElementById('capsule-status-desc');
+        const section = document.getElementById('capsule-section');
+        if (!btn || !desc) return;
+
+        if (!userData.username || userData.username === "Гость Лаборатории") {
+            btn.disabled = true;
+            btn.innerText = "Требуется авторизация";
+            desc.innerText = "Введите ник вверху или откройте свою персональную ссылку.";
+            section.classList.remove('ready');
+            return;
+        }
 
         const today = new Date().toISOString().slice(0, 10);
-        localStorage.setItem("lab_capsule_" + userData.username.toLowerCase(), today);
-        checkCapsuleAvailability();
-    }, 700);
-}
+        const lastOpened = localStorage.getItem("lab_capsule_" + userData.username.toLowerCase());
 
-function closeCapsuleModal() {
-    document.getElementById('capsule-modal').style.display = 'none';
-}
+        if (lastOpened === today) {
+            btn.disabled = false;
+            btn.innerHTML = '<span>Код Дня</span> 📋';
+            desc.innerText = "Капсула на сегодня уже открыта. Нажмите, чтобы снова просмотреть или скопировать код.";
+            section.classList.remove('ready');
+        } else {
+            btn.disabled = false;
+            btn.innerHTML = '<span>Вскрыть Шлюз</span> 🔓';
+            desc.innerText = "Ежедневный контейнер готов к разгерметизации. Заберите свой лут!";
+            section.classList.add('ready');
+        }
+    }
 
-function copyModalCode() {
-    const cmd = document.getElementById('modal-cmd-text').innerText;
-    copyCmd(cmd);
-}
+    function openCapsuleModal() {
+        playLabBeep('click');
+        const modal = document.getElementById('capsule-modal');
+        const vault = document.getElementById('vault-anim');
+        const codeDisplay = document.getElementById('modal-code-display');
+        const cmdText = document.getElementById('modal-cmd-text');
+        
+        modal.style.display = 'flex';
+        vault.className = "capsule-vault-anim shaking";
+        vault.innerText = "☣️";
+
+        setTimeout(() => {
+            vault.className = "capsule-vault-anim";
+            vault.innerText = "💎";
+            const capsuleData = generateDailyCode(userData.username);
+            
+            codeDisplay.innerText = `${capsuleData.code} ${capsuleData.token}`;
+            cmdText.innerText = capsuleData.fullCommand;
+
+            const today = new Date().toISOString().slice(0, 10);
+            localStorage.setItem("lab_capsule_" + userData.username.toLowerCase(), today);
+            checkCapsuleAvailability();
+        }, 650);
+    }
+
+    function closeCapsuleModal() {
+        playLabBeep('click');
+        document.getElementById('capsule-modal').style.display = 'none';
+    }
+
+    function copyModalCode() {
+        playLabBeep('click');
+        const cmd = document.getElementById('modal-cmd-text').innerText;
+        copyCmd(cmd);
+    }
+
+    function closeClassifiedModal() {
+        playLabBeep('click');
+        document.getElementById('classified-modal').style.display = 'none';
     }
 
     const COSMETIC_TITLES = [
@@ -1612,6 +1679,9 @@ function copyModalCode() {
         document.getElementById('stat-exp').innerText = userData.exp;
         document.getElementById('stat-ev').innerText = userData.ev;
         document.getElementById('stat-anom').innerText = userData.anom;
+        
+        const isoEl = document.getElementById('stat-iso');
+        if (isoEl) isoEl.innerText = userData.isotopes || 0;
 
         checkCapsuleAvailability();
     }
@@ -1620,6 +1690,7 @@ function copyModalCode() {
     let activeStatusFilter = 'ALL';
 
     function setCategoryFilter(cat, btn) {
+        playLabBeep('click');
         activeCatFilter = cat;
         if (btn) {
             document.querySelectorAll('.cat-btn').forEach(function(b) { b.classList.remove('active'); });
@@ -1629,6 +1700,7 @@ function copyModalCode() {
     }
 
     function setStatusFilter(status, btn) {
+        playLabBeep('click');
         activeStatusFilter = status;
         if (btn) {
             document.querySelectorAll('.filter-status-btn').forEach(function(b) { b.classList.remove('active'); });
@@ -1700,7 +1772,7 @@ function copyModalCode() {
                 '</div>' +
                 '<div class="cosmetic-action">' + (isUnlocked ? 'Экипировать' : 'Закрыто') + '</div>';
             if (isUnlocked) {
-                card.onclick = function() { copyCmd('!титул ' + item.name); };
+                card.onclick = function() { playLabBeep('click'); copyCmd('!титул ' + item.name); };
             }
             tBox.appendChild(card);
         });
@@ -1716,13 +1788,14 @@ function copyModalCode() {
                 '</div>' +
                 '<div class="cosmetic-action">' + (isUnlocked ? 'Закрепить' : 'Закрыто') + '</div>';
             if (isUnlocked) {
-                card.onclick = function() { copyCmd('!значок ' + item.name); };
+                card.onclick = function() { playLabBeep('click'); copyCmd('!значок ' + item.name); };
             }
             bBox.appendChild(card);
         });
     }
 
     function switchTab(tab, btn) {
+        playLabBeep('click');
         document.querySelectorAll('.nav-btn').forEach(function(b) { b.classList.remove('active'); });
         if (btn) btn.classList.add('active');
         if (tab === 'catalog') {
@@ -1736,6 +1809,7 @@ function copyModalCode() {
     }
 
     function toggleLore() {
+        playLabBeep('click');
         const loreSection = document.getElementById('lore-section');
         const loreBtn = document.getElementById('loreBtn');
         
@@ -1770,17 +1844,43 @@ function copyModalCode() {
     }
 
     function applyUser() {
+        playLabBeep('click');
         const val = document.getElementById('username-input').value.trim();
         if (val) {
+            localStorage.setItem('kripton_lab_last_user', val);
             loadUserData(val, true);
         }
+    }
+
+    // Обработчик секретного сектора
+    let logoClicks = 0;
+    let logoTimer = null;
+    const logoEl = document.getElementById('main-logo');
+    if (logoEl) {
+        logoEl.addEventListener('click', () => {
+            logoClicks++;
+            clearTimeout(logoTimer);
+            logoTimer = setTimeout(() => { logoClicks = 0; }, 1200);
+
+            if (logoClicks >= 3) {
+                logoClicks = 0;
+                playLabBeep('secret');
+                const classifiedModal = document.getElementById('classified-modal');
+                if (classifiedModal) classifiedModal.style.display = 'flex';
+            }
+        });
     }
 
     window.addEventListener('DOMContentLoaded', () => {
         const params = new URLSearchParams(window.location.search);
         const userParam = params.get('u') || params.get('user');
+        const savedUser = localStorage.getItem('kripton_lab_last_user');
+
         if (userParam) {
+            localStorage.setItem('kripton_lab_last_user', userParam);
             loadUserData(userParam, false);
+        } else if (savedUser) {
+            loadUserData(savedUser, false);
         } else {
             parseUrlParams();
             updateProfileUI();
