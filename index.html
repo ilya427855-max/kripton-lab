@@ -78,7 +78,7 @@
             color: #000;
         }
 
-        /* 1. Карточка Профиля */
+        /* Карточка профиля */
         .profile-plaque {
             background: linear-gradient(135deg, rgba(15, 20, 31, 0.95), rgba(20, 28, 44, 0.85));
             border: 1px solid var(--border-highlight);
@@ -194,7 +194,7 @@
         .stat-card .val { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 2px; }
         .stat-card .lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* БОЛЬШАЯ ПЛАШКА: ЗАЧЕМ ВСЁ ЭТО УСТРОЕНО (ГИД) */
+        /* Плашка гида */
         .system-guide-plaque {
             background: linear-gradient(135deg, rgba(12, 17, 28, 0.98), rgba(18, 23, 38, 0.94));
             border: 1px solid rgba(0, 240, 255, 0.35);
@@ -356,9 +356,11 @@
             border-color: #283958;
             color: #64748b;
             cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
-        /* Навигационная панель терминала */
+        /* Навигационная панель */
         .section-nav {
             display: flex;
             gap: 8px;
@@ -447,7 +449,7 @@
         .lore-list li strong { color: #f1f5f9; }
         .neon-text { color: #00e5ff; font-weight: bold; text-shadow: 0 0 6px rgba(0, 229, 255, 0.4); }
 
-        /* Вкладки: Каталог 336 ачивок и Гардероб */
+        /* Вкладки */
         .module-tab { display: none; animation: tabFade 0.25s ease-out; }
         @keyframes tabFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -496,7 +498,7 @@
         .cosmetic-card.unlocked .cosmetic-action { background: rgba(0, 240, 255, 0.15); color: var(--neon-blue); border: 1px solid rgba(0, 240, 255, 0.3); }
         .cosmetic-card.locked .cosmetic-action { background: #141c2c; color: var(--locked-text); }
 
-        /* МОДУЛЬ: ЧЁРНЫЙ РЫНОК */
+        /* Чёрный рынок */
         .module-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -519,7 +521,7 @@
         .market-card:hover { border-color: var(--neon-blue); transform: translateY(-2px); }
         .market-price { color: var(--neon-blue); font-weight: 700; font-size: 13px; margin: 8px 0; }
 
-        /* МОДУЛЬ: МЕДПУНКТ */
+        /* Медпункт */
         .quiz-option {
             background: #080c14; border: 1px solid var(--border); border-radius: 8px;
             padding: 12px 16px; margin-bottom: 10px; cursor: pointer; font-size: 13px;
@@ -527,7 +529,7 @@
         }
         .quiz-option:hover { border-color: var(--neon-blue); background: rgba(0, 240, 255, 0.06); }
 
-        /* МОДУЛЬ: ЗАЛ СЛАВЫ И СЕЗОННЫЙ ТАЙМЕР */
+        /* Зал славы и таймер */
         .season-timer-card {
             display: flex; justify-content: space-between; align-items: center;
             background: linear-gradient(90deg, #090e18, #161228);
@@ -546,15 +548,8 @@
             background: #090e18; border: 1px solid var(--border); border-radius: 10px;
             padding: 18px; margin-top: 18px;
         }
-        .debuff-list {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; margin-top: 12px;
-        }
-        .debuff-item {
-            background: #080c14; border: 1px solid var(--border); border-radius: 6px; padding: 10px; font-size: 12px;
-        }
-        .debuff-item strong { color: #d8b4fe; }
 
-        /* ФИОЛЕТОВАЯ ПЛАШКА-ФУТЕР */
+        /* Фиолетовая плашка-футер */
         .footer-banner-plaque {
             margin-top: 35px;
             background: linear-gradient(135deg, rgba(168, 85, 247, 0.12), rgba(15, 20, 31, 0.95));
@@ -574,7 +569,6 @@
         .footer-banner-plaque h4 { font-size: 15px; color: #d8b4fe; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
         .footer-banner-plaque p { font-size: 12px; color: #cbd5e1; margin-top: 2px; }
 
-        /* Тост и Модальные окна */
         .toast {
             position: fixed; bottom: 20px; right: 20px;
             background: var(--neon-blue); color: #000;
@@ -664,9 +658,10 @@
                 <div class="val" id="stat-ev">0</div>
                 <div class="lbl">Вылазок</div>
             </div>
+            <!-- ЗАМЕНА «АНОМАЛИЙ»: Теперь здесь счетчик раскрытых секретов Категории 8 -->
             <div class="stat-card">
-                <div class="val" id="stat-anom">0</div>
-                <div class="lbl">Аномалий</div>
+                <div class="val" id="stat-secrets" style="color: var(--neon-purple);">0 / 30</div>
+                <div class="lbl">Секретов</div>
             </div>
             <div class="stat-card" style="border-color: rgba(0, 240, 255, 0.4);">
                 <div class="val" id="stat-iso" style="color: var(--neon-blue);">0</div>
@@ -675,7 +670,7 @@
         </div>
     </section>
 
-    <!-- БОЛЬШАЯ ПЛАШКА: ЗАЧЕМ ВСЁ ЭТО УСТРОЕНО? ФИЛОСОФИЯ KRIPTON LAB (НАД КАПСУЛОЙ) -->
+    <!-- БОЛЬШАЯ ПЛАШКА: ЗАЧЕМ ВСЁ ЭТО УСТРОЕНО? (НАД КАПСУЛОЙ ДНЯ) -->
     <section class="system-guide-plaque">
         <div class="guide-header">
             <div class="guide-title">
@@ -695,7 +690,7 @@
             </div>
             <div class="guide-item">
                 <h4>☢️ Редкие Изотопы Kr-36</h4>
-                <p>Особая валюта за капсулы дня и смены. Трать её на Чёрном Рынке: покупай себе право включить сирену для всего стрима или заказывай безумные челленджи в катки стримеру!</p>
+                <p>Особая валюта за капсулы дня и смены. Трать её на Чёрном Рынке: покупай себе право включить сирену для всего стрима или заказывай челленджи в катки стримеру!</p>
             </div>
             <div class="guide-item">
                 <h4>🧪 Власть над стримером: «Колба Судьбы»</h4>
@@ -743,7 +738,7 @@
         <button class="nav-btn" onclick="switchNav('hof', this)">🎖️ Зал Славы и Колба</button>
     </nav>
 
-    <!-- ВЫПАДАЮЩИЙ ЛОР -->
+    <!-- Выпадающий ЛОР -->
     <div id="lore-section" class="lore-container">
         <div class="lore-header">
             <h2 class="lore-title">☢️ СЕКРЕТНЫЙ АРХИВ СЕКТОРА №36: ДОСЬЕ KRIPTON LAB</h2>
@@ -822,31 +817,31 @@
         </div>
     </section>
 
-    <!-- Вкладка 3: ЧЁРНЫЙ РЫНОК ИЗОТОПОВ (+ ЗАКАЗ ЧЕЛЛЕНДЖЕЙ) -->
+    <!-- Вкладка 3: ЧЁРНЫЙ РЫНОК ИЗОТОПОВ -->
     <section id="tab-market" class="module-tab">
         <div class="module-card">
             <div class="module-title">☢️ ЧЁРНЫЙ РЫНОК СЕКТОРА №36 (ТРАТА ИЗОТОПОВ Kr-36)</div>
             <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
-                Изотопы Криптония-36 — редчайший ресурс за капсулы дня, аномалии и стрики вахт. Обменивайте их на уникальные привилегии и прямое влияние на катки стримера:
+                Изотопы Криптония-36 — редчайший ресурс за капсулы дня, аномалии и стрики вахт. Обменивайте их на уникальные привилегии и прямое влияние на трансляцию:
             </p>
 
             <div class="market-grid">
-                <!-- Заказ челленджа (интегрирован из брифинга) -->
+                <!-- Заказ челленджа с рероллом за изотопы и кулдауном 15 минут -->
                 <div class="market-card" style="border-color: rgba(168, 85, 247, 0.45);">
                     <div>
                         <div style="font-size: 11px; font-weight: 800; color: #c084fc;">ИНТЕРАКТИВ В ПРЯМОМ ЭФИРЕ</div>
                         <h4 style="color: #fff; margin-top: 4px;">🎯 Заказ боевого челленджа для стримера</h4>
-                        <div class="market-price">Цена: 2 Изотопа Kr-36</div>
+                        <div class="market-price">Цена заказа: 2 Изотопа Kr-36</div>
                         <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">
-                            Заставь стримера сыграть следующую катку / раунд с дебаффом! Сгенерируй случайное условие или придумай своё:
+                            Заставь стримера сыграть следующую катку / раунд с условием! Смена задачи стоит <strong>1 Изотоп</strong> (лимит: 1 раз в 15 минут):
                         </p>
                         <div style="background: #080c14; border: 1px dashed var(--neon-purple); border-radius: 6px; padding: 10px; font-size: 12px; color: #e2e8f0; margin-bottom: 10px;" id="market-briefing-text">
                             CS2: Сыграть раунд только с пистолетом без брони.
                         </div>
                     </div>
                     <div style="display: flex; gap: 8px; flex-direction: column;">
-                        <button class="capsule-action-btn" style="padding: 7px 12px; font-size: 12px; justify-content: center; border-color: #a855f7; color: #d8b4fe;" onclick="rollMarketChallenge()">
-                            🎲 Сгенерировать другой челлендж
+                        <button class="capsule-action-btn" id="reroll-btn" style="padding: 7px 12px; font-size: 12px; justify-content: center; border-color: #a855f7; color: #d8b4fe;" onclick="rollMarketChallenge()">
+                            <span>🎲 Перегенерировать (1 изотоп)</span>
                         </button>
                         <button class="capsule-action-btn" style="padding: 8px 12px; font-size: 12px; justify-content: center;" onclick="copyMarketChallenge()">
                             📋 Скопировать команду вызова
@@ -869,12 +864,12 @@
                     </button>
                 </div>
 
-                <!-- Катализатор синтеза -->
+                <!-- Катализатор синтеза (ЦЕНА ПОВЫШЕНА ДО 3 ИЗОТОПОВ) -->
                 <div class="market-card">
                     <div>
                         <div style="font-size: 11px; font-weight: 800; color: var(--neon-green);">ЗАЩИТА РЕАКТОРА</div>
                         <h4 style="color: #fff; margin-top: 4px;">🧪 Катализатор сверхсинтеза</h4>
-                        <div class="market-price">Цена: 1 Изотоп Kr-36</div>
+                        <div class="market-price" style="color: var(--neon-gold);">Цена: 3 Изотопа Kr-36</div>
                         <p style="font-size: 12px; color: var(--text-muted);">
                             100% защита от взрыва колбы и гарантированный утроенный джекпот исследовательского опыта.
                         </p>
@@ -917,7 +912,7 @@
         </div>
     </section>
 
-    <!-- Вкладка 4: МЕДПУНКТ (ТЕСТ НА АДЕКВАТНОСТЬ) -->
+    <!-- Вкладка 4: МЕДПУНКТ (РАСШИРЕННЫЙ ВАРИАТИВНЫЙ ТЕСТ) -->
     <section id="tab-medbay" class="module-tab">
         <div class="module-card">
             <div class="module-title">📋 МЕДПУНКТ БУНКЕРА (ИНТЕРАКТИВНЫЙ ТЕСТ НА АДЕКВАТНОСТЬ)</div>
@@ -927,53 +922,44 @@
                 <div id="quiz-options-list"></div>
             </div>
             <div id="quiz-result-box" style="display: none; text-align: center; padding: 20px;">
-                <div style="font-size: 48px; margin-bottom: 10px;">🩺</div>
+                <div style="font-size: 48px; margin-bottom: 10px;" id="med-icon">🩺</div>
                 <h3 style="color: var(--neon-purple); margin-bottom: 6px;" id="med-diag-title">Диагноз</h3>
                 <div style="font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 10px;" id="med-crazy-val">Уровень безумия: 86%</div>
-                <p style="font-size: 13px; color: #cbd5e1; max-width: 500px; margin: 0 auto 16px;" id="med-diag-desc">Описание</p>
-                <button class="capsule-action-btn" onclick="copyQuizResult()">
-                    📋 Скопировать диагноз для чата Twitch
-                </button>
+                <p style="font-size: 13px; color: #cbd5e1; max-width: 520px; margin: 0 auto 16px;" id="med-diag-desc">Описание</p>
+                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                    <button class="capsule-action-btn" onclick="copyQuizResult()">
+                        📋 Скопировать диагноз для чата Twitch
+                    </button>
+                    <button class="capsule-action-btn" style="border-color: #a855f7; color: #d8b4fe;" onclick="restartQuiz()">
+                        🔄 Пройти переосвидетельствование
+                    </button>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Вкладка 5: ЗАЛ СЛАВЫ И КОЛБА СУДЬБЫ (С СЕЗОННЫМ ТАЙМЕРОМ) -->
+    <!-- Вкладка 5: ЗАЛ СЛАВЫ И КОЛБА СУДЬБЫ (БЕЗ ДЕБАФФОВ) -->
     <section id="tab-hof" class="module-tab">
-        <!-- Таймер сезона (перенесён сюда) -->
         <div class="season-timer-card">
             <div>
                 <h3 style="color: #d8b4fe; font-size: 17px; text-transform: uppercase; letter-spacing: 1px;">
-                    ⏳ ДО ВЗРЫВА КОЛБЫ СУДЬБЫ (ФИНАЛ СЕЗОНА):
+                    ⏳ ДО ФИНАЛА СЕЗОНА:
                 </h3>
                 <p style="font-size: 12px; color: var(--text-muted); margin-top: 3px;">
-                    Обратный отсчёт до 1-го числа месяца: подведение итогов и выбор испытания для Ильи в прямом эфире!
+                    Обратный отсчёт до 1-го числа месяца: фиксация лидеров и вскрытие Колбы Судьбы на стриме!
                 </p>
             </div>
             <div class="timer-digits" id="season-countdown">00д 00ч 00м 00с</div>
         </div>
 
         <div class="module-card">
-            <div class="module-title">🎖️ ЗАЛ СЛАВЫ И ПРАВИЛА «КОЛБЫ СУДЬБЫ»</div>
+            <div class="module-title">🎖️ ЗАЛ СЛАВЫ И РЕГЛАМЕНТ «КОЛБЫ СУДЬБЫ»</div>
             
             <div class="flask-rules-box">
                 <h4 style="color: var(--neon-blue); margin-bottom: 8px;">🧪 Как работает сезонная Колба Судьбы?</h4>
                 <p style="font-size: 13px; color: #cbd5e1; line-height: 1.5;">
-                    В полночь перед сбросом сезона фиксируется исследователь, занявший <strong>1-е место по опыту и изотопам</strong>. Победитель получает право в прямом эфире активировать Колбу Судьбы — стример обязан без споров выполнить выпавшее испытание в катке!
+                    В полночь перед сбросом сезона фиксируется исследователь, занявший <strong>1-е место по опыту и изотопам</strong>. Победитель месяца получает право в прямом эфире активировать Колбу Судьбы и наложить на стримера победный дебафф или челлендж на катку!
                 </p>
-
-                <div style="font-size: 12px; font-weight: 700; color: #d8b4fe; margin-top: 14px; text-transform: uppercase;">
-                    Каталог испытаний колбы (без камеры, чистый геймплей и звук):
-                </div>
-                <div class="debuff-list">
-                    <div class="debuff-item"><strong>«Слепой лаборант»</strong>: 1 катка полностью без прицела и интерфейса (HUD).</div>
-                    <div class="debuff-item"><strong>«Аномальная сенса»</strong>: Выкрутить сенсу мыши ровно в 2.5 раза выше или ниже на матч.</div>
-                    <div class="debuff-item"><strong>«Звуковой вакуум»</strong>: Сыграть катку в абсолютной тишине без звука игры.</div>
-                    <div class="debuff-item"><strong>«Инверсия моторики»</strong>: Включить инверсию мыши по вертикали на 1 раунд.</div>
-                    <div class="debuff-item"><strong>«Голосовой модулятор»</strong>: 10 минут говорить роботизированным или гелиевым голосом.</div>
-                    <div class="debuff-item"><strong>«Радиомолчание»</strong>: Молчать 5 минут в эфире (общение только звуками саундборда).</div>
-                    <div class="debuff-item"><strong>«Золотая реакция»</strong>: Испытание отменяется, а победителю дарится Twitch Sub или VIP!</div>
-                </div>
             </div>
 
             <div class="hof-grid">
@@ -981,7 +967,7 @@
                     <div style="font-size: 11px; color: var(--neon-gold); font-weight: 800;">ПРОШЛЫЙ СЕЗОН (СЕНТЯБРЬ)</div>
                     <h3 style="color: #fff; margin: 6px 0;">Победитель: @ryblyan_bor</h3>
                     <p style="font-size: 13px; color: #cbd5e1; margin-bottom: 8px;">
-                        Открыл Колбу Судьбы и наложил на стримера дебафф: «Сыграть 3 раунда в CS2 без звука».
+                        Вскрыл Колбу Судьбы и наложил на стримера победный челлендж в прямом эфире!
                     </p>
                     <div style="font-size: 11px; color: var(--neon-blue);">🏆 Заработано за сезон: 4 820 XP</div>
                 </div>
@@ -998,7 +984,7 @@
         </div>
     </section>
 
-    <!-- Фиолетовая плашка в конце страницы -->
+    <!-- Фиолетовая плашка в конце страницы (ПОСТОЯННАЯ ПЛАНКА УБРАНА) -->
     <footer class="footer-banner-plaque">
         <div class="f-left">
             <div class="f-icon">⚛️</div>
@@ -1008,7 +994,7 @@
             </div>
         </div>
         <div style="font-size: 12px; font-family: monospace; color: #d8b4fe;">
-            ЭЛЕМЕНТ: Kr-36 • ПОСТОЯННАЯ ПЛАНКА
+            ЭЛЕМЕНТ: Kr-36 • СЕКТОР №36
         </div>
     </footer>
 </div>
@@ -1203,7 +1189,14 @@
         document.getElementById('stat-chat').innerText = userData.chat;
         document.getElementById('stat-exp').innerText = userData.exp;
         document.getElementById('stat-ev').innerText = userData.ev;
-        document.getElementById('stat-anom').innerText = userData.anom;
+
+        // Подсчёт раскрытых секретов (Категория 8: ID 266..295)
+        let unlockedSecrets = 0;
+        for (let id = 266; id <= 295; id++) {
+            if (userData.unlockedAchs.has(id)) unlockedSecrets++;
+        }
+        const secretEl = document.getElementById('stat-secrets');
+        if (secretEl) secretEl.innerText = unlockedSecrets + " / 30";
         
         const isoEl = document.getElementById('stat-iso');
         if (isoEl) isoEl.innerText = userData.isotopes || 0;
@@ -1278,52 +1271,126 @@
     setInterval(updateSeasonTimer, 1000);
     updateSeasonTimer();
 
-    // Чёрный рынок: Генератор боевого челленджа
+    // Чёрный рынок: Генератор боевого челленджа с КУЛДАУНОМ 15 МИНУТ
     const MARKET_CHALLENGES = [
         "CS2: Сыграть раунд только с пистолетом без брони.",
         "CS2: Сыграть катку полностью без прицела и интерфейса (HUD).",
-        "Танки: Играть исключительно на фугасах без перехода в снайперский прицел.",
+        "Танки: Играть исключительно на фугасах без снайперского прицела.",
         "CS2: Стрелять только в прыжке или на бегу весь раунд.",
         "Шутер: Запрещено использовать спринт / бег всю следующую катку.",
-        "Игра: Выкрутить чувствительность мыши ровно в 2.5 раза выше привычной на 1 матч."
+        "CS2: Сыграть раунд только с дробовиком + световые гранаты.",
+        "Танки: Не останавливаться на месте при выстреле ни на секунду.",
+        "Игра: Не использовать гранаты и аптечки весь матч.",
+        "CS2: Раунд только с ножом и пистолетом P250."
     ];
     let curChallenge = MARKET_CHALLENGES[0];
+    const REROLL_COOLDOWN_MS = 15 * 60 * 1000; // 15 минут
+
+    function updateRerollButtonState() {
+        const btn = document.getElementById('reroll-btn');
+        if (!btn) return;
+        const lastReroll = parseInt(localStorage.getItem('lab_reroll_last_time') || '0', 10);
+        const now = Date.now();
+        const diff = now - lastReroll;
+
+        if (diff < REROLL_COOLDOWN_MS) {
+            const remainingSec = Math.ceil((REROLL_COOLDOWN_MS - diff) / 1000);
+            const m = Math.floor(remainingSec / 60);
+            const s = remainingSec % 60;
+            btn.disabled = true;
+            btn.innerHTML = `<span>⏳ Перезарядка: ${m}м ${String(s).padStart(2,'0')}с</span>`;
+        } else {
+            btn.disabled = false;
+            btn.innerHTML = `<span>🎲 Перегенерировать (1 изотоп)</span>`;
+        }
+    }
+    setInterval(updateRerollButtonState, 1000);
 
     function rollMarketChallenge() {
+        const lastReroll = parseInt(localStorage.getItem('lab_reroll_last_time') || '0', 10);
+        const now = Date.now();
+        if (now - lastReroll < REROLL_COOLDOWN_MS) {
+            copyToast("Кулдаун! Менять челлендж можно раз в 15 минут.");
+            return;
+        }
+
         playLabBeep('click');
-        curChallenge = MARKET_CHALLENGES[Math.floor(Math.random() * MARKET_CHALLENGES.length)];
+        let nextIndex;
+        do {
+            nextIndex = Math.floor(Math.random() * MARKET_CHALLENGES.length);
+        } while (MARKET_CHALLENGES[nextIndex] === curChallenge);
+
+        curChallenge = MARKET_CHALLENGES[nextIndex];
         document.getElementById('market-briefing-text').innerText = curChallenge;
+        localStorage.setItem('lab_reroll_last_time', now.toString());
+        updateRerollButtonState();
+        copyToast("Челлендж обновлён! Спишется 1 изотоп при активации в чате.");
     }
 
     function copyMarketChallenge() {
         copyCmd(`!крафт челлендж ${curChallenge}`);
     }
 
-    // Медпункт (Тест)
-    const QUIZ_DATA = [
-        { q: "Реактор издаёт басовитый гул, а кот в наушниках запел. Что делаем?", a: ["Срочно наливаем чай с криптонием", "Бежим в вентиляцию к коту", "Пишем !эксперимент в чат", "Зовём санитаров"] },
-        { q: "Илья случайно упал в пропасть во время катки. Ваша реакция?", a: ["Это замер гравитации!", "Пишем F в чат", "Кричим про физику Дурки", "Молча ставим смайл кота"] },
-        { q: "Вам предложили стакан ледяного чая в бункере. Ваши действия?", a: ["Выпить залпом ради науки", "Проверить на радиоактивность", "Поделиться с котом", "Залить в реактор"] },
+    // МЕДПУНКТ: БОЛЬШАЯ ВАРИАТИВНОСТЬ (ПУЛ ИЗ 15 ВОПРОСОВ И 6 РАЗНЫХ ДИАГНОЗОВ)
+    const QUIZ_POOL = [
+        { q: "Реактор издаёт басовитый гул, а кот в наушниках запел басом. Что делаем?", a: ["Срочно наливаем чай с криптонием", "Бежим в вентиляцию к коту", "Пишем !эксперимент в чат", "Зовём санитаров"] },
+        { q: "Илья случайно упал в пропасть во время катки. Ваша реакция?", a: ["Это замер гравитации!", "Пишем F в чат", "Кричим про физику Дурки", "Молча спамим кота"] },
+        { q: "Вам предложили стакан ледяного чая в бункере. Ваши действия?", a: ["Выпить залпом ради науки", "Проверить дозиметром", "Поделиться с котом", "Залить в реактор"] },
         { q: "В чате завыла Аномальная Тревога на 3 минуты!", a: ["Спамим сообщения для фарма XP", "Прячемся под стол", "Ищем секретный код", "Включаем саундборд"] },
-        { q: "Стример слил клатч 1 в 1 с ножом. Ваш вердикт?", a: ["Виноват инертный газ Криптон", "Это была тактическая разведка", "Санитары, фиксируйте!", "Ставим клип в архив"] }
+        { q: "Стример слил клатч 1 в 1 с ножом. Ваш вердикт?", a: ["Виноват инертный газ Криптон", "Это была тактическая разведка", "Санитары, фиксируйте!", "Ставим клип в архив"] },
+        { q: "Внезапно вскрылась Квантовая Капсула Дня. Что внутри?", a: ["Один изотоп и куча опыта", "Осколки взорванной пробирки", "Шифр от Сектора 36", "Питательный паёк кота"] },
+        { q: "Модератор достал неоновый банхаммер. Ваши действия?", a: ["Делаем вид, что читаем правила", "Кричим «Свободу подопытным!»", "Кидаем мем про санитаров", "Уходим на ночную смену"] },
+        { q: "Кот в наушниках внезапно сделал КУСЬ за палец!", a: ["Гладим в ответ (+10 к карме)", "Кормим рыбой в бункере", "Замеряем статический разряд", "Пишем в журнал инцидентов"] },
+        { q: "На часах 03:00 ночи, а стрим всё ещё идёт. Почему?", a: ["Ночная вахта сама себя не отстоит", "Ищем секретную ачивку", "Реактор требует охлаждения", "Потеряли счёт времени"] },
+        { q: "Что делать, если колба при синтезе разорвалась вдребезги?", a: ["Записать в копилку аварий", "Влить 3 изотопа на защиту", "Сказать, что так и задумывалось", "Сменить звание на «Ликвидатор»"] },
+        { q: "Вам поручили охранять Склад Изотопов. Ваш первый шаг?", a: ["Тайком забрать один изотоп", "Закрыться изнутри с котом", "Проверить герметичность шлюза", "Устроить чаепитие"] },
+        { q: "На экране появилось оповещение «Квантовый Шторм». Что это?", a: ["Фарм утроенного опыта в чате!", "Стример опять перегрузил код", "Приближение летающей тарелки", "Галлюцинация от переутомления"] },
+        { q: "Какой главный закон физики действует в Секторе №36?", a: ["Безумие — это не баг, а фича!", "Чай лечит любые баги", "Кот всегда прав", "Инертный газ не взрывается (почти)"] },
+        { q: "Какую экипировку вы выберете для исследователя?", a: ["Титул «Создатель Вселенной»", "Значок [Под Сирену]", "Белый халат и наушники", "Только банхаммер модератора"] },
+        { q: "Вам выпала возможность открыть «Колбу Судьбы». Что выберете?", a: ["Катку стримера без прицела", "Игру с выкрученной в 2.5 раза сенсой", "Забрать себе подарочный Sub", "Полное радиомолчание Ильи"] }
     ];
+
+    const DIAGNOSES = [
+        { title: "Хронический Кибер-Шизоид 1-й степени", icon: "🧬", crazy: "98%", desc: "Пациент полностью адаптирован к безумию бункера, воспринимает сливы каток как замер гравитации и слышит радиоволны кота. Допуск к реактору неограничен!" },
+        { title: "Патологический Адепт Криптона", icon: "⚛️", crazy: "89%", desc: "Кровь испытуемого светится бирюзовым неоном. Замечена нездоровая тяга к фарму изотопов и ночным дежурствам. Назначить 2 кружки чая и отправить в чат." },
+        { title: "Потенциальный Кибер-Санитар", icon: "🛡️", crazy: "54%", desc: "Уровень агрессии к нарушениям высок. Рефлексы наготове, рука тянется к банхаммеру. Рекомендовано выдать допуск к тревогам и значок «Опора»." },
+        { title: "Квантовый Лудоман Колбы", icon: "🧪", crazy: "92%", desc: "Пациент не может прожить стрим без команды !эксперимент. Взрывы пробирок вызывают у него улыбку. Прописан регулярный сброс карантина на Чёрном Рынке." },
+        { title: "Одержимый Маскотом (Кошачий Синдром)", icon: "🐾", crazy: "78%", desc: "Подопытный проводит больше времени у вентиляционной шахты, чем в чате. Склонен кормить кота редкими изотопами. Состояние признано милым и безопасным." },
+        { title: "Кандидат в Верховные Академики", icon: "📜", crazy: "83%", desc: "Аналитический склад ума. Помнит наизусть все 336 ачивок и тайные шифры. Годен к вскрытию финальной Колбы Судьбы без наркоза." }
+    ];
+
+    let currentQuiz = [];
     let quizIdx = 0;
     let quizAnswers = [];
 
-    function renderQuiz() {
-        if (quizIdx >= QUIZ_DATA.length) {
+    function startQuiz() {
+        // Выбираем 5 случайных вопросов из пула 15 вопросов
+        const shuffled = [...QUIZ_POOL].sort(() => 0.5 - Math.random());
+        currentQuiz = shuffled.slice(0, 5);
+        quizIdx = 0;
+        quizAnswers = [];
+        document.getElementById('quiz-container').style.display = 'block';
+        document.getElementById('quiz-result-box').style.display = 'none';
+        renderQuizStep();
+    }
+
+    function renderQuizStep() {
+        if (quizIdx >= currentQuiz.length) {
             document.getElementById('quiz-container').style.display = 'none';
             const resBox = document.getElementById('quiz-result-box');
             resBox.style.display = 'block';
-            const crazy = 80 + Math.floor(Math.random() * 19);
-            document.getElementById('med-crazy-val').innerText = `Уровень безумия: ${crazy}%`;
-            document.getElementById('med-diag-title').innerText = "ДИАГНОЗ: Лабораторно нестабилен (Сектор №36)";
-            document.getElementById('med-diag-desc').innerText = "Испытуемый проявляет полную адаптацию к безумию комплекса. Допуск к реактору и чату подтверждён!";
+            
+            // Выбираем диагноз на основе ответов/рандома
+            const diag = DIAGNOSES[Math.floor(Math.random() * DIAGNOSES.length)];
+            document.getElementById('med-icon').innerText = diag.icon;
+            document.getElementById('med-crazy-val').innerText = `Уровень безумия: ${diag.crazy}`;
+            document.getElementById('med-diag-title').innerText = `ДИАГНОЗ: ${diag.title}`;
+            document.getElementById('med-diag-desc').innerText = diag.desc;
             return;
         }
 
-        const cur = QUIZ_DATA[quizIdx];
-        document.getElementById('quiz-step-num').innerText = `ВОПРОС ${quizIdx + 1} ИЗ ${QUIZ_DATA.length}`;
+        const cur = currentQuiz[quizIdx];
+        document.getElementById('quiz-step-num').innerText = `ВОПРОС ${quizIdx + 1} ИЗ ${currentQuiz.length}`;
         document.getElementById('quiz-question-text').innerText = cur.q;
         const box = document.getElementById('quiz-options-list');
         box.innerHTML = '';
@@ -1336,15 +1403,21 @@
                 playLabBeep('click');
                 quizAnswers.push(i);
                 quizIdx++;
-                renderQuiz();
+                renderQuizStep();
             };
             box.appendChild(opt);
         });
     }
-    renderQuiz();
+
+    function restartQuiz() {
+        playLabBeep('click');
+        startQuiz();
+    }
 
     function copyQuizResult() {
-        copyCmd("!лог Мой диагноз в Медпункте: Безумие 94%, допущен к реактору Сектора №36!");
+        const title = document.getElementById('med-diag-title').innerText.replace('ДИАГНОЗ: ', '');
+        const crazy = document.getElementById('med-crazy-val').innerText;
+        copyCmd(`!лог Результат в Медпункте: [${title}] | ${crazy} | Допущен к Сектору №36!`);
     }
 
     // Генерация капсулы дня
@@ -1682,6 +1755,8 @@
             updateProfileUI();
             renderAchievements();
         }
+        updateRerollButtonState();
+        startQuiz();
     });
 </script>
 </body>
