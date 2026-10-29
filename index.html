@@ -1539,7 +1539,7 @@
         return { code: "KRP-" + pin, token: token, fullCommand: `!код KRP-${pin} ${token}` };
     }
 
-    function checkCapsuleAvailability() {
+     function checkCapsuleAvailability() {
         const btn = document.getElementById('capsule-btn');
         const desc = document.getElementById('capsule-status-desc');
         const section = document.getElementById('capsule-section');
@@ -1549,7 +1549,7 @@
             btn.disabled = true;
             btn.innerText = "Авторизуйтесь";
             desc.innerText = "Введите ник вверху для доступа к капсулам.";
-            section.classList.remove('ready');
+            section?.classList.remove('ready');
             return;
         }
 
@@ -1559,32 +1559,86 @@
         if (lastOpened === today) {
             btn.disabled = false;
             btn.innerHTML = '<span>Код Дня</span> 📋';
-            desc.innerText = "Капсула на сегодня уже открыта. Нажмите для повторного копирования.";
-            section.classList.remove('ready');
+            desc.innerText = "Капсула на сегодня уже открыта. Нажмите для повторного просмотра.";
+            section?.classList.remove('ready');
         } else {
             btn.disabled = false;
             btn.innerHTML = '<span>Вскрыть Шлюз</span> 🔓';
             desc.innerText = "Контейнер дня готов к разгерметизации. Заберите лут!";
-            section.classList.add('ready');
+            section?.classList.add('ready');
         }
     }
 
-    function openCapsuleModal() {
+    async function openCapsuleModal() {
         playLabBeep('click');
         const modal = document.getElementById('capsule-modal');
         const vault = document.getElementById('vault-anim');
+        const codeDisplay = document.getElementById('modal-code-display');
+        const cmdText = document.getElementById('modal-cmd-text');
+
+        if (!userData.username || userData.username === "Гость Лаборатории") {
+            copyToast("Сначала укажите ваш ник Twitch!");
+            return;
+        }
+
         modal.style.display = 'flex';
         vault.innerText = "☣️";
+        codeDisplay.innerText = "ГЕНЕРАЦИЯ ШЛЮЗА...";
+        cmdText.innerText = "Связь с базой данных...";
 
-        setTimeout(() => {
+        const cleanUser = userData.username.trim().replace(/^@/, '').toLowerCase();
+        const today = new Date().toISOString().slice(0, 10);
+
+        // Если сегодня капсула уже открывалась — показываем сохранённый токен
+        const storedToken = localStorage.getItem("lab_capsule_token_" + cleanUser);
+        const storedDate = localStorage.getItem("lab_capsule_" + cleanUser);
+        if (storedDate === today && storedToken) {
             vault.innerText = "💎";
-            const capsuleData = generateDailyCode(userData.username);
-            document.getElementById('modal-code-display').innerText = `${capsuleData.code} ${capsuleData.token}`;
-            document.getElementById('modal-cmd-text').innerText = capsuleData.fullCommand;
-            const today = new Date().toISOString().slice(0, 10);
-            localStorage.setItem("lab_capsule_" + userData.username.toLowerCase(), today);
-            checkCapsuleAvailability();
-        }, 550);
+            codeDisplay.innerText = `KRP-${storedToken}`;
+            cmdText.innerText = `!код KRP-${storedToken}`;
+            return;
+        }
+
+        // 1. Создаём криптографический 8-значный токен
+        const array = new Uint8Array(4);
+        window.crypto.getRandomValues(array);
+        const token = Array.from(array, b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
+
+        const payload = {
+            user: cleanUser,
+            date: today,
+            claimed: false,
+            createdAt: Date.now()
+        };
+
+        try {
+            // 2. Записываем талон в ветку capsules/{token}
+            const res = await fetch(`${FIREBASE_BASE_URL}capsules/${token}.json`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (res.ok) {
+                vault.innerText = "💎";
+                const fullCmd = `!код KRP-${token}`;
+                codeDisplay.innerText = `KRP-${token}`;
+                cmdText.innerText = fullCmd;
+
+                localStorage.setItem("lab_capsule_" + cleanUser, today);
+                localStorage.setItem("lab_capsule_token_" + cleanUser, token);
+                checkCapsuleAvailability();
+            } else {
+                vault.innerText = "⚠️";
+                codeDisplay.innerText = "СБОЙ БАЗЫ ДАННЫХ";
+                cmdText.innerText = "Проверьте Database Rules в Firebase Console";
+            }
+        } catch (err) {
+            console.error("Capsule Error:", err);
+            vault.innerText = "❌";
+            codeDisplay.innerText = "ОШИБКА СЕТИ";
+            cmdText.innerText = "Не удалось связаться с ядром Firebase";
+        }
     }
     function closeCapsuleModal() { playLabBeep('click'); document.getElementById('capsule-modal').style.display = 'none'; }
     function copyModalCode() { playLabBeep('click'); copyCmd(document.getElementById('modal-cmd-text').innerText); }
