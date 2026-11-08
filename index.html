@@ -22,552 +22,188 @@
             --locked-text: #475569;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
         body { background: var(--bg-dark); color: var(--text-main); min-height: 100vh; padding: 20px 14px; line-height: 1.5; }
         .container { max-width: 1280px; margin: 0 auto; }
 
-        /* Шапка */
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 20px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            margin-bottom: 20px;
-            box-shadow: 0 0 25px rgba(0, 229, 255, 0.05);
-            flex-wrap: wrap;
-            gap: 14px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 16px 20px; background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 14px; margin-bottom: 20px; box-shadow: 0 0 25px rgba(0, 229, 255, 0.05);
+            flex-wrap: wrap; gap: 14px;
         }
-
         .logo { display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; }
-        .logo-icon { font-size: 32px; filter: drop-shadow(0 0 8px var(--neon-blue)); transition: transform 0.25s ease; }
-        .logo:hover .logo-icon { transform: rotate(15deg) scale(1.1); }
+        .logo-icon { font-size: 32px; filter: drop-shadow(0 0 8px var(--neon-blue)); }
         .logo-text h1 { font-size: 20px; color: var(--neon-blue); letter-spacing: 2px; text-transform: uppercase; }
         .logo-text p { font-size: 11px; color: var(--text-muted); }
 
         .auth-bar {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: #080c14;
-            padding: 6px 12px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
+            display: flex; align-items: center; gap: 8px; background: #080c14;
+            padding: 6px 12px; border-radius: 10px; border: 1px solid var(--border);
         }
-        .auth-bar input {
-            background: transparent;
-            border: none;
-            color: #fff;
-            outline: none;
-            font-size: 13px;
-            width: 160px;
-        }
+        .auth-bar input { background: transparent; border: none; color: #fff; outline: none; font-size: 13px; width: 170px; }
         .auth-bar button {
-            background: rgba(0, 229, 255, 0.15);
-            border: 1px solid var(--neon-blue);
-            color: var(--neon-blue);
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
+            background: rgba(0, 229, 255, 0.15); border: 1px solid var(--neon-blue); color: var(--neon-blue);
+            padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer;
             transition: all 0.2s;
         }
-        .auth-bar button:hover {
-            background: var(--neon-blue);
-            color: #000;
-            box-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
-        }
+        .auth-bar button:hover { background: var(--neon-blue); color: #000; box-shadow: 0 0 12px rgba(0, 229, 255, 0.4); }
 
-        /* Досье и био-колба */
+        /* БЛОК-МАНИФЕСТ: ЗАЧЕМ ВСЯ СИСТЕМА */
+        .purpose-manifesto {
+            background: linear-gradient(135deg, rgba(16, 24, 40, 0.95), rgba(10, 15, 26, 0.98));
+            border: 1px solid rgba(0, 229, 255, 0.35);
+            border-left: 5px solid var(--neon-blue);
+            border-radius: 14px;
+            padding: 20px 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.08);
+        }
+        .manifesto-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
+        .manifesto-header h3 { color: var(--neon-blue); font-size: 16px; letter-spacing: 1px; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+        .manifesto-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+        .manifesto-card { background: rgba(8, 12, 20, 0.6); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+        .manifesto-card h4 { color: #fff; font-size: 13px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+        .manifesto-card p { font-size: 12px; color: #94a3b8; line-height: 1.45; }
+
+        /* Профиль */
         .profile-plaque {
             background: linear-gradient(135deg, rgba(15, 20, 31, 0.95), rgba(20, 28, 44, 0.88));
-            border: 1px solid var(--border-highlight);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-            position: relative;
-            overflow: hidden;
+            border: 1px solid var(--border-highlight); border-radius: 16px; padding: 20px;
+            margin-bottom: 20px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4); position: relative; overflow: hidden;
         }
         .profile-plaque::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 3px;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
             background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-green));
         }
-
-        .profile-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
+        .profile-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin-bottom: 20px; }
         .profile-identity { display: flex; align-items: center; gap: 16px; }
 
-        /* Колба био-паспорта (Canvas) */
         .flask-wrapper {
-            position: relative;
-            width: 76px;
-            height: 96px;
-            border-radius: 16px;
-            background: #06090f;
-            border: 2px solid var(--neon-blue);
-            box-shadow: 0 0 15px rgba(0, 229, 255, 0.25);
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative; width: 76px; height: 96px; border-radius: 16px; background: #06090f;
+            border: 2px solid var(--neon-blue); box-shadow: 0 0 15px rgba(0, 229, 255, 0.25);
+            overflow: hidden; display: flex; align-items: center; justify-content: center;
         }
         #flaskCanvas { width: 100%; height: 100%; display: block; }
-        .flask-label {
-            position: absolute;
-            bottom: 2px;
-            font-size: 8px;
-            font-family: monospace;
-            font-weight: 800;
-            color: var(--neon-blue);
-            background: rgba(0,0,0,0.65);
-            padding: 1px 4px;
-            border-radius: 3px;
-            letter-spacing: 0.5px;
-        }
+        .flask-label { position: absolute; bottom: 2px; font-size: 8px; font-family: monospace; font-weight: 800; color: var(--neon-blue); background: rgba(0,0,0,0.65); padding: 1px 4px; border-radius: 3px; }
 
         .id-details h2 { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 4px; display: flex; align-items: center; gap: 10px; }
-        .id-details .rank-tag {
-            font-size: 11px;
-            padding: 2px 8px;
-            border-radius: 5px;
-            background: rgba(0, 229, 255, 0.15);
-            color: var(--neon-blue);
-            font-weight: 700;
-        }
-        .sync-indicator {
-            font-size: 11px;
-            color: var(--neon-blue);
-            font-family: monospace;
-            margin-top: 2px;
-            opacity: 0.9;
-        }
-        .user-cosmetics {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            font-size: 12px;
-            margin-top: 8px;
-        }
-        .user-cosmetic-chip {
-            background: #080c14;
-            border: 1px solid var(--border);
-            padding: 3px 8px;
-            border-radius: 5px;
-            color: var(--text-muted);
-        }
+        .id-details .rank-tag { font-size: 11px; padding: 2px 8px; border-radius: 5px; background: rgba(0, 229, 255, 0.15); color: var(--neon-blue); font-weight: 700; }
+        .sync-indicator { font-size: 11px; color: var(--neon-blue); font-family: monospace; margin-top: 2px; }
+        .user-cosmetics { display: flex; flex-wrap: wrap; gap: 8px; font-size: 12px; margin-top: 8px; }
+        .user-cosmetic-chip { background: #080c14; border: 1px solid var(--border); padding: 3px 8px; border-radius: 5px; color: var(--text-muted); }
         .user-cosmetic-chip strong { color: var(--neon-gold); }
 
-        .level-widget {
-            min-width: 260px;
-            flex: 1;
-            max-width: 380px;
-            background: #090d16;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 12px 14px;
-        }
+        .level-widget { min-width: 260px; flex: 1; max-width: 380px; background: #090d16; border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
         .level-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; }
-        .level-label span:first-child { color: var(--text-muted); }
-        .level-label span:last-child { color: var(--neon-green); font-weight: 700; }
         .progress-bar-bg { height: 8px; background: #141c2c; border-radius: 5px; overflow: hidden; }
         .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--neon-blue), var(--neon-green)); border-radius: 5px; transition: width 0.4s ease; }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 10px;
-        }
-        .stat-card {
-            background: #090d16;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 10px 12px;
-            text-align: center;
-            transition: border-color 0.2s;
-        }
-        .stat-card:hover { border-color: var(--border-highlight); }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
+        .stat-card { background: #090d16; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; text-align: center; }
         .stat-card .val { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 2px; }
-        .stat-card .lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-card .lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; }
 
-        /* Плашка гида */
-        .system-guide-plaque {
-            background: linear-gradient(135deg, rgba(12, 17, 28, 0.98), rgba(18, 23, 38, 0.94));
-            border: 1px solid rgba(0, 229, 255, 0.35);
-            border-left: 4px solid var(--neon-blue);
-            border-radius: 14px;
-            padding: 20px 22px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.45);
-        }
-        .guide-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 12px;
-            margin-bottom: 16px;
-        }
-        .guide-title {
-            font-size: 16px;
-            font-weight: 800;
-            color: var(--neon-blue);
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .guide-badge {
-            background: rgba(0, 229, 255, 0.12);
-            border: 1px solid var(--neon-blue);
-            color: var(--neon-blue);
-            font-size: 11px;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-family: monospace;
-        }
-        .guide-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 14px;
-            margin-bottom: 16px;
-        }
-        .guide-item {
-            background: rgba(8, 12, 20, 0.65);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 14px;
-            transition: border-color 0.2s;
-        }
-        .guide-item:hover { border-color: var(--border-highlight); }
-        .guide-item h4 { color: #fff; font-size: 14px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
-        .guide-item p { font-size: 12px; color: #cbd5e1; line-height: 1.45; }
-
-        .guide-calc-box {
-            background: #080c14;
-            border: 1px dashed var(--border-highlight);
-            border-radius: 10px;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .calc-select {
-            background: #141c2c;
-            color: #fff;
-            border: 1px solid var(--border);
-            padding: 6px 10px;
-            border-radius: 6px;
-            font-size: 12px;
-            outline: none;
-        }
-        .calc-output { font-size: 12px; color: var(--text-muted); flex: 1; min-width: 250px; }
-
-        /* Капсула Дня */
+        /* Капсула */
         .capsule-widget {
             background: linear-gradient(135deg, rgba(10, 15, 26, 0.95), rgba(15, 23, 42, 0.9));
-            border: 1px solid var(--border-highlight);
-            border-radius: 14px;
-            padding: 16px 20px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 16px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-highlight); border-radius: 14px; padding: 16px 20px;
+            margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 16px; position: relative; overflow: hidden;
         }
-        .capsule-widget::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 4px; height: 100%;
-            background: var(--neon-blue);
-            box-shadow: 0 0 12px var(--neon-blue);
-        }
+        .capsule-widget::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--neon-blue); }
         .capsule-left { display: flex; align-items: center; gap: 14px; }
-        .capsule-icon-box {
-            width: 52px; height: 52px;
-            border-radius: 12px;
-            background: rgba(0, 229, 255, 0.1);
-            border: 1px solid var(--neon-blue);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 26px;
-            box-shadow: 0 0 15px rgba(0, 229, 255, 0.25);
-            transition: transform 0.3s ease;
-        }
-        .capsule-widget.ready .capsule-icon-box { animation: capsulePulse 2s infinite ease-in-out; }
-        @keyframes capsulePulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 12px rgba(0, 229, 255, 0.3); }
-            50% { transform: scale(1.08); box-shadow: 0 0 22px rgba(0, 229, 255, 0.6); }
-        }
-        .capsule-info h3 { font-size: 16px; color: #fff; font-weight: 700; margin-bottom: 2px; }
-        .capsule-info p { font-size: 12px; color: var(--text-muted); }
+        .capsule-icon-box { width: 48px; height: 48px; border-radius: 12px; background: rgba(0, 229, 255, 0.1); border: 1px solid var(--neon-blue); display: flex; align-items: center; justify-content: center; font-size: 24px; }
         .capsule-action-btn {
-            background: rgba(0, 229, 255, 0.15);
-            border: 1px solid var(--neon-blue);
-            color: var(--neon-blue);
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            transition: all 0.25s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            background: rgba(0, 229, 255, 0.15); border: 1px solid var(--neon-blue); color: var(--neon-blue);
+            padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.25s;
         }
-        .capsule-action-btn:hover:not(:disabled) {
-            background: var(--neon-blue);
-            color: #000;
-            box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
-            transform: translateY(-2px);
-        }
-        .capsule-action-btn:disabled {
-            background: #141c2c;
-            border-color: #283958;
-            color: #64748b;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
+        .capsule-action-btn:hover:not(:disabled) { background: var(--neon-blue); color: #000; box-shadow: 0 0 20px rgba(0, 229, 255, 0.5); }
+        .capsule-action-btn:disabled { background: #141c2c; border-color: #283958; color: #64748b; cursor: not-allowed; }
 
         /* Навигация */
-        .section-nav {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 16px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 12px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
+        .section-nav { display: flex; gap: 8px; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px; flex-wrap: wrap; }
         .nav-btn {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            color: var(--text-muted);
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            white-space: nowrap;
+            background: var(--bg-card); border: 1px solid var(--border); color: var(--text-muted);
+            padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s;
         }
-        .nav-btn:hover { border-color: var(--neon-blue); color: #fff; transform: translateY(-1px); }
-        .nav-btn.active {
-            background: rgba(0, 229, 255, 0.14);
-            border-color: var(--neon-blue);
-            color: var(--neon-blue);
-            box-shadow: 0 0 12px rgba(0, 229, 255, 0.25);
-        }
+        .nav-btn:hover { border-color: var(--neon-blue); color: #fff; }
+        .nav-btn.active { background: rgba(0, 229, 255, 0.14); border-color: var(--neon-blue); color: var(--neon-blue); }
 
-        .lore-toggle-btn {
-            background: rgba(0, 229, 255, 0.08);
-            border: 1px solid var(--neon-blue);
-            color: var(--neon-blue);
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(0, 229, 255, 0.15);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .lore-toggle-btn:hover, .lore-toggle-btn.active {
-            background: var(--neon-blue);
-            color: #080a0f;
-            box-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
-        }
+        .module-tab { display: none; }
 
-        /* Лор */
-        .lore-container {
-            display: none;
-            background: rgba(15, 20, 31, 0.96);
-            border: 1px solid rgba(0, 229, 255, 0.4);
-            border-left: 4px solid var(--neon-blue);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 20px;
-            box-shadow: 0 0 30px rgba(0, 229, 255, 0.12);
-            color: #e0f7fa;
-            line-height: 1.6;
-            animation: loreFadeIn 0.3s ease-out;
-        }
-        @keyframes loreFadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
-        .lore-header {
-            border-bottom: 1px dashed rgba(0, 229, 255, 0.3);
-            padding-bottom: 14px;
-            margin-bottom: 18px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .lore-title { color: var(--neon-blue); font-size: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; }
-        .lore-badge { background: rgba(0, 229, 255, 0.12); border: 1px solid var(--neon-blue); color: var(--neon-blue); padding: 4px 10px; border-radius: 4px; font-size: 11px; font-family: monospace; }
-        .lore-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 16px; }
-        .lore-card { background: rgba(0, 229, 255, 0.02); border: 1px solid rgba(0, 229, 255, 0.2); border-radius: 8px; padding: 16px; }
-        .lore-card h3 { color: var(--neon-blue); margin-bottom: 10px; font-size: 15px; }
-        .lore-quote { background: rgba(0, 229, 255, 0.06); border-left: 3px solid var(--neon-blue); padding: 12px 16px; margin-top: 10px; font-style: italic; color: #b2ebf2; border-radius: 0 6px 6px 0; font-size: 13px; }
-        .neon-text { color: var(--neon-blue); font-weight: bold; text-shadow: 0 0 6px rgba(0, 229, 255, 0.4); }
-
-        /* Вкладки */
-        .module-tab { display: none; animation: tabFade 0.25s ease-out; }
-        @keyframes tabFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-
+        /* Сетка вех */
         .cat-filters { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 14px; }
-        .cat-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-muted); padding: 7px 12px; border-radius: 6px; font-size: 11px; cursor: pointer; white-space: nowrap; }
+        .cat-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-muted); padding: 7px 14px; border-radius: 6px; font-size: 11px; cursor: pointer; }
         .cat-btn.active { background: rgba(0, 229, 255, 0.12); border-color: var(--neon-blue); color: var(--neon-blue); }
 
         .search-controls { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
         .search-input { flex: 1; min-width: 220px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; color: #fff; outline: none; font-size: 13px; }
-        .search-input:focus { border-color: var(--neon-blue); }
         .filter-status-group { display: flex; gap: 6px; }
         .filter-status-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-muted); padding: 0 12px; border-radius: 6px; font-size: 12px; cursor: pointer; }
         .filter-status-btn.active { background: #141c2c; border-color: var(--neon-blue); color: #fff; }
 
         .ach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
-        .ach-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; position: relative; transition: all 0.2s ease; }
-        .ach-card:hover { transform: translateY(-2px); border-color: var(--border-highlight); }
+        .ach-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
         .ach-card.unlocked { border-color: rgba(16, 185, 129, 0.45); background: linear-gradient(135deg, rgba(16, 185, 129, 0.06), var(--bg-card)); }
-        .ach-card.unlocked::before { content: '✔ ПОЛУЧЕНО'; position: absolute; top: 10px; right: 12px; font-size: 9px; font-weight: 800; color: var(--neon-green); }
+        .ach-card.unlocked::before { content: '✔ ОТКРЫТО'; position: absolute; top: 10px; right: 12px; font-size: 9px; font-weight: 800; color: var(--neon-green); }
         .ach-card.locked { background: var(--locked-bg); border-color: #131822; opacity: 0.75; }
         .ach-card.secret-locked { background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.12), var(--locked-bg)); border-color: rgba(168, 85, 247, 0.35); border-style: dashed; }
         .ach-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
         .ach-code { font-family: monospace; font-size: 11px; font-weight: 700; color: var(--text-muted); }
         .rarity-pill { font-size: 9px; font-weight: 700; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; }
-        .r-обычная { background: #1e2638; color: #94a3b8; }
-        .r-редкая { background: rgba(0, 229, 255, 0.15); color: var(--neon-blue); }
-        .r-эпическая { background: rgba(168, 85, 247, 0.2); color: var(--neon-purple); }
-        .r-легендарная { background: rgba(245, 158, 11, 0.2); color: var(--neon-gold); }
-        .r-абсолютная { background: rgba(239, 68, 68, 0.25); color: var(--neon-red); }
+        .r-общий { background: #1e2638; color: #94a3b8; }
+        .r-секретно { background: rgba(0, 229, 255, 0.15); color: var(--neon-blue); }
+        .r-папка { background: rgba(239, 68, 68, 0.2); color: var(--neon-red); }
         .ach-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; color: #fff; padding-right: 60px; }
-        .ach-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; min-height: 32px; line-height: 1.4; }
+        .ach-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.4; }
         .ach-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 8px; font-size: 11px; }
-        .ach-reward { color: var(--neon-green); font-weight: 600; }
-        .ach-req { color: var(--text-muted); }
 
+        /* Модули */
+        .module-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; margin-bottom: 20px; }
+        .module-title { font-size: 17px; font-weight: 800; color: var(--neon-blue); margin-bottom: 14px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .market-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+        .market-card { background: #0b0f19; border: 1px solid var(--border); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+        .market-price { color: var(--neon-blue); font-weight: 700; font-size: 13px; margin: 8px 0; }
+
+        /* Гардероб с проверкой */
         .wardrobe-block { margin-bottom: 28px; }
-        .wardrobe-block h3 { font-size: 17px; margin-bottom: 12px; color: var(--neon-blue); display: flex; align-items: center; gap: 8px; }
         .wardrobe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
         .cosmetic-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; }
         .cosmetic-card.unlocked { border-color: rgba(0, 229, 255, 0.35); cursor: pointer; }
         .cosmetic-card.unlocked:hover { border-color: var(--neon-blue); background: rgba(0, 229, 255, 0.05); }
-        .cosmetic-card.locked { background: var(--locked-bg); border-color: #131822; opacity: 0.6; cursor: not-allowed; }
+        .cosmetic-card.locked { background: var(--locked-bg); border-color: #131822; opacity: 0.55; cursor: not-allowed; }
         .cosmetic-info .c-name { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 2px; }
         .cosmetic-info .c-source { font-size: 11px; color: var(--text-muted); }
-        .cosmetic-action { font-size: 11px; padding: 5px 10px; border-radius: 6px; font-weight: 600; white-space: nowrap; }
+        .cosmetic-action { font-size: 11px; padding: 5px 10px; border-radius: 6px; font-weight: 600; }
         .cosmetic-card.unlocked .cosmetic-action { background: rgba(0, 229, 255, 0.15); color: var(--neon-blue); border: 1px solid rgba(0, 229, 255, 0.3); }
         .cosmetic-card.locked .cosmetic-action { background: #141c2c; color: var(--locked-text); }
 
-        /* Модули */
-        .module-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 22px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
-        }
-        .module-title {
-            font-size: 17px; font-weight: 800; color: var(--neon-blue);
-            margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
-            border-bottom: 1px solid var(--border); padding-bottom: 10px;
-        }
-        .market-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
-        .market-card {
-            background: #0b0f19; border: 1px solid var(--border); border-radius: 10px;
-            padding: 16px; display: flex; flex-direction: column; justify-content: space-between;
-            transition: all 0.2s;
-        }
-        .market-card:hover { border-color: var(--neon-blue); transform: translateY(-2px); }
-        .market-price { color: var(--neon-blue); font-weight: 700; font-size: 13px; margin: 8px 0; }
-
-        .quiz-option {
-            background: #080c14; border: 1px solid var(--border); border-radius: 8px;
-            padding: 12px 16px; margin-bottom: 10px; cursor: pointer; font-size: 13px;
-            transition: all 0.2s; display: flex; align-items: center; gap: 10px;
-        }
-        .quiz-option:hover { border-color: var(--neon-blue); background: rgba(0, 229, 255, 0.06); }
-
-        .season-timer-card {
-            display: flex; justify-content: space-between; align-items: center;
-            background: linear-gradient(90deg, #090e18, #161228);
-            border: 1px solid var(--neon-purple); border-radius: 12px;
-            padding: 18px 22px; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.2);
-        }
-        .timer-digits { font-family: monospace; font-size: 26px; font-weight: 800; color: var(--neon-gold); text-shadow: 0 0 10px rgba(245, 158, 11, 0.4); }
-        .hof-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 16px; }
-        .hof-card {
-            background: linear-gradient(135deg, #090d16, #120f24);
-            border: 1px solid var(--neon-gold); border-radius: 12px; padding: 18px;
-            box-shadow: 0 0 18px rgba(245, 158, 11, 0.15);
-        }
-        .flask-rules-box { background: #090e18; border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-top: 18px; }
-
-        .footer-banner-plaque {
-            margin-top: 35px;
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.12), rgba(15, 20, 31, 0.95));
-            border: 1px solid rgba(168, 85, 247, 0.45);
-            border-left: 5px solid #a855f7;
-            border-radius: 14px;
-            padding: 18px 24px;
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 14px;
-        }
-        .footer-banner-plaque .f-left { display: flex; align-items: center; gap: 14px; }
-        .footer-banner-plaque .f-icon { font-size: 32px; filter: drop-shadow(0 0 8px #a855f7); }
-        .footer-banner-plaque h4 { font-size: 15px; color: #d8b4fe; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
-        .footer-banner-plaque p { font-size: 12px; color: #cbd5e1; margin-top: 2px; }
+        /* Зал Славы */
+        .hof-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .hof-table th, .hof-table td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); font-size: 13px; }
+        .hof-table th { color: var(--text-muted); font-size: 11px; text-transform: uppercase; }
+        .hof-rank-1 { color: var(--neon-gold); font-weight: 800; }
+        .hof-rank-2 { color: #cbd5e1; font-weight: 800; }
+        .hof-rank-3 { color: #d97706; font-weight: 800; }
 
         .toast {
-            position: fixed; bottom: 20px; right: 20px;
-            background: var(--neon-blue); color: #000;
-            padding: 10px 20px; border-radius: 8px; font-weight: 700;
-            box-shadow: 0 0 18px rgba(0, 229, 255, 0.4); display: none; z-index: 9999; font-size: 13px;
+            position: fixed; bottom: 20px; right: 20px; background: var(--neon-blue); color: #000;
+            padding: 10px 20px; border-radius: 8px; font-weight: 700; box-shadow: 0 0 18px rgba(0, 229, 255, 0.4);
+            display: none; z-index: 9999; font-size: 13px;
         }
         .capsule-modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px);
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.85);
             display: none; justify-content: center; align-items: center; z-index: 10000;
         }
         .capsule-modal {
             background: #0d121d; border: 2px solid var(--neon-blue); border-radius: 16px;
-            max-width: 440px; width: 90%; padding: 26px; text-align: center;
-            box-shadow: 0 0 35px rgba(0, 229, 255, 0.35); position: relative;
+            max-width: 440px; width: 90%; padding: 26px; text-align: center; position: relative;
         }
-        .capsule-vault-anim { font-size: 56px; margin: 15px 0; filter: drop-shadow(0 0 15px var(--neon-blue)); }
         .capsule-result-code {
             background: #070a10; border: 1px dashed var(--neon-blue); border-radius: 8px;
-            padding: 12px; font-family: monospace; font-size: 18px; font-weight: 800;
-            color: var(--neon-blue); letter-spacing: 2px; margin: 16px 0; cursor: pointer;
+            padding: 12px; font-family: monospace; font-size: 18px; font-weight: 800; color: var(--neon-blue);
+            letter-spacing: 2px; margin: 16px 0; cursor: pointer;
         }
     </style>
 </head>
@@ -575,7 +211,7 @@
 
 <div class="container">
     <header>
-        <div class="logo" id="main-logo" title="Кликните трижды для засекреченного протокола Сектора №36">
+        <div class="logo">
             <div class="logo-icon">⚗️</div>
             <div class="logo-text">
                 <h1>KRIPTON LAB</h1>
@@ -584,23 +220,48 @@
         </div>
         <div class="auth-bar">
             <span>👤 Сотрудник:</span>
-            <input type="text" id="username-input" placeholder="Введите ник Twitch" onkeydown="if(event.key==='Enter') applyUser()">
+            <input type="text" id="username-input" placeholder="Twitch никнейм" onkeydown="if(event.key==='Enter') applyUser()">
             <button onclick="applyUser()">Загрузить</button>
         </div>
     </header>
 
-    <!-- Профиль с Canvas био-паспортом -->
+    <!-- БЛОК-МАНИФЕСТ: ЗАЧЕМ ВСЁ ЭТО НУЖНО -->
+    <section class="purpose-manifesto">
+        <div class="manifesto-header">
+            <h3>⚡ ДЛЯ ЧЕГО НУЖНА ЛАБОРАТОРИЯ СЕКТОРА №36</h3>
+            <span style="font-size: 11px; color: var(--neon-green); font-family: monospace;">ПРОТОКОЛ: ИНТЕРАКТИВНЫЙ ЭФИР</span>
+        </div>
+        <div class="manifesto-grid">
+            <div class="manifesto-card">
+                <h4>🧪 Власть над эфиром: «Колба Судьбы»</h4>
+                <p>В конце каждого месяца лидер рейтинга по опыту и изотопам получает право вскрыть Колбу Судьбы и наложить на стримера победный челлендж или дебафф прямо в прямом эфире!</p>
+            </div>
+            <div class="manifesto-card">
+                <h4>🚨 Прямое управление стримом</h4>
+                <p>Изотопы Kr-36 — это не пустые цифры. На Чёрном рынке вы лично объявляете Боевую тревогу комплексу с сиреной и стробоскопами в OBS или устраиваете диверсии в энергосети.</p>
+            </div>
+            <div class="manifesto-card">
+                <h4>🐾 Живой био-маскот в эфире</h4>
+                <p>Кот в наушниках в нижнем углу экрана реагирует на ваши команды: ест, урчит, пугается аварий реактора и может выкатить лапой редкий изотоп за заботу.</p>
+            </div>
+            <div class="manifesto-card">
+                <h4>🏷️ Личный статус без донатов</h4>
+                <p>Все титулы, бейджи и 36 знаковых вех добываются только вашим участием. Надетые звания выводятся перед вашим ником в чат-оверлее стрима.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Профиль -->
     <section class="profile-plaque">
         <div class="profile-header">
             <div class="profile-identity">
-                <!-- Процедурный био-образец в колбе -->
-                <div class="flask-wrapper" title="Био-образец в колбе (Генетический паспорт Kr-36)">
+                <div class="flask-wrapper" title="Био-паспорт Kr-36">
                     <canvas id="flaskCanvas" width="76" height="96"></canvas>
-                    <div class="flask-label" id="flask-dna-tag">Kr-36:V1</div>
+                    <div class="flask-label" id="flask-dna-tag">Kr-36:LV1</div>
                 </div>
                 <div class="id-details">
                     <h2><span id="p-username">Гость Лаборатории</span> <span class="rank-tag" id="p-level-tag">Уровень 1</span></h2>
-                    <div class="sync-indicator" id="sync-status">📡 Ожидание авторизации сотрудника...</div>
+                    <div class="sync-indicator" id="sync-status">📡 Ожидание ввода позывного...</div>
                     <div class="user-cosmetics">
                         <div class="user-cosmetic-chip">Звание: <strong id="p-active-title">«Не выбрано»</strong></div>
                         <div class="user-cosmetic-chip">Значок: <strong id="p-active-badge">[Не выбран]</strong></div>
@@ -621,28 +282,20 @@
 
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="val" id="stat-ach">0 / 336</div>
-                <div class="lbl">Достижения</div>
+                <div class="val" id="stat-ach">0 / 36</div>
+                <div class="lbl">Вехи Сектора</div>
             </div>
             <div class="stat-card">
                 <div class="val" id="stat-days">0</div>
-                <div class="lbl">Дней в лабе</div>
-            </div>
-            <div class="stat-card">
-                <div class="val" id="stat-chat">0</div>
-                <div class="lbl">Команд / Сообщений</div>
+                <div class="lbl">Смен на вахте</div>
             </div>
             <div class="stat-card">
                 <div class="val" id="stat-exp">0</div>
-                <div class="lbl">Экспериментов</div>
+                <div class="lbl">Синтезов ядра</div>
             </div>
             <div class="stat-card">
-                <div class="val" id="stat-ev">0</div>
-                <div class="lbl">Инцидентов / Тревог</div>
-            </div>
-            <div class="stat-card">
-                <div class="val" id="stat-secrets" style="color: var(--neon-purple);">0 / 30</div>
-                <div class="lbl">Тайн Кат. 8</div>
+                <div class="val" id="stat-accidents" style="color: var(--neon-red);">0</div>
+                <div class="lbl">Аварий колбы</div>
             </div>
             <div class="stat-card" style="border-color: rgba(0, 229, 255, 0.4);">
                 <div class="val" id="stat-iso" style="color: var(--neon-blue);">0</div>
@@ -651,57 +304,13 @@
         </div>
     </section>
 
-    <!-- Интерактивный регламент -->
-    <section class="system-guide-plaque">
-        <div class="guide-header">
-            <div class="guide-title">
-                <span>💡</span> РЕГЛАМЕНТ ИССЛЕДОВАТЕЛЬСКОГО СЕКТОРА №36
-            </div>
-            <div class="guide-badge">СТАТУС: АКТИВЕН</div>
-        </div>
-
-        <div class="guide-grid">
-            <div class="guide-item">
-                <h4>🎮 RPG прямо на стриме</h4>
-                <p>Каждое сообщение, участие в тревогах и время на вахте конвертируются в опыт <strong>XP</strong> и официальный допуск к реактору.</p>
-            </div>
-            <div class="guide-item">
-                <h4>💎 Честный статус без донатов</h4>
-                <p>Все 336 ачивок, звания и значки зарабатываются активностью. Надетые регалии транслируются в оверлей OBS перед вашим ником.</p>
-            </div>
-            <div class="guide-item">
-                <h4>☢️ Редкие Изотопы Kr-36</h4>
-                <p>Премиум-ресурс за капсулы дня и смены. Тратьте на Чёрном Рынке: запускайте тревогу на весь стрим или покупайте защиту колбы!</p>
-            </div>
-            <div class="guide-item">
-                <h4>🧪 Власть над эфиром: «Колба Судьбы»</h4>
-                <p>В конце месяца лидер рейтинга вскрывает Колбу Судьбы и накладывает на стримера геймплейный дебафф прямо в прямом эфире!</p>
-            </div>
-        </div>
-
-        <div class="guide-calc-box">
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 12px; color: #cbd5e1; font-weight: 700;">🎯 Проверить цель:</span>
-                <select id="calc-rank-select" class="calc-select" onchange="calcTargetProgress()">
-                    <option value="5">Уровень 5 (Старший исследователь)</option>
-                    <option value="10">Уровень 10 (Директор лаборатории)</option>
-                    <option value="14">Уровень 14 (Действительный академик)</option>
-                    <option value="20">Уровень 20 (Верховный Архитектор Сингулярности)</option>
-                </select>
-            </div>
-            <div id="calc-result" class="calc-output">
-                Загрузка данных исследователя...
-            </div>
-        </div>
-    </section>
-
     <!-- Капсула Дня -->
-    <section class="capsule-widget ready" id="capsule-section">
+    <section class="capsule-widget" id="capsule-section">
         <div class="capsule-left">
-            <div class="capsule-icon-box" id="capsule-icon">☢️</div>
+            <div class="capsule-icon-box">☢️</div>
             <div class="capsule-info">
                 <h3>Квантовая Капсула Дня</h3>
-                <p id="capsule-status-desc">Ежедневный контейнер готов к разгерметизации. Внутри: Kr-36, опыт и шифры допуска.</p>
+                <p id="capsule-status-desc">Контейнер смены готов к разгерметизации. Заберите суточный лут!</p>
             </div>
         </div>
         <button class="capsule-action-btn" id="capsule-btn" onclick="openCapsuleModal()">
@@ -711,68 +320,26 @@
 
     <!-- Навигация -->
     <nav class="section-nav">
-        <button class="lore-toggle-btn" id="loreBtn" onclick="toggleLore()">📁 ЛОР СЕКТОРА №36</button>
-        <button class="nav-btn active" onclick="switchNav('catalog', this)">🏆 336 Ачивок</button>
+        <button class="nav-btn active" onclick="switchNav('catalog', this)">🏆 36 Вех Комплекса</button>
         <button class="nav-btn" onclick="switchNav('wardrobe', this)">🏷️ Гардероб</button>
         <button class="nav-btn" onclick="switchNav('market', this)">☢️ Чёрный Рынок</button>
-        <button class="nav-btn" onclick="switchNav('medbay', this)">📋 Медпункт</button>
-        <button class="nav-btn" onclick="switchNav('hof', this)">🎖️ Зал Славы</button>
+        <button class="nav-btn" onclick="switchNav('hof', this)">🎖️ Зал Славы (ТОП-10)</button>
     </nav>
 
-    <!-- Архив Лора -->
-    <div id="lore-section" class="lore-container">
-        <div class="lore-header">
-            <h2 class="lore-title">☢️ АРХИВ СЕКТОРА №36: ДОСЬЕ KRIPTON LAB</h2>
-            <span class="lore-badge">ИОНИЗАЦИЯ: 100%</span>
-        </div>
-        <p style="margin-bottom: 16px;">
-            Добро пожаловать в бортовой терминал <span class="neon-text">KRIPTON LAB (Сектор №36)</span>. Комплекс занимается изучением свойств 36-го элемента таблицы Менделеева — инертного газа Криптона под экстремальными нагрузками Twitch-эфира.
-        </p>
-        <div class="lore-grid">
-            <div class="lore-card">
-                <h3>👨‍🔬 Главный Конструктор</h3>
-                <p style="font-size: 13px; color: var(--text-muted);">
-                    Руководитель смены — <strong>Илья</strong> (<span class="neon-text">kriptonIlya36</span>). Архитектор кода и физики реактора.
-                </p>
-            </div>
-            <div class="lore-card">
-                <h3>⚡ 36-й Элемент</h3>
-                <p style="font-size: 13px; color: var(--text-muted);">
-                    Ядро лаборатории светится неоновым бирюзовым цветом (#00E5FF). Активность чата стабилизирует цепную реакцию.
-                </p>
-            </div>
-            <div class="lore-card">
-                <h3>🐾 Маскот Комплекса</h3>
-                <p style="font-size: 13px; color: var(--text-muted);">
-                    Кот в наушниках охраняет вентиляционные шахты, реагирует на команды чата и пугается взрывов реактора.
-                </p>
-            </div>
-        </div>
-        <div class="lore-quote">
-            💡 <strong>Аксиома бункера:</strong> «Безумие — это не баг, а фича. Всё, что ещё не взорвалось — будет протестировано!» ⚡
-        </div>
-    </div>
-
-    <!-- Вкладка 1: 336 Ачивок -->
+    <!-- Вкладка 1: 36 Достижений -->
     <main id="tab-catalog" class="module-tab" style="display: block;">
-        <div class="cat-filters" id="cat-filters">
-            <button class="cat-btn active" onclick="setCategoryFilter('ALL', this)">Все (336)</button>
-            <button class="cat-btn" onclick="setCategoryFilter(1, this)">1. Дни (45)</button>
-            <button class="cat-btn" onclick="setCategoryFilter(2, this)">2. Опыт (35)</button>
-            <button class="cat-btn" onclick="setCategoryFilter(3, this)">3. Чат (40)</button>
-            <button class="cat-btn" onclick="setCategoryFilter(4, this)">4. Эксперименты (40)</button>
-            <button class="cat-btn" onclick="setCategoryFilter(5, this)">5. Тревоги (35)</button>
-            <button class="cat-btn" onclick="setCategoryFilter(6, this)">6. Инциденты (40)</button>
-            <button class="cat-btn" onclick="setCategoryFilter(7, this)">7. Консоль (30)</button>
-            <button class="cat-btn" onclick="setCategoryFilter(8, this)">8. Тайны (30)</button>
-            <button class="cat-btn" onclick="setCategoryFilter(9, this)">9. Теория Всего (41)</button>
+        <div class="cat-filters">
+            <button class="cat-btn active" onclick="setCategoryFilter('ALL', this)">Все Вехи (36)</button>
+            <button class="cat-btn" onclick="setCategoryFilter('COMMON', this)">Общий Доступ (12)</button>
+            <button class="cat-btn" onclick="setCategoryFilter('SECRET', this)">Спец-ветки (16)</button>
+            <button class="cat-btn" onclick="setCategoryFilter('SPECIAL', this)">Особая Папка (8)</button>
         </div>
 
         <div class="search-controls">
-            <input type="text" id="search-box" class="search-input" placeholder="Поиск по названию или коду LAB-XXX..." oninput="renderAchievements()">
+            <input type="text" id="search-box" class="search-input" placeholder="Поиск по названию или шифру KR-XX..." oninput="renderAchievements()">
             <div class="filter-status-group">
                 <button class="filter-status-btn active" onclick="setStatusFilter('ALL', this)">Все</button>
-                <button class="filter-status-btn" onclick="setStatusFilter('UNLOCKED', this)">🔓 Полученные</button>
+                <button class="filter-status-btn" onclick="setStatusFilter('UNLOCKED', this)">🔓 Открытые</button>
                 <button class="filter-status-btn" onclick="setStatusFilter('LOCKED', this)">🔒 Закрытые</button>
             </div>
         </div>
@@ -780,16 +347,16 @@
         <div class="ach-grid" id="achievements-container"></div>
     </main>
 
-    <!-- Вкладка 2: Гардероб -->
+    <!-- Вкладка 2: Гардероб с честной валидацией -->
     <section id="tab-wardrobe" class="module-tab">
         <div class="wardrobe-block">
-            <h3>🏷️ Доступные Титулы (Звания)</h3>
+            <h3 style="color: var(--neon-blue); margin-bottom: 8px;">🏷️ Доступные Титулы (Звания)</h3>
             <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Кликните по открытому званию для копирования команды.</p>
             <div class="wardrobe-grid" id="titles-container"></div>
         </div>
         <div class="wardrobe-block">
-            <h3>🔰 Нагрудные Значки Лаборатории</h3>
-            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Кликните по открытому значку для закрепления в оверлее.</p>
+            <h3 style="color: var(--neon-blue); margin-bottom: 8px;">🔰 Нагрудные Значки Лаборатории</h3>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Кликните по открытому значку для закрепления в оверлее чата.</p>
             <div class="wardrobe-grid" id="badges-container"></div>
         </div>
     </section>
@@ -797,202 +364,135 @@
     <!-- Вкладка 3: Чёрный Рынок -->
     <section id="tab-market" class="module-tab">
         <div class="module-card">
-            <div class="module-title">☢️ ЧЁРНЫЙ РЫНОК СЕКТОРА №36 (ТРАТА Kr-36)</div>
-            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
-                Изотопы Kr-36 — редчайший ресурс за капсулы дня и аномалии. Обменивайте их на команды прямого влияния на трансляцию:
-            </p>
-
+            <div class="module-title">☢️ ЧЁРНЫЙ РЫНОК СЕКТОРА №36</div>
             <div class="market-grid">
-                <div class="market-card" style="border-color: rgba(168, 85, 247, 0.45);">
+                <div class="market-card">
                     <div>
-                        <div style="font-size: 11px; font-weight: 800; color: #c084fc;">ИНТЕРАКТИВ В ЭФИРЕ</div>
-                        <h4 style="color: #fff; margin-top: 4px;">🎯 Заказ боевого челленджа стримеру</h4>
-                        <div class="market-price">Цена заказа: 2 Изотопа Kr-36</div>
-                        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">
-                            Смена задачи стоит <strong>1 Изотоп</strong> (кулдаун реролла: 15 минут):
+                        <div style="font-size: 11px; font-weight: 800; color: var(--neon-red);">СИСТЕМА ТРЕВОГИ</div>
+                        <h4 style="color: #fff; margin-top: 4px;">🚨 Боевая Тревога комплекса</h4>
+                        <div class="market-price">Цена: 3 Kr-36</div>
+                        <p style="font-size: 12px; color: var(--text-muted);">
+                            Запускает сирену, красные стробоскопы в OBS и буст опыта чату x1.5 на 3 минуты!
                         </p>
-                        <div style="background: #080c14; border: 1px dashed var(--neon-purple); border-radius: 6px; padding: 10px; font-size: 12px; color: #e2e8f0; margin-bottom: 10px;" id="market-briefing-text">
-                            CS2: Сыграть раунд только с пистолетом без брони.
-                        </div>
                     </div>
-                    <div style="display: flex; gap: 8px; flex-direction: column;">
-                        <button class="capsule-action-btn" id="reroll-btn" style="padding: 7px 12px; font-size: 12px; justify-content: center; border-color: #a855f7; color: #d8b4fe;" onclick="rollMarketChallenge()">
-                            <span>🎲 Перегенерировать (1 изотоп)</span>
-                        </button>
-                        <button class="capsule-action-btn" style="padding: 8px 12px; font-size: 12px; justify-content: center;" onclick="copyMarketChallenge()">
-                            📋 Скопировать команду
-                        </button>
-                    </div>
+                    <button class="capsule-action-btn" style="margin-top: 10px; width: 100%;" onclick="copyCmd('!крафт тревога')">
+                        Скопировать: !крафт тревога
+                    </button>
                 </div>
 
                 <div class="market-card">
                     <div>
                         <div style="font-size: 11px; font-weight: 800; color: var(--neon-blue);">ЛАБОРАТОРНЫЙ СИНТЕЗ</div>
-                        <h4 style="color: #fff; margin-top: 4px;">🔄 Сброс суточного карантина</h4>
-                        <div class="market-price">Цена: 1 Изотоп Kr-36</div>
+                        <h4 style="color: #fff; margin-top: 4px;">🔄 Сброс карантина реактора</h4>
+                        <div class="market-price">Цена: 2 Kr-36</div>
                         <p style="font-size: 12px; color: var(--text-muted);">
-                            Обнуляет таймер команды !эксперимент за сегодня. Проведите повторный опыт!
+                            Снимает суточный блок и аварию для повторного эксперимента (лимит: 1 раз/день).
                         </p>
                     </div>
-                    <button class="capsule-action-btn" style="margin-top: 10px; width: 100%; justify-content: center;" onclick="copyCmd('!крафт сброс')">
-                        Скопировать команду
+                    <button class="capsule-action-btn" style="margin-top: 10px; width: 100%;" onclick="copyCmd('!крафт сброс')">
+                        Скопировать: !крафт сброс
                     </button>
                 </div>
 
                 <div class="market-card">
                     <div>
-                        <div style="font-size: 11px; font-weight: 800; color: var(--neon-green);">ЗАЩИТА РЕАКТОРА</div>
-                        <h4 style="color: #fff; margin-top: 4px;">🧪 Катализатор сверхсинтеза</h4>
-                        <div class="market-price" style="color: var(--neon-gold);">Цена: 3 Изотопа Kr-36</div>
+                        <div style="font-size: 11px; font-weight: 800; color: var(--neon-green);">БИО-МАСКОТ</div>
+                        <h4 style="color: #fff; margin-top: 4px;">🌿 Нано-мята для Кота</h4>
+                        <div class="market-price">Цена: 1 Kr-36</div>
                         <p style="font-size: 12px; color: var(--text-muted);">
-                            100% защита от взрыва колбы и гарантированный утроенный опыт XP.
+                            Будит кота, включает режим рейва в наушниках и даёт гарантированные +25 XP!
                         </p>
                     </div>
-                    <button class="capsule-action-btn" style="margin-top: 10px; width: 100%; justify-content: center;" onclick="copyCmd('!эксперимент изотоп')">
-                        Скопировать команду
+                    <button class="capsule-action-btn" style="margin-top: 10px; width: 100%;" onclick="copyCmd('!крафт мята')">
+                        Скопировать: !крафт мята
                     </button>
                 </div>
 
                 <div class="market-card">
                     <div>
-                        <div style="font-size: 11px; font-weight: 800; color: var(--neon-red);">СИСТЕМА БЕЗОПАСНОСТИ</div>
-                        <h4 style="color: #fff; margin-top: 4px;">🚨 Вызов Аномальной Тревоги</h4>
-                        <div class="market-price">Цена: 3 Изотопа Kr-36</div>
+                        <div style="font-size: 11px; font-weight: 800; color: var(--neon-gold);">БЛАГОТВОРИТЕЛЬНОСТЬ</div>
+                        <h4 style="color: #fff; margin-top: 4px;">☕ Раздача кофе лаборантам</h4>
+                        <div class="market-price">Цена: 4 Kr-36</div>
                         <p style="font-size: 12px; color: var(--text-muted);">
-                            Право лично включить сирену комплекса на 3 минуты для всего чата!
+                            Заряжает следующие 15 сообщений активного чата удвоенным опытом!
                         </p>
                     </div>
-                    <button class="capsule-action-btn" style="margin-top: 10px; width: 100%; justify-content: center;" onclick="copyCmd('!крафт тревога')">
-                        Скопировать команду
+                    <button class="capsule-action-btn" style="margin-top: 10px; width: 100%;" onclick="copyCmd('!крафт кофе')">
+                        Скопировать: !крафт кофе
                     </button>
                 </div>
 
                 <div class="market-card">
                     <div>
-                        <div style="font-size: 11px; font-weight: 800; color: var(--neon-gold);">ЭЛИТАРНЫЙ СТАТУС</div>
-                        <h4 style="color: #fff; margin-top: 4px;">👑 Титул «Контрабандист Ядра»</h4>
-                        <div class="market-price">Цена: 5 Изотопов Kr-36</div>
+                        <div style="font-size: 11px; font-weight: 800; color: var(--neon-purple);">ПОДПОЛЬЕ</div>
+                        <h4 style="color: #fff; margin-top: 4px;">📻 Звуковая диверсия</h4>
+                        <div class="market-price">Цена: 1 Kr-36</div>
                         <p style="font-size: 12px; color: var(--text-muted);">
-                            Эксклюзивный наградной титул, недоступный через обычные 336 ачивок.
+                            Помехи на стриме и атмосферный треск дозиметра в бункере (CD: 60 сек).
                         </p>
                     </div>
-                    <button class="capsule-action-btn" style="margin-top: 10px; width: 100%; justify-content: center;" onclick="copyCmd('!крафт титул Контрабандист')">
-                        Скопировать команду
+                    <button class="capsule-action-btn" style="margin-top: 10px; width: 100%;" onclick="copyCmd('!крафт диверсия')">
+                        Скопировать: !крафт диверсия
+                    </button>
+                </div>
+
+                <div class="market-card">
+                    <div>
+                        <div style="font-size: 11px; font-weight: 800; color: var(--neon-gold);">ЭКСКЛЮЗИВ СИНДИКАТА</div>
+                        <h4 style="color: #fff; margin-top: 4px;">💼 Звание и Значок Синдиката</h4>
+                        <div class="market-price">Цена: 4–5 Kr-36</div>
+                        <p style="font-size: 12px; color: var(--text-muted);">
+                            Титул «Контрабандист Ядра» (5 Kr) или значок [☣️] (4 Kr) перед ником.
+                        </p>
+                    </div>
+                    <button class="capsule-action-btn" style="margin-top: 10px; width: 100%;" onclick="copyCmd('!крафт контрабандист')">
+                        Купить звание (5 Kr)
                     </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Вкладка 4: Медпункт -->
-    <section id="tab-medbay" class="module-tab">
-        <div class="module-card">
-            <div class="module-title">📋 МЕДПУНКТ БУНКЕРА (ИНТЕРАКТИВНЫЙ ТЕСТ НА АДЕКВАТНОСТЬ)</div>
-            <div id="quiz-container">
-                <div style="font-size: 12px; color: var(--neon-blue); margin-bottom: 8px;" id="quiz-step-num">ВОПРОС 1 ИЗ 5</div>
-                <h3 style="color: #fff; margin-bottom: 16px;" id="quiz-question-text">Вопрос загружается...</h3>
-                <div id="quiz-options-list"></div>
-            </div>
-            <div id="quiz-result-box" style="display: none; text-align: center; padding: 20px;">
-                <div style="font-size: 48px; margin-bottom: 10px;" id="med-icon">🩺</div>
-                <h3 style="color: var(--neon-purple); margin-bottom: 6px;" id="med-diag-title">Диагноз</h3>
-                <div style="font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 10px;" id="med-crazy-val">Уровень безумия: 86%</div>
-                <p style="font-size: 13px; color: #cbd5e1; max-width: 520px; margin: 0 auto 16px;" id="med-diag-desc">Описание</p>
-                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                    <button class="capsule-action-btn" onclick="copyQuizResult()">
-                        📋 Скопировать диагноз для чата
-                    </button>
-                    <button class="capsule-action-btn" style="border-color: #a855f7; color: #d8b4fe;" onclick="restartQuiz()">
-                        🔄 Пройти переосвидетельствование
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Вкладка 5: Зал Славы -->
+    <!-- Вкладка 4: Зал Славы (ТОП-10) -->
     <section id="tab-hof" class="module-tab">
-        <div class="season-timer-card">
-            <div>
-                <h3 style="color: #d8b4fe; font-size: 16px; text-transform: uppercase; letter-spacing: 1px;">
-                    ⏳ ДО ФИНАЛА СЕЗОНА:
-                </h3>
-                <p style="font-size: 12px; color: var(--text-muted); margin-top: 3px;">
-                    Обратный отсчёт до 1-го числа месяца: фиксация лидеров и вскрытие Колбы Судьбы на стриме!
-                </p>
-            </div>
-            <div class="timer-digits" id="season-countdown">00д 00ч 00м 00с</div>
-        </div>
-
         <div class="module-card">
-            <div class="module-title">🎖️ ЗАЛ СЛАВЫ И РЕГЛАМЕНТ «КОЛБЫ СУДЬБЫ»</div>
-            <div class="flask-rules-box">
-                <h4 style="color: var(--neon-blue); margin-bottom: 8px;">🧪 Как работает сезонная Колба Судьбы?</h4>
-                <p style="font-size: 13px; color: #cbd5e1; line-height: 1.5;">
-                    В полночь перед сбросом сезона фиксируется зритель, занявший <strong>1-е место по опыту и изотопам</strong>. Победитель месяца активирует Колбу Судьбы и накладывает на стримера челлендж или дебафф в прямой трансляции!
-                </p>
-            </div>
-
-            <div class="hof-grid">
-                <div class="hof-card">
-                    <div style="font-size: 11px; color: var(--neon-gold); font-weight: 800;">ПРОШЛЫЙ СЕЗОН</div>
-                    <h3 style="color: #fff; margin: 6px 0;">Победитель: @ryblyan_bor</h3>
-                    <p style="font-size: 13px; color: #cbd5e1; margin-bottom: 8px;">
-                        Вскрыл Колбу Судьбы и наложил на стримера победный челлендж в прямом эфире!
-                    </p>
-                    <div style="font-size: 11px; color: var(--neon-blue);">🏆 Результат: 4 820 XP</div>
-                </div>
-
-                <div class="hof-card" style="border-color: var(--neon-blue);">
-                    <div style="font-size: 11px; color: var(--neon-blue); font-weight: 800;">ТЕКУЩИЙ СЕЗОН</div>
-                    <h3 style="color: #fff; margin: 6px 0;">Гонка за Колбу активна!</h3>
-                    <p style="font-size: 13px; color: #cbd5e1; margin-bottom: 8px;">
-                        Вскрывайте капсулы дня, общайтесь во время тревог и открывайте скрытые ачивки.
-                    </p>
-                    <div style="font-size: 11px; color: var(--neon-green);">⚡ Награда: Власть над стримером</div>
-                </div>
-            </div>
+            <div class="module-title">🎖️ ЗАЛ СЛАВЫ: ВЕДУЩИЕ УЧЁНЫЕ СЕКТОРА №36</div>
+            <table class="hof-table">
+                <thead>
+                    <tr>
+                        <th style="width: 40px;">#</th>
+                        <th>Исследователь</th>
+                        <th>Допуск</th>
+                        <th>Опыт (XP)</th>
+                        <th>Изотопы</th>
+                    </tr>
+                </thead>
+                <tbody id="hof-tbody">
+                    <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">Загрузка списков исследовательской группы...</td></tr>
+                </tbody>
+            </table>
         </div>
     </section>
 
-    <!-- Подвал -->
-    <footer class="footer-banner-plaque">
-        <div class="f-left">
-            <div class="f-icon">⚛️</div>
-            <div>
-                <h4>КОМПЛЕКС УПРАВЛЕНИЯ РЕАКТОРОМ KRIPTON LAB</h4>
-                <p>Все права подопытных защищены протоколами Сектора №36. Безумие — это не баг, а фича!</p>
-            </div>
-        </div>
-        <div style="font-size: 12px; font-family: monospace; color: #d8b4fe;">
-            ЭЛЕМЕНТ: Kr-36 • СЕКТОР №36
-        </div>
+    <!-- Футер -->
+    <footer style="margin-top: 30px; text-align: center; font-size: 11px; color: var(--text-muted); font-family: monospace;">
+        ЭЛЕМЕНТ: Kr-36 • СЕКТОР №36 • KRIPTON LAB PROTOCOL
     </footer>
 </div>
 
-<!-- Модальные окна -->
+<!-- Модалка Капсулы -->
 <div class="capsule-modal-overlay" id="capsule-modal">
     <div class="capsule-modal">
         <h2 style="color: var(--neon-blue); font-size: 18px; text-transform: uppercase;">Разгерметизация Сектора</h2>
-        <div class="capsule-vault-anim" id="vault-anim">📦</div>
+        <div style="font-size: 52px; margin: 15px 0;">💎</div>
         <div class="capsule-result-code" id="modal-code-display" onclick="copyModalCode()">KRP-XXXXXXXX</div>
         <p style="font-size: 12px; color: #94a3b8; margin-bottom: 16px;">
-        Отправьте команду <strong style="color: #fff;" id="modal-cmd-text">!код KRP-XXXXXXXX</strong> в чат стрима!
-    </p>
-        <button class="capsule-action-btn" style="width: 100%; justify-content: center;" onclick="copyModalCode()">
+            Отправьте команду <strong style="color: #fff;" id="modal-cmd-text">!код KRP-XXXXXXXX</strong> в чат трансляции!
+        </p>
+        <button class="capsule-action-btn" style="width: 100%;" onclick="copyModalCode()">
             📋 Скопировать команду
         </button>
         <button style="position: absolute; top: 12px; right: 14px; background: none; border: none; color: #64748b; font-size: 18px; cursor: pointer;" onclick="closeCapsuleModal()">✕</button>
-    </div>
-</div>
-
-<div class="capsule-modal-overlay" id="classified-modal">
-    <div class="capsule-modal" style="border-color: var(--neon-blue);">
-        <h2 style="color: var(--neon-blue); font-size: 17px; text-transform: uppercase;">🧬 ЗАСЕКРЕЧЕННЫЙ СЕКТОР №36</h2>
-        <div style="font-size: 52px; margin: 15px 0;">⚡⚗️⚡</div>
-        <p style="font-size: 13px; color: #b2ebf2; margin-bottom: 14px;">Ионо-вихревой резонанс ядра Криптония-36 зафиксирован!</p>
-        <div class="capsule-result-code" style="color: var(--neon-blue);" onclick="copyCmd('!секрет 36')">!секрет 36</div>
-        <button class="capsule-action-btn" style="width: 100%; justify-content: center;" onclick="closeClassifiedModal()">Принять протокол 🔒</button>
     </div>
 </div>
 
@@ -1002,179 +502,133 @@
     const FIREBASE_BASE_URL = "https://kripton-lab-db-default-rtdb.europe-west1.firebasedatabase.app/";
 
     const XP_THRESHOLDS = [
-        0, 100, 250, 450, 700,
-        1000, 1400, 1900, 2500, 3200,
-        4200, 5400, 6800, 8400, 10200,
-        12200, 14400, 16800, 18500, 20000
+        0, 100, 250, 450, 700, 1000, 1400, 1900, 2500, 3200, 
+        4000, 5000, 6200, 7600, 9200, 11000, 13200, 15800, 18800, 22500
     ];
-    const LEVEL_TITLES = [
-        "Стажёр", "Младший исследователь", "Лаборант", "Инженер", "Старший исследователь",
-        "Специалист реактора", "Ведущий инженер", "Научный сотрудник", "Руководитель отдела", "Директор лаборатории",
-        "Главный конструктор", "Куратор спецпроектов", "Архитектор квантовых систем", "Действительный академик", "Магистр тёмной материи",
-        "Хранитель сингулярности", "Смотритель реактора Криптона", "Повелитель цепных реакций", "Творец квантовых измерений", "Верховный Архитектор Сингулярности"
+
+    const RANK_TITLES = [
+        "Стажёр", "Лаборант", "Младший техник", "Техник ядра",
+        "Инженер реактора", "Старший инженер", "Научный сотрудник", "Специалист спектра",
+        "Оператор распада", "Ведущий физик", "Начальник смены", "Куратор сектора",
+        "Главный технолог", "Комиссар безопасности", "Архитектор барьера", "Магистр излучения",
+        "Хранитель изотопа", "Заместитель директора", "Директор комплекса", "Верховный Архитектор Сингулярности"
+    ];
+
+    // 36 ВЕХ
+    const ACHIEVEMENTS_36 = [
+        { id: 1, code: "KR-01", group: "COMMON", name: "Первая смена", desc: "Начать путь в комплексе Сектора №36.", reward: "+15 XP", check: u => u.xp >= 0 },
+        { id: 2, code: "KR-02", group: "COMMON", name: "Чистый синтез", desc: "Провести свой первый эксперимент в реакторе.", reward: "+20 XP", check: u => u.exp >= 1 },
+        { id: 3, code: "KR-03", group: "COMMON", name: "Контейнер дня", desc: "Разгерметизировать первую капсулу с сайта.", reward: "+25 XP", check: u => u.days >= 1 },
+        { id: 4, code: "KR-04", group: "COMMON", name: "Первое мурчание", desc: "Погладить или покормить лабораторного кота.", reward: "+15 XP", check: u => u.catActions >= 1 || u.chat >= 5 },
+        { id: 5, code: "KR-05", group: "COMMON", name: "Младший научный", desc: "Достичь 5-го ранга допуска (Инженер реактора).", reward: "+50 XP", check: u => u.level >= 5 },
+        { id: 6, code: "KR-06", group: "COMMON", name: "Непрерывная вахта", desc: "Провести 3 смены в лаборатории.", reward: "+30 XP", check: u => u.days >= 3 },
+        { id: 7, code: "KR-07", group: "COMMON", name: "Радиоизотоп", desc: "Заработать свой первый изотоп Kr-36.", reward: "+40 XP", check: u => u.isotopes >= 1 },
+        { id: 8, code: "KR-08", group: "COMMON", name: "Вклад в эфир", desc: "Отправить 50 активных сообщений в чат.", reward: "+35 XP", check: u => u.chat >= 50 },
+        { id: 9, code: "KR-09", group: "COMMON", name: "Старший состав", desc: "Получить 10-й ранг допуска (Ведущий физик).", reward: "+80 XP", check: u => u.level >= 10 },
+        { id: 10, code: "KR-10", group: "COMMON", name: "Недельный дежурный", desc: "Отстоять 7 смен в лаборатории.", reward: "+50 XP", check: u => u.days >= 7 },
+        { id: 11, code: "KR-11", group: "COMMON", name: "Клиент Синдиката", desc: "Приобрести любой товар на Чёрном рынке.", reward: "+45 XP", check: u => (u.title !== "" || u.badge !== "") },
+        { id: 12, code: "KR-12", group: "COMMON", name: "Доверенный лаборант", desc: "Накопить суммарно 5 изотопов Kr-36.", reward: "+60 XP", check: u => u.isotopes >= 5 },
+
+        { id: 13, code: "KR-13", group: "SECRET", name: "Защитный протокол", desc: "Пережить первую аварию реактора.", reward: "+30 XP", check: u => u.accidents >= 1 },
+        { id: 14, code: "KR-14", group: "SECRET", name: "Испытатель судьбы", desc: "Запустить реактор на катализаторе за 2 изотопа.", reward: "+40 XP", check: u => u.exp >= 5 },
+        { id: 15, code: "KR-15", group: "SECRET", name: "Ветеран инцидентов", desc: "Пережить 5 аварийных взрывов колбы.", reward: "+50 XP", check: u => u.accidents >= 5 },
+        { id: 16, code: "KR-16", group: "SECRET", name: "Повелитель плазмы", desc: "Провести 25 успешных синтезов в реакторе.", reward: "+75 XP", check: u => u.exp >= 25 },
+        { id: 17, code: "KR-17", group: "SECRET", name: "Главный снабженец", desc: "Покормить лабораторного кота 10 раз.", reward: "+45 XP", check: u => u.catActions >= 10 },
+        { id: 18, code: "KR-18", group: "SECRET", name: "Стальные нервы", desc: "Получить тактический «кусь» от кота.", reward: "+35 XP", check: u => u.chat >= 75 },
+        { id: 19, code: "KR-19", group: "SECRET", name: "Квантовое мурчание", desc: "Поймать овердрайв мурчания кота (+15 XP).", reward: "+50 XP", check: u => u.xp >= 1500 },
+        { id: 20, code: "KR-20", group: "SECRET", name: "Тайный тайник", desc: "Получить от кота выкаченный лапой Kr-36.", reward: "+60 XP", check: u => u.isotopes >= 2 },
+        { id: 21, code: "KR-21", group: "SECRET", name: "Архивариус Сектора", desc: "Изучить досье других лаборантов в чате.", reward: "+30 XP", check: u => u.chat >= 120 },
+        { id: 22, code: "KR-22", group: "SECRET", name: "Боевой режим", desc: "Присутствовать при боевой тревоге бункера.", reward: "+50 XP", check: u => u.exp >= 15 },
+        { id: 23, code: "KR-23", group: "SECRET", name: "Завсегдатай бункера", desc: "Провести 14 смен на вахте.", reward: "+80 XP", check: u => u.days >= 14 },
+        { id: 24, code: "KR-24", group: "SECRET", name: "Научный консультант", desc: "Достичь 15-го ранга допуска.", reward: "+120 XP", check: u => u.level >= 15 },
+        { id: 25, code: "KR-25", group: "SECRET", name: "Экипирован", desc: "Закрепить титул или значок в профиле.", reward: "+30 XP", check: u => u.title !== "" || u.badge !== "" },
+        { id: 26, code: "KR-26", group: "SECRET", name: "Спонсор смены", desc: "Раздать кофе лаборантам через Чёрный рынок.", reward: "+70 XP", check: u => u.isotopes >= 4 },
+        { id: 27, code: "KR-27", group: "SECRET", name: "Контрабандист", desc: "Приобрести статус «Контрабандист Ядра».", reward: "+100 XP", check: u => u.title.includes("Контрабандист") },
+        { id: 28, code: "KR-28", group: "SECRET", name: "Полный запас", desc: "Накопить единовременно 10 изотопов Kr-36.", reward: "+100 XP", check: u => u.isotopes >= 10 },
+
+        { id: 29, code: "KR-29", group: "SPECIAL", name: "Резонанс 36", desc: "Выбить число 36 при синтезе в реакторе.", reward: "+75 XP", isSecret: true, check: u => u.exp >= 36 },
+        { id: 30, code: "KR-30", group: "SPECIAL", name: "Абсолютный ноль", desc: "Пережить разрушительный взрыв реактора.", reward: "+60 XP", isSecret: true, check: u => u.accidents >= 3 },
+        { id: 31, code: "KR-31", group: "SPECIAL", name: "Золотой контейнер", desc: "Вскрыть капсулу дня с овердрайвом (+100 XP).", reward: "+100 XP", isSecret: true, check: u => u.isotopes >= 3 },
+        { id: 32, code: "KR-32", group: "SPECIAL", name: "Месяц на вахте", desc: "30 дней дежурства в комплексе.", reward: "+150 XP", isSecret: true, check: u => u.days >= 30 },
+        { id: 33, code: "KR-33", group: "SPECIAL", name: "Кошачья мята", desc: "Запустить рейв кота в OBS через Чёрный рынок.", reward: "+80 XP", isSecret: true, check: u => u.catActions >= 20 },
+        { id: 34, code: "KR-34", group: "SPECIAL", name: "Калибровщик Ядра", desc: "Набрать рекорд комбо в панели реактора под стримом.", reward: "+90 XP", isSecret: true, check: u => u.exp >= 30 },
+        { id: 35, code: "KR-35", group: "SPECIAL", name: "Ветеран Сингулярности", desc: "Провести 100 синтезов в реакторе.", reward: "+200 XP", isSecret: true, check: u => u.exp >= 100 },
+        { id: 36, code: "KR-36", group: "SPECIAL", name: "Верховный Архитектор", desc: "Достичь наивысшего 20-го ранга Сектора №36!", reward: "+500 XP", isSecret: true, check: u => u.level >= 20 }
+    ];
+
+    // ГАРДЕРОБ С ПРАВИЛАМИ ДОСТУПА
+    const TITLES_CONFIG = [
+        { name: "Стажёр", req: "Базовый допуск", canWear: u => true },
+        { name: "Следопыт бункера", req: "10 дней на вахте", canWear: u => u.days >= 10 },
+        { name: "Укротитель Плазмы", req: "25 опытов в реакторе", canWear: u => u.exp >= 25 },
+        { name: "Контрабандист Ядра", req: "Покупка на Рынке (5 Kr)", canWear: u => u.title.includes("Контрабандист") },
+        { name: "Создатель Вселенной", req: "Ранг 20 (Сингулярность)", canWear: u => u.level >= 20 }
+    ];
+
+    const BADGES_CONFIG = [
+        { name: "[Стажёр]", desc: "Базовый знак", canWear: u => true },
+        { name: "[🐾]", desc: "Друг Кота (15 действий)", canWear: u => u.catActions >= 15 },
+        { name: "[⚡]", desc: "Резонанс (Ранг 10+)", canWear: u => u.level >= 10 },
+        { name: "[☣️]", desc: "Синдикат (Покупка 4 Kr)", canWear: u => u.badge.includes("☣") }
     ];
 
     let userData = {
-        username: "Гость Лаборатории",
-        xp: 0, days: 0, chat: 0, exp: 0, ev: 0, anom: 0, isotopes: 0,
-        title: "", badge: "", unlockedAchs: new Set()
+        username: "Гость Лаборатории", level: 1, xp: 0, days: 0, chat: 0,
+        exp: 0, accidents: 0, catActions: 0, isotopes: 0, title: "", badge: ""
     };
 
-    // Одиночный аудио-контекст без утечек памяти
-    let audioCtx = null;
-    function getAudioContext() {
-        if (!audioCtx) {
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    let activeCatFilter = 'ALL';
+    let activeStatusFilter = 'ALL';
+
+    function calcLevel(xp) {
+        let lvl = 1;
+        for (let i = 0; i < XP_THRESHOLDS.length; i++) {
+            if (xp >= XP_THRESHOLDS[i]) lvl = i + 1;
         }
-        if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
-        }
-        return audioCtx;
+        return Math.min(lvl, 20);
     }
 
-    function playLabBeep(type) {
-        try {
-            const ctx = getAudioContext();
-            if (type === 'click') {
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.frequency.setValueAtTime(750, ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(350, ctx.currentTime + 0.08);
-                gain.gain.setValueAtTime(0.08, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
-                osc.connect(gain); gain.connect(ctx.destination);
-                osc.start(); osc.stop(ctx.currentTime + 0.08);
-            } else if (type === 'secret') {
-                [440, 554, 659, 880, 1108].forEach((f, i) => {
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc.frequency.setValueAtTime(f, ctx.currentTime + i * 0.08);
-                    gain.gain.setValueAtTime(0.09, ctx.currentTime + i * 0.08);
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.08 + 0.35);
-                    osc.connect(gain); gain.connect(ctx.destination);
-                    osc.start(ctx.currentTime + i * 0.08);
-                    osc.stop(ctx.currentTime + i * 0.08 + 0.35);
-                });
-            }
-        } catch(e) {}
-    }
-
-    // Надежное копирование в буфер обмена для всех мобильных и WebView
-    function copyCmd(cmd) {
-        let success = false;
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(cmd).then(() => {
-                copyToast("Скопировано: " + cmd);
-            }).catch(() => {
-                fallbackCopy(cmd);
-            });
-        } else {
-            fallbackCopy(cmd);
-        }
-    }
-
-    function fallbackCopy(cmd) {
-        try {
-            const ta = document.createElement("textarea");
-            ta.value = cmd;
-            ta.style.position = "fixed";
-            ta.style.opacity = "0";
-            document.body.appendChild(ta);
-            ta.focus();
-            ta.select();
-            document.execCommand('copy');
-            document.body.removeChild(ta);
-            copyToast("Скопировано: " + cmd);
-        } catch(e) {
-            copyToast("Команда: " + cmd);
-        }
-    }
-
-    function copyToast(text) {
-        const t = document.getElementById('toast-msg');
-        if (t) {
-            t.innerText = text;
-            t.style.display = 'block';
-            setTimeout(() => { t.style.display = 'none'; }, 2800);
-        }
-    }
-
-    // Загрузка данных из Firebase
     async function loadUserData(targetUser, updateUrl = false) {
-        if (!targetUser || targetUser.trim() === "" || targetUser === "Гость Лаборатории") {
-            setSyncStatus("Ожидание авторизации сотрудника... (напишите !сайт в чат)");
-            return;
-        }
+        if (!targetUser || targetUser.trim() === "" || targetUser === "Гость Лаборатории") return;
 
         const cleanUser = targetUser.trim().toLowerCase().replace(/^@/, '');
-        setSyncStatus("⏳ Запрос из квантовой базы Firebase...");
+        setSyncStatus("⏳ Запрос из базы Firebase...");
 
         try {
             const endpoint = `${FIREBASE_BASE_URL}users/${encodeURIComponent(cleanUser)}.json`;
             const response = await fetch(endpoint, { cache: 'no-cache' });
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            if (!response.ok) throw new Error();
 
             const cloudData = await response.json();
             if (cloudData) {
                 userData.username = cloudData.user || targetUser;
-                // Универсальное чтение (поддержка lab_ префиксов и сокращений)
                 userData.xp = parseInt(cloudData.lab_xp ?? cloudData.xp, 10) || 0;
+                userData.level = calcLevel(userData.xp);
                 userData.days = parseInt(cloudData.lab_active_days ?? cloudData.days, 10) || 0;
-                userData.chat = parseInt(cloudData.lab_commands_count ?? cloudData.chatMessages ?? cloudData.chat, 10) || 0;
+                userData.chat = parseInt(cloudData.lab_commands_count ?? cloudData.chat, 10) || 0;
                 userData.exp = parseInt(cloudData.lab_experiments ?? cloudData.experiments, 10) || 0;
-                userData.ev = parseInt(cloudData.lab_game_events ?? cloudData.events, 10) || 0;
-                userData.anom = parseInt(cloudData.lab_exp_accident ?? cloudData.accidents ?? cloudData.anom, 10) || 0;
+                userData.accidents = parseInt(cloudData.lab_exp_accident ?? cloudData.accidents, 10) || 0;
                 userData.isotopes = parseInt(cloudData.lab_isotopes ?? cloudData.isotopes, 10) || 0;
                 userData.title = cloudData.lab_active_title ?? cloudData.title ?? "";
                 userData.badge = cloudData.lab_active_badge ?? cloudData.badge ?? "";
-
-                // Парсер ачивок
-                const unlocked = new Set();
-                if (Array.isArray(cloudData.achievements)) {
-                    cloudData.achievements.forEach(code => {
-                        const num = typeof code === 'string' && code.startsWith('LAB-') ? parseInt(code.replace('LAB-', ''), 10) : parseInt(code, 10);
-                        if (!isNaN(num)) unlocked.add(num);
-                    });
-                } else if (typeof cloudData.achievements === 'object' && cloudData.achievements !== null) {
-                    Object.keys(cloudData.achievements).forEach(k => {
-                        if (cloudData.achievements[k]) {
-                            const num = parseInt(k.replace('LAB-', ''), 10);
-                            if (!isNaN(num)) unlocked.add(num);
-                        }
-                    });
-                }
-                // Сканирование флагов lab_ach_LAB-XXX
-                Object.keys(cloudData).forEach(k => {
-                    if (k.startsWith('lab_ach_LAB-') && cloudData[k] === true) {
-                        const num = parseInt(k.replace('lab_ach_LAB-', ''), 10);
-                        if (!isNaN(num)) unlocked.add(num);
-                    }
-                });
-                userData.unlockedAchs = unlocked;
 
                 if (updateUrl && window.history && window.history.replaceState) {
                     window.history.replaceState(null, '', `?u=${encodeURIComponent(cleanUser)}`);
                 }
 
-                setSyncStatus(`✔ Синхронизировано по Cloud Sync [${new Date().toLocaleTimeString()}]`);
+                setSyncStatus(`✔ Синхронизировано [${new Date().toLocaleTimeString()}]`);
                 updateProfileUI();
                 renderAchievements();
                 renderWardrobe();
-                calcTargetProgress();
+                checkCapsuleAvailability();
                 return;
-            } else {
-                setSyncStatus("⚠️ Досье не найдено в базе. Введите !профиль в чате.");
             }
-        } catch (err) {
-            console.warn("[KRIPTON SYNC] Ошибка связи с базой:", err);
-            setSyncStatus("⚡ Автономный режим (нет связи с Cloud Sync)");
-        }
+        } catch {}
 
-        parseUrlParams();
+        setSyncStatus("⚠️ Досье не найдено. Напишите !профиль в чате.");
         updateProfileUI();
         renderAchievements();
         renderWardrobe();
-        calcTargetProgress();
     }
 
     function setSyncStatus(text) {
@@ -1182,40 +636,21 @@
         if (el) el.innerText = text;
     }
 
-    function parseUrlParams() {
-        try {
-            const p = new URLSearchParams(window.location.search);
-            if (p.has('user') || p.has('u')) userData.username = p.get('user') || p.get('u');
-            if (p.has('xp')) userData.xp = parseInt(p.get('xp'), 10) || 0;
-            if (p.has('iso')) userData.isotopes = parseInt(p.get('iso'), 10) || 0;
-            if (p.has('t')) userData.title = p.get('t') || "";
-            if (p.has('b')) userData.badge = p.get('b') || "";
-        } catch (e) {}
-    }
-
-    function calcLevel(xp) {
-        let lvl = 1;
-        for (let i = 0; i < XP_THRESHOLDS.length; i++) {
-            if (xp >= XP_THRESHOLDS[i]) lvl = i + 1;
-        }
-        return Math.min(lvl, XP_THRESHOLDS.length);
-    }
-
     function updateProfileUI() {
         document.getElementById('p-username').innerText = userData.username;
         document.getElementById('username-input').value = userData.username === "Гость Лаборатории" ? "" : userData.username;
 
-        const lvl = calcLevel(userData.xp);
-        const rankName = LEVEL_TITLES[lvl - 1] || "Исследователь";
+        const lvl = userData.level;
+        const rankName = RANK_TITLES[lvl - 1] || "Лаборант";
         document.getElementById('p-level-tag').innerText = "Уровень " + lvl;
         document.getElementById('p-rank-name').innerText = "Ранг: " + rankName;
 
         const curThresh = XP_THRESHOLDS[lvl - 1];
-        const nextThresh = (lvl < XP_THRESHOLDS.length) ? XP_THRESHOLDS[lvl] : XP_THRESHOLDS[lvl - 1];
+        const nextThresh = (lvl < 20) ? XP_THRESHOLDS[lvl] : XP_THRESHOLDS[19];
         
         let percent = 100;
         let xpLabel = userData.xp + " XP (Макс.)";
-        if (lvl < XP_THRESHOLDS.length) {
+        if (lvl < 20) {
             const needed = nextThresh - curThresh;
             const progress = userData.xp - curThresh;
             percent = Math.min(100, Math.max(0, Math.round((progress / needed) * 100)));
@@ -1227,652 +662,224 @@
         document.getElementById('p-active-title').innerText = "«" + (userData.title || "Не выбрано") + "»";
         document.getElementById('p-active-badge').innerText = "[" + (userData.badge || "Не выбран") + "]";
 
-        document.getElementById('stat-ach').innerText = userData.unlockedAchs.size + " / 336";
         document.getElementById('stat-days').innerText = userData.days;
-        document.getElementById('stat-chat').innerText = userData.chat;
         document.getElementById('stat-exp').innerText = userData.exp;
-        document.getElementById('stat-ev').innerText = userData.ev;
+        document.getElementById('stat-accidents').innerText = userData.accidents;
+        document.getElementById('stat-iso').innerText = userData.isotopes;
 
-        let unlockedSecrets = 0;
-        for (let id = 266; id <= 295; id++) {
-            if (userData.unlockedAchs.has(id)) unlockedSecrets++;
-        }
-        document.getElementById('stat-secrets').innerText = unlockedSecrets + " / 30";
-        document.getElementById('stat-iso').innerText = userData.isotopes || 0;
-
-        // Обновление метки ДНК
-        const dnaTag = document.getElementById('flask-dna-tag');
-        if (dnaTag) {
-            dnaTag.innerText = `Kr-36:LV${lvl}`;
-        }
-
-        checkCapsuleAvailability();
-        calcTargetProgress();
+        const dna = document.getElementById('flask-dna-tag');
+        if (dna) dna.innerText = `Kr-36:LV${lvl}`;
     }
-
-    // Процедурный био-образец в колбе (Canvas Kr-36)
-    const flaskCanvas = document.getElementById('flaskCanvas');
-    const fCtx = flaskCanvas ? flaskCanvas.getContext('2d') : null;
-    let flaskAngle = 0;
-    const bubbles = Array.from({ length: 9 }, () => ({
-        x: Math.random() * 76,
-        y: Math.random() * 96,
-        r: 1 + Math.random() * 2.2,
-        speed: 0.4 + Math.random() * 0.8
-    }));
-
-    function animateFlask() {
-        if (!fCtx) return;
-        flaskAngle += 0.035;
-        fCtx.clearRect(0, 0, 76, 96);
-
-        // Флюид среды
-        const fluidHeight = 65;
-        fCtx.fillStyle = "rgba(0, 229, 255, 0.12)";
-        fCtx.beginPath();
-        fCtx.moveTo(0, 96);
-        fCtx.lineTo(0, 96 - fluidHeight);
-        for (let x = 0; x <= 76; x += 5) {
-            const y = 96 - fluidHeight + Math.sin(flaskAngle + x * 0.08) * 3;
-            fCtx.lineTo(x, y);
-        }
-        fCtx.lineTo(76, 96);
-        fCtx.closePath();
-        fCtx.fill();
-
-        // Пузырьки Криптона
-        bubbles.forEach(b => {
-            b.y -= b.speed;
-            if (b.y < 35) { b.y = 94; b.x = 10 + Math.random() * 56; }
-            fCtx.fillStyle = "rgba(0, 229, 255, 0.65)";
-            fCtx.beginPath();
-            fCtx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-            fCtx.fill();
-        });
-
-        // Био-ядро Kr-36
-        const lvl = calcLevel(userData.xp);
-        const coreGlow = 10 + Math.min(18, lvl);
-        const pulse = Math.sin(flaskAngle * 1.5) * 2.5;
-
-        fCtx.shadowBlur = coreGlow;
-        fCtx.shadowColor = "#00e5ff";
-        fCtx.fillStyle = lvl >= 15 ? "#a855f7" : "#00e5ff";
-        fCtx.beginPath();
-        fCtx.arc(38, 55, 6 + pulse, 0, Math.PI * 2);
-        fCtx.fill();
-
-        // Отростки/кольца сингулярности
-        fCtx.shadowBlur = 0;
-        fCtx.strokeStyle = "rgba(0, 229, 255, 0.45)";
-        fCtx.lineWidth = 1.2;
-        fCtx.beginPath();
-        fCtx.ellipse(38, 55, 14 + pulse, 5, flaskAngle, 0, Math.PI * 2);
-        fCtx.stroke();
-
-        requestAnimationFrame(animateFlask);
-    }
-    requestAnimationFrame(animateFlask);
-
-    // Вкладки
-    function switchNav(tabName, btn) {
-        playLabBeep('click');
-        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-        if (btn) btn.classList.add('active');
-        document.querySelectorAll('.module-tab').forEach(t => t.style.display = 'none');
-
-        const activeModule = document.getElementById('tab-' + tabName);
-        if (activeModule) activeModule.style.display = 'block';
-
-        if (tabName === 'wardrobe') renderWardrobe();
-    }
-
-    function toggleLore() {
-        playLabBeep('click');
-        const s = document.getElementById('lore-section');
-        const b = document.getElementById('loreBtn');
-        if (s.style.display === 'block') {
-            s.style.display = 'none';
-            b.classList.remove('active');
-            b.innerText = '📁 ЛОР СЕКТОРА №36';
-        } else {
-            s.style.display = 'block';
-            b.classList.add('active');
-            b.innerText = '❌ ЗАКРЫТЬ ЛОР';
-        }
-    }
-
-    function calcTargetProgress() {
-        const sel = document.getElementById('calc-rank-select');
-        const res = document.getElementById('calc-result');
-        if (!sel || !res) return;
-
-        const targetLvl = parseInt(sel.value, 10);
-        const targetXp = XP_THRESHOLDS[targetLvl - 1] || 1000;
-        const diff = targetXp - userData.xp;
-
-        if (diff <= 0) {
-            res.innerHTML = `<span style="color: var(--neon-green); font-weight: 700;">Поздравляем!</span> Вы уже достигли или превзошли данный ранг допуска.`;
-        } else {
-            const streams = Math.ceil(diff / 100);
-            const exps = Math.ceil(diff / 45);
-            res.innerHTML = `Вам осталось набрать <strong>${diff} XP</strong>. Это примерно <strong>${streams} стримов</strong> активного общения или <strong>${exps} удачных опытов</strong>!`;
-        }
-    }
-
-    function updateSeasonTimer() {
-        const now = new Date();
-        const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1, 0, 0, 0);
-        const diff = endOfMonth - now;
-
-        if (diff > 0) {
-            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const m = Math.floor((diff / (1000 * 60)) % 60);
-            const s = Math.floor((diff / 1000) % 60);
-            const el = document.getElementById('season-countdown');
-            if (el) {
-                el.innerText = `${d}д ${String(h).padStart(2,'0')}ч ${String(m).padStart(2,'0')}м ${String(s).padStart(2,'0')}с`;
-            }
-        }
-    }
-    setInterval(updateSeasonTimer, 1000);
-    updateSeasonTimer();
-
-    // Чёрный рынок
-    const MARKET_CHALLENGES = [
-        "CS2: Сыграть раунд только с пистолетом без брони.",
-        "CS2: Сыграть катку полностью без прицела и интерфейса (HUD).",
-        "Танки: Играть исключительно на фугасах без снайперского прицела.",
-        "CS2: Стрелять только в прыжке или на бегу весь раунд.",
-        "Шутер: Запрещено использовать спринт / бег всю следующую катку.",
-        "CS2: Сыграть раунд только с дробовиком + световые гранаты.",
-        "Танки: Не останавливаться на месте при выстреле ни на секунду.",
-        "Игра: Не использовать гранаты и аптечки весь матч.",
-        "CS2: Раунд только с ножом и пистолетом P250."
-    ];
-    let curChallenge = MARKET_CHALLENGES[0];
-    const REROLL_COOLDOWN_MS = 15 * 60 * 1000;
-
-    function updateRerollButtonState() {
-        const btn = document.getElementById('reroll-btn');
-        if (!btn) return;
-        const lastReroll = parseInt(localStorage.getItem('lab_reroll_last_time') || '0', 10);
-        const now = Date.now();
-        const diff = now - lastReroll;
-
-        if (diff < REROLL_COOLDOWN_MS) {
-            const remainingSec = Math.ceil((REROLL_COOLDOWN_MS - diff) / 1000);
-            const m = Math.floor(remainingSec / 60);
-            const s = remainingSec % 60;
-            btn.disabled = true;
-            btn.innerHTML = `<span>⏳ Перезарядка: ${m}м ${String(s).padStart(2,'0')}с</span>`;
-        } else {
-            btn.disabled = false;
-            btn.innerHTML = `<span>🎲 Перегенерировать (1 изотоп)</span>`;
-        }
-    }
-    setInterval(updateRerollButtonState, 1000);
-
-    function rollMarketChallenge() {
-        const lastReroll = parseInt(localStorage.getItem('lab_reroll_last_time') || '0', 10);
-        const now = Date.now();
-        if (now - lastReroll < REROLL_COOLDOWN_MS) {
-            copyToast("Кулдаун! Менять челлендж можно раз в 15 минут.");
-            return;
-        }
-
-        playLabBeep('click');
-        let nextIndex;
-        do {
-            nextIndex = Math.floor(Math.random() * MARKET_CHALLENGES.length);
-        } while (MARKET_CHALLENGES[nextIndex] === curChallenge);
-
-        curChallenge = MARKET_CHALLENGES[nextIndex];
-        document.getElementById('market-briefing-text').innerText = curChallenge;
-        localStorage.setItem('lab_reroll_last_time', now.toString());
-        updateRerollButtonState();
-        copyToast("Челлендж обновлён! Активируйте команду в чате.");
-    }
-
-    function copyMarketChallenge() {
-        copyCmd(`!крафт челлендж ${curChallenge}`);
-    }
-
-    // Медпункт
-    const QUIZ_POOL = [
-        { q: "Реактор издаёт басовитый гул, а кот в наушниках запел басом. Что делаем?", a: ["Срочно наливаем чай с криптонием", "Бежим в вентиляцию к коту", "Пишем !эксперимент в чат", "Зовём санитаров"] },
-        { q: "Илья случайно упал в пропасть во время катки. Ваша реакция?", a: ["Это замер гравитации!", "Пишем F в чат", "Кричим про физику Дурки", "Молча спамим кота"] },
-        { q: "Вам предложили стакан ледяного чая в бункере. Ваши действия?", a: ["Выпить залпом ради науки", "Проверить дозиметром", "Поделиться с котом", "Залить в реактор"] },
-        { q: "В чате завыла Аномальная Тревога на 3 минуты!", a: ["Спамим сообщения для фарма XP", "Прячемся под стол", "Ищем секретный код", "Включаем саундборд"] },
-        { q: "Стример слил клатч 1 в 1 с ножом. Ваш вердикт?", a: ["Виноват инертный газ Криптон", "Это была тактическая разведка", "Санитары, фиксируйте!", "Ставим клип в архив"] },
-        { q: "Внезапно вскрылась Квантовая Капсула Дня. Что внутри?", a: ["Один изотоп и куча опыта", "Осколки взорванной пробирки", "Шифр от Сектора 36", "Питательный паёк кота"] },
-        { q: "Модератор достал неоновый банхаммер. Ваши действия?", a: ["Делаем вид, что читаем правила", "Кричим «Свободу подопытным!»", "Кидаем мем про санитаров", "Уходим на ночную смену"] },
-        { q: "Кот в наушниках внезапно сделал КУСЬ за палец!", a: ["Гладим в ответ (+10 к карме)", "Кормим рыбой в бункере", "Замеряем статический разряд", "Пишем в журнал инцидентов"] },
-        { q: "На часах 03:00 ночи, а стрим всё ещё идёт. Почему?", a: ["Ночная вахта сама себя не отстоит", "Ищем секретную ачивку", "Реактор требует охлаждения", "Потеряли счёт времени"] },
-        { q: "Что делать, если колба при синтезе разорвалась вдребезги?", a: ["Записать в копилку аварий", "Влить 3 изотопа на защиту", "Сказать, что так и задумывалось", "Сменить звание на «Ликвидатор»"] }
-    ];
-
-    const DIAGNOSES = [
-        { title: "Хронический Кибер-Шизоид 1-й степени", icon: "🧬", crazy: "98%", desc: "Пациент полностью адаптирован к безумию бункера, воспринимает сливы каток как замер гравитации и слышит радиоволны кота. Допуск к реактору неограничен!" },
-        { title: "Патологический Адепт Криптона", icon: "⚛️", crazy: "89%", desc: "Кровь испытуемого светится бирюзовым неоном. Замечена нездоровая тяга к фарму изотопов и ночным дежурствам. Назначить 2 кружки чая и отправить в чат." },
-        { title: "Потенциальный Кибер-Санитар", icon: "🛡️", crazy: "54%", desc: "Уровень агрессии к нарушениям высок. Рефлексы наготове, рука тянется к банхаммеру. Рекомендовано выдать допуск к тревогам и значок «Опора»." },
-        { title: "Квантовый Лудоман Колбы", icon: "🧪", crazy: "92%", desc: "Пациент не может прожить стрим без команды !эксперимент. Взрывы пробирок вызывают у него улыбку. Прописан регулярный сброс карантина на Чёрном Рынке." }
-    ];
-
-    let currentQuiz = [];
-    let quizIdx = 0;
-
-    function startQuiz() {
-        const shuffled = [...QUIZ_POOL].sort(() => 0.5 - Math.random());
-        currentQuiz = shuffled.slice(0, 5);
-        quizIdx = 0;
-        document.getElementById('quiz-container').style.display = 'block';
-        document.getElementById('quiz-result-box').style.display = 'none';
-        renderQuizStep();
-    }
-
-    function renderQuizStep() {
-        if (quizIdx >= currentQuiz.length) {
-            document.getElementById('quiz-container').style.display = 'none';
-            const resBox = document.getElementById('quiz-result-box');
-            resBox.style.display = 'block';
-            
-            const diag = DIAGNOSES[Math.floor(Math.random() * DIAGNOSES.length)];
-            document.getElementById('med-icon').innerText = diag.icon;
-            document.getElementById('med-crazy-val').innerText = `Уровень безумия: ${diag.crazy}`;
-            document.getElementById('med-diag-title').innerText = `ДИАГНОЗ: ${diag.title}`;
-            document.getElementById('med-diag-desc').innerText = diag.desc;
-            return;
-        }
-
-        const cur = currentQuiz[quizIdx];
-        document.getElementById('quiz-step-num').innerText = `ВОПРОС ${quizIdx + 1} ИЗ ${currentQuiz.length}`;
-        document.getElementById('quiz-question-text').innerText = cur.q;
-        const box = document.getElementById('quiz-options-list');
-        box.innerHTML = '';
-
-        cur.a.forEach((ans) => {
-            const opt = document.createElement('div');
-            opt.className = 'quiz-option';
-            opt.innerHTML = `<span>🔹</span><span>${ans}</span>`;
-            opt.onclick = () => {
-                playLabBeep('click');
-                quizIdx++;
-                renderQuizStep();
-            };
-            box.appendChild(opt);
-        });
-    }
-
-    function restartQuiz() {
-        playLabBeep('click');
-        startQuiz();
-    }
-
-    function copyQuizResult() {
-        const title = document.getElementById('med-diag-title').innerText.replace('ДИАГНОЗ: ', '');
-        const crazy = document.getElementById('med-crazy-val').innerText;
-        copyCmd(`!лог Результат в Медпункте: [${title}] | ${crazy} | Допущен к Сектору №36!`);
-    }
-
-    // Генерация капсулы дня
-    function generateDailyCode(username) {
-        const cleanUser = username.trim().toLowerCase();
-        const today = new Date().toISOString().slice(0, 10);
-        const seed = cleanUser + "_" + today + "_KRIPTON36_SECURE_KEY";
-        let hash = 0;
-        for (let i = 0; i < seed.length; i++) {
-            hash = ((hash << 5) - hash) + seed.charCodeAt(i);
-            hash |= 0;
-        }
-        const pin = Math.abs(hash) % 9000 + 1000;
-
-        let tokenHash = 0;
-        const tokenSeed = cleanUser + "_TOKEN_" + today + "_LAB36";
-        for (let i = 0; i < tokenSeed.length; i++) {
-            tokenHash = ((tokenHash << 5) - tokenHash) + tokenSeed.charCodeAt(i);
-            tokenHash |= 0;
-        }
-        const token = "SEC-" + Math.abs(tokenHash).toString(16).toUpperCase();
-
-        return { code: "KRP-" + pin, token: token, fullCommand: `!код KRP-${pin} ${token}` };
-    }
-
-// Проверка доступности капсулы
-    function checkCapsuleAvailability() {
-        const btn = document.getElementById('capsule-btn');
-        const desc = document.getElementById('capsule-status-desc');
-        const section = document.getElementById('capsule-section');
-        if (!btn || !desc) return;
-
-        if (!userData.username || userData.username === "Гость Лаборатории") {
-            btn.disabled = true;
-            btn.innerText = "Авторизуйтесь";
-            desc.innerText = "Введите ник вверху для доступа к капсулам.";
-            section?.classList.remove('ready');
-            return;
-        }
-
-        const today = new Date().toISOString().slice(0, 10);
-        const lastOpened = localStorage.getItem("lab_capsule_" + userData.username.toLowerCase());
-
-        if (lastOpened === today) {
-            btn.disabled = false;
-            btn.innerHTML = '<span>Код Дня</span> 📋';
-            desc.innerText = "Капсула на сегодня уже открыта. Нажмите для повторного просмотра.";
-            section?.classList.remove('ready');
-        } else {
-            btn.disabled = false;
-            btn.innerHTML = '<span>Вскрыть Шлюз</span> 🔓';
-            desc.innerText = "Контейнер дня готов к разгерметизации. Заберите лут!";
-            section?.classList.add('ready');
-        }
-    }
-
-    // Вскрытие капсулы с записью одноразового талона в Firebase
-    async function openCapsuleModal() {
-        playLabBeep('click');
-        const modal = document.getElementById('capsule-modal');
-        const vault = document.getElementById('vault-anim');
-        const codeDisplay = document.getElementById('modal-code-display');
-        const cmdText = document.getElementById('modal-cmd-text');
-
-        if (!userData.username || userData.username === "Гость Лаборатории") {
-            copyToast("Сначала укажите ваш ник Twitch!");
-            return;
-        }
-
-        modal.style.display = 'flex';
-        vault.innerText = "☣️";
-        codeDisplay.innerText = "ГЕНЕРАЦИЯ ШЛЮЗА...";
-        cmdText.innerText = "Связь с базой данных...";
-
-        const cleanUser = userData.username.trim().replace(/^@/, '').toLowerCase();
-        const today = new Date().toISOString().slice(0, 10);
-
-        // Если капсула сегодня уже бралась — выводим сохраненный токен
-        const storedToken = localStorage.getItem("lab_capsule_token_" + cleanUser);
-        const storedDate = localStorage.getItem("lab_capsule_" + cleanUser);
-        if (storedDate === today && storedToken) {
-            vault.innerText = "💎";
-            codeDisplay.innerText = `KRP-${storedToken}`;
-            cmdText.innerText = `!код KRP-${storedToken}`;
-            return;
-        }
-
-        // Генерация криптостойкого 8-значного токена
-        const array = new Uint8Array(4);
-        window.crypto.getRandomValues(array);
-        const token = Array.from(array, b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
-
-        const payload = {
-            user: cleanUser,
-            date: today,
-            claimed: false,
-            createdAt: Date.now()
-        };
-
-        try {
-            const res = await fetch(`${FIREBASE_BASE_URL}capsules/${token}.json`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            if (res.ok) {
-                vault.innerText = "💎";
-                const fullCmd = `!код KRP-${token}`;
-                codeDisplay.innerText = `KRP-${token}`;
-                cmdText.innerText = fullCmd;
-
-                localStorage.setItem("lab_capsule_" + cleanUser, today);
-                localStorage.setItem("lab_capsule_token_" + cleanUser, token);
-                checkCapsuleAvailability();
-            } else {
-                vault.innerText = "⚠️";
-                codeDisplay.innerText = "СБОЙ БАЗЫ ДАННЫХ";
-                cmdText.innerText = "Проверьте Database Rules в Firebase Console";
-            }
-        } catch (err) {
-            console.error("Capsule Error:", err);
-            vault.innerText = "❌";
-            codeDisplay.innerText = "ОШИБКА СЕТИ";
-            cmdText.innerText = "Не удалось связаться с ядром базы";
-        }
-    }
-    function closeCapsuleModal() { playLabBeep('click'); document.getElementById('capsule-modal').style.display = 'none'; }
-    function copyModalCode() { playLabBeep('click'); copyCmd(document.getElementById('modal-cmd-text').innerText); }
-    function closeClassifiedModal() { playLabBeep('click'); document.getElementById('classified-modal').style.display = 'none'; }
-
-    // Каталог 336 Ачивок
-    const ALL_ACHIEVEMENTS = [];
-    function generateCatalog() {
-        const cat1Data = [
-            ["Первый контакт", "Заглянуть на стрим комплекса KRIPTON LAB впервые.", true],
-            ["Повторный визит", "Вернуться на второй день трансляции.", false],
-            ["Уже знакомы", "Присутствовать на 3 днях стримов.", false],
-            ["Свой человек", "Провести в лаборатории 4 активных дня.", false],
-            ["Неделя в лаборатории", "Отметиться на 5 трансляциях.", false],
-            ["Постоянный гость", "6 активных дней на стримах.", false],
-            ["Второе дыхание", "7 дней в научном комплексе.", true],
-            ["Надёжный сотрудник", "8 дней присутствия в лаборатории.", false],
-            ["Знакомое лицо", "9 активных трансляций.", false],
-            ["Три недели вместе", "10 дней исследований.", false],
-            ["Месяц исследований", "12 активных дней в лаборатории.", false],
-            ["Вошло в привычку", "15 дней на трансляциях.", false],
-            ["Полсотни визитов", "18 активных дней в комплексе.", true],
-            ["Сотрудник месяца", "20 дней научных наблюдений.", false],
-            ["Уже часть команды", "25 дней в лаборатории.", false],
-            ["Целая сотня", "30 активных дней исследований.", false],
-            ["Закалённый исследователь", "35 дней на смене.", false],
-            ["Полтора века дней", "40 дней в научном штабе.", false],
-            ["Двести отметок", "45 дней на передовой стрима.", true],
-            ["Долгий путь", "50 активных дней в лаборатории.", false],
-            ["Триста дней открытий", "60 дней научных наблюдений.", false],
-            ["Годовой рубеж", "70 дней вместе с комплексом.", false],
-            ["Пятьсот отметок", "80 активных трансляций.", false],
-            ["Два года присутствия", "90 дней научных поисков.", false],
-            ["Пульс лаборатории", "100 активных дней. Открывает титул «На связи».", true],
-            ["Золотая отметка", "110 дней в комплексе. Открывает значок [Золотой след].", false],
-            ["За гранью сотни", "125 дней на стримах. Открывает титул «За гранью».", false],
-            ["Не случайный гость", "140 дней с нами. Открывает значок [Свой].", false],
-            ["Двести пятьдесят причин вернуться", "155 дней в лаборатории. Открывает титул «Неугасающий интерес».", false],
-            ["Опора коллектива", "170 активных смен. Открывает значок [Опора].", false],
-            ["Почти легенда", "185 дней в научном штабе. Открывает титул «На пороге легенды».", true],
-            ["Полтысячи позади", "200 дней исследований. Открывает значок [500+].", false],
-            ["Испытание временем", "220 дней на трансляциях. Открывает титул «Проверен временем».", false],
-            ["Старший хранитель", "240 дней присутствия. Открывает значок [Хранитель].", false],
-            ["След исследователя", "260 дней в лаборатории. Открывает титул «Следопыт лаборатории».", false],
-            ["Непрерывность памяти", "280 дней научных вахт. Открывает титул «Память лаборатории».", false],
-            ["Тысяча возвращений", "300 активных дней в комплексе.", false],
-            ["За пределами календаря", "325 дней с каналом. Открывает титул «Три года открытий».", true],
-            ["Архивариус присутствия", "350 дней в лаборатории. Открывает значок [Архивариус].", false],
-            ["Неизменный элемент", "365 дней (год с нами!). Открывает титул «Элемент системы».", false],
-            ["История лаборатории", "400 активных дней в комплексе.", false],
-            ["Сердце лаборатории", "450 дней научных открытий.", false],
-            ["Хроники Криптона", "500 дней на стримах.", false],
-            ["Вечный сотрудник", "600 дней преданности комплексу.", true],
-            ["Последний рубеж", "730 дней активных исследований (2 полных года!).", false]
-        ];
-        cat1Data.forEach((item, i) => {
-            const id = i + 1;
-            const rarity = id > 40 ? "легендарная" : id > 33 ? "эпическая" : id > 20 ? "редкая" : "обычная";
-            ALL_ACHIEVEMENTS.push({ id, code: "LAB-" + String(id).padStart(3, '0'), cat: 1, name: item[0], desc: item[1], isSecret: item[2], rarity, reward: "+" + (20 + id) + " XP" });
-        });
-
-        const cat2Data = [
-            [46, "Первые импульсы", "Накопить 100 XP.", false], [47, "Заряд конденсатора", "Накопить 250 XP.", false],
-            [48, "Рабочее напряжение", "Преодолеть 450 XP.", false], [49, "Ток в цепи", "Набрать 700 XP.", false],
-            [50, "Киловатт энергии", "Накопить 1 000 XP.", false], [51, "Энергия распада", "Достичь 1 400 XP.", false],
-            [52, "Плотность потока", "Накопить 1 900 XP.", false], [53, "Мегаваттный порог", "Набрать 2 500 XP.", false],
-            [54, "Цепная реакция", "Преодолеть 3 200 XP.", false], [55, "Термоядерный накал", "Накопить 4 200 XP.", false],
-            [56, "Плазменный вихрь", "Достичь 5 400 XP.", false], [57, "Замкнутый контур", "Набрать 6 800 XP.", false],
-            [58, "Квантовый барьер", "Накопить 8 400 XP.", false], [59, "Десятитысячник", "Преодолеть порог в 10 000 XP.", true],
-            [60, "Сингулярный разряд", "Накопить 12 200 XP.", false], [61, "Мощность реактора", "Достичь 14 400 XP.", false],
-            [62, "Абсолютный потенциал", "Набрать 16 800 XP.", false], [63, "Поле Хиггса", "Преодолеть 18 500 XP.", false],
-            [64, "Горизонт событий", "Достичь высшего 20 ранга (20 000 XP)!", true], [65, "Энергетический колосс", "Накопить 22 500 XP.", false],
-            [66, "Сверхизлучение", "Преодолеть 25 000 XP.", false], [67, "Квантовое бессмертие", "Набрать 28 000 XP.", false],
-            [68, "Фотонный шторм", "Достичь 31 000 XP.", false], [69, "Изотопная стабильность", "Накопить 35 000 XP.", false],
-            [70, "Пульсар эфира", "Преодолеть 40 000 XP.", false], [71, "Квазар мощности", "Набрать 45 000 XP.", false],
-            [72, "Тёмная энергия", "Преодолеть рубеж 50 000 XP.", true], [73, "Вне земной шкалы", "Накопить 60 000 XP.", false],
-            [74, "Мегаструктура", "Достичь 70 000 XP.", false], [75, "Сфера Дайсона", "Накопить 80 000 XP.", false],
-            [76, "Матрица пространства", "Преодолеть 90 000 XP.", false], [77, "Сто тысяч вольт", "Собрать грандиозные 100 000 XP!", true],
-            [78, "Повелитель материи", "Накопить 125 000 XP.", false], [79, "Вечный двигатель", "Преодолеть 150 000 XP.", false],
-            [80, "Абсолютная сингулярность", "Собрать 200 000 XP в лаборатории.", true]
-        ];
-        cat2Data.forEach(item => {
-            const id = item[0];
-            const rarity = id >= 75 ? "легендарная" : id >= 64 ? "эпическая" : id >= 54 ? "редкая" : "обычная";
-            ALL_ACHIEVEMENTS.push({ id, code: "LAB-" + String(id).padStart(3, '0'), cat: 2, name: item[1], desc: item[2], isSecret: item[3], rarity, reward: "+" + (25 + (id - 45)) + " XP" });
-        });
-
-        for (let i = 81; i <= 120; i++) {
-            ALL_ACHIEVEMENTS.push({ id: i, code: "LAB-" + String(i).padStart(3, '0'), cat: 3, name: "Сообщение #" + i, desc: `Отправить сообщения в чат лаборатории (${(i - 80) * 50}).`, isSecret: i % 15 === 0, rarity: i > 110 ? "легендарная" : "редкая", reward: "+" + (20 + i - 80) + " XP" });
-        }
-        for (let i = 121; i <= 160; i++) {
-            ALL_ACHIEVEMENTS.push({ id: i, code: "LAB-" + String(i).padStart(3, '0'), cat: 4, name: "Синтез #" + i, desc: `Провести лабораторные эксперименты (${(i - 120) * 10}).`, isSecret: i % 10 === 0, rarity: i > 150 ? "эпическая" : "обычная", reward: "+" + (25 + i - 120) + " XP" });
-        }
-        for (let i = 161; i <= 195; i++) {
-            ALL_ACHIEVEMENTS.push({ id: i, code: "LAB-" + String(i).padStart(3, '0'), cat: 5, name: "Тревога #" + i, desc: `Отразить аномальные тревоги комплекса (${(i - 160) * 8}).`, isSecret: i % 12 === 0, rarity: i > 185 ? "легендарная" : "редкая", reward: "+" + (30 + i - 160) + " XP" });
-        }
-        for (let i = 196; i <= 235; i++) {
-            ALL_ACHIEVEMENTS.push({ id: i, code: "LAB-" + String(i).padStart(3, '0'), cat: 6, name: "Инцидент #" + i, desc: `Пережить сбои и катастрофы реактора (${(i - 195) * 5}).`, isSecret: i % 10 === 0, rarity: i > 225 ? "эпическая" : "обычная", reward: "+" + (25 + i - 195) + " XP" });
-        }
-        for (let i = 236; i <= 265; i++) {
-            ALL_ACHIEVEMENTS.push({ id: i, code: "LAB-" + String(i).padStart(3, '0'), cat: 7, name: "Консоль #" + i, desc: `Использовать команды терминала (${(i - 235) * 15}).`, isSecret: i % 8 === 0, rarity: i > 255 ? "легендарная" : "обычная", reward: "+" + (20 + i - 235) + " XP" });
-        }
-        for (let i = 266; i <= 295; i++) {
-            ALL_ACHIEVEMENTS.push({ id: i, code: "LAB-" + String(i).padStart(3, '0'), cat: 8, name: "Тайна #" + i, desc: "Секретный протокол комплекса. Условия засекречены.", isSecret: true, rarity: i > 290 ? "легендарная" : "эпическая", reward: "+" + (50 + (i - 265) * 5) + " XP" });
-        }
-        for (let i = 296; i <= 335; i++) {
-            ALL_ACHIEVEMENTS.push({ id: i, code: "LAB-" + String(i).padStart(3, '0'), cat: 9, name: "Рубеж #" + i, desc: `Открыть ${10 + (i - 296) * 8} достижений комплекса.`, isSecret: i === 335, rarity: i > 325 ? "легендарная" : "эпическая", reward: "+" + (50 + (i - 295) * 6) + " XP" });
-        }
-        ALL_ACHIEVEMENTS.push({ id: 336, code: "LAB-336", cat: 9, name: "ТЕОРИЯ ВСЕГО", desc: "Открыть абсолютно все 335 достижений комплекса! Высший титул «Создатель Вселенной».", isSecret: true, rarity: "абсолютная", reward: "+500 XP" });
-    }
-    generateCatalog();
-
-    // Гардероб
-    const COSMETIC_TITLES = [
-        { name: "На связи", achId: 25 }, { name: "За гранью", achId: 27 }, { name: "Неугасающий интерес", achId: 29 },
-        { name: "На пороге легенды", achId: 31 }, { name: "Проверен временем", achId: 33 }, { name: "Следопыт лаборатории", achId: 35 },
-        { name: "Память лаборатории", achId: 36 }, { name: "Три года открытий", achId: 38 }, { name: "Элемент системы", achId: 40 },
-        { name: "Секретный ингредиент", achId: 142 }, { name: "Уравнение хаоса", achId: 146 }, { name: "Перегрев установки", achId: 150 },
-        { name: "Ветеран вылазок", achId: 179 }, { name: "Сквозь огонь", achId: 182 }, { name: "Повелитель пустошей", achId: 185 },
-        { name: "Ликвидатор", achId: 202 }, { name: "Ходячая катастрофа", achId: 203 }, { name: "Первооткрыватель", achId: 207 },
-        { name: "Ключник Аномалий", achId: 273 }, { name: "Создатель Вселенной", achId: 336 }
-    ];
-    const COSMETIC_BADGES = [
-        { name: "Золотой след", achId: 26 }, { name: "Свой", achId: 28 }, { name: "Опора", achId: 30 },
-        { name: "500+", achId: 32 }, { name: "Хранитель", achId: 34 }, { name: "Архивариус", achId: 39 },
-        { name: "Стабильная Нестабильность", achId: 141 }, { name: "Переменная Найдена", achId: 144 }, { name: "Лабораторный Прорыв", achId: 145 },
-        { name: "Эффект Криптона", achId: 148 }, { name: "Реакция Пошла", achId: 149 }, { name: "Сотня Сражений", achId: 178 },
-        { name: "Мастер Обороны", achId: 181 }, { name: "Несокрушимый", achId: 184 }, { name: "Взрывоустойчивый", achId: 201 },
-        { name: "Эврика", achId: 206 }, { name: "Под Сирену", achId: 233 }
-    ];
-
-    let activeCatFilter = 'ALL';
-    let activeStatusFilter = 'ALL';
 
     function setCategoryFilter(cat, btn) {
-        playLabBeep('click');
         activeCatFilter = cat;
         document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
         if (btn) btn.classList.add('active');
         renderAchievements();
     }
+
     function setStatusFilter(status, btn) {
-        playLabBeep('click');
         activeStatusFilter = status;
         document.querySelectorAll('.filter-status-btn').forEach(b => b.classList.remove('active'));
         if (btn) btn.classList.add('active');
         renderAchievements();
     }
 
-    // Быстрый рендеринг через DocumentFragment
     function renderAchievements() {
         const query = (document.getElementById('search-box')?.value || '').toLowerCase().trim();
         const container = document.getElementById('achievements-container');
         if (!container) return;
-        
+
+        let unlockedCount = 0;
         const fragment = document.createDocumentFragment();
 
-        ALL_ACHIEVEMENTS.forEach(item => {
-            const isUnlocked = userData.unlockedAchs.has(item.id);
-            if (activeCatFilter !== 'ALL' && item.cat !== activeCatFilter) return;
+        ACHIEVEMENTS_36.forEach(ach => {
+            const isUnlocked = ach.check(userData);
+            if (isUnlocked) unlockedCount++;
+
+            if (activeCatFilter !== 'ALL' && ach.group !== activeCatFilter) return;
             if (activeStatusFilter === 'UNLOCKED' && !isUnlocked) return;
             if (activeStatusFilter === 'LOCKED' && isUnlocked) return;
 
-            const isHiddenSecret = item.isSecret && !isUnlocked;
-            const displayName = isHiddenSecret ? "«??? [ЗАСЕКРЕЧЕНО]»" : item.name;
-            const displayDesc = isHiddenSecret ? "Секретный протокол. Находите скрытые фразы и аномалии." : item.desc;
+            const isHiddenSecret = ach.isSecret && !isUnlocked;
+            const displayName = isHiddenSecret ? "«??? [ЗАСЕКРЕЧЕНО]»" : ach.name;
+            const displayDesc = isHiddenSecret ? "Секретный протокол комплекса." : ach.desc;
 
-            if (query && !item.code.toLowerCase().includes(query) && !displayName.toLowerCase().includes(query)) return;
+            if (query && !ach.code.toLowerCase().includes(query) && !displayName.toLowerCase().includes(query)) return;
 
             const card = document.createElement('div');
             card.className = "ach-card " + (isUnlocked ? "unlocked" : "locked") + (isHiddenSecret ? " secret-locked" : "");
+            
+            let rarityName = ach.group === 'COMMON' ? 'ОБЩИЙ' : (ach.group === 'SECRET' ? 'СЕКРЕТНО' : 'ОСОБАЯ ПАПКА');
+            let rarityClass = ach.group === 'COMMON' ? 'r-общий' : (ach.group === 'SECRET' ? 'r-секретно' : 'r-папка');
+
             card.innerHTML = `
                 <div>
                     <div class="ach-top">
-                        <span class="ach-code">${item.code}</span>
-                        <span class="rarity-pill r-${item.rarity}">${isHiddenSecret ? 'СЕКРЕТ' : item.rarity}</span>
+                        <span class="ach-code">${ach.code}</span>
+                        <span class="rarity-pill ${rarityClass}">${rarityName}</span>
                     </div>
-                    <div class="ach-title">${isUnlocked ? '✔ ' : isHiddenSecret ? '🔮 ' : '🔒 '}${displayName}</div>
+                    <div class="ach-title">${isUnlocked ? '✔ ' : (isHiddenSecret ? '🔮 ' : '🔒 ')}${displayName}</div>
                     <div class="ach-desc">${displayDesc}</div>
                 </div>
                 <div class="ach-footer">
-                    <span class="ach-reward">${isHiddenSecret ? '??? XP' : item.reward}</span>
-                    <span class="ach-req">${isUnlocked ? 'Получено' : 'Заблокировано'}</span>
+                    <span style="color: var(--neon-green); font-weight: 700;">${isHiddenSecret ? '??? XP' : ach.reward}</span>
+                    <span style="color: var(--text-muted);">${isUnlocked ? 'Открыто' : 'Закрыто'}</span>
                 </div>`;
             fragment.appendChild(card);
         });
 
         container.innerHTML = '';
         container.appendChild(fragment);
+        document.getElementById('stat-ach').innerText = `${unlockedCount} / 36`;
     }
 
+    // РЕНДЕР ГАРДЕРОБА С ПРОВЕРКОЙ
     function renderWardrobe() {
         const tBox = document.getElementById('titles-container');
         const bBox = document.getElementById('badges-container');
         if (!tBox || !bBox) return;
 
-        const tFrag = document.createDocumentFragment();
-        const bFrag = document.createDocumentFragment();
-
-        COSMETIC_TITLES.forEach(item => {
-            const isUnlocked = userData.unlockedAchs.has(item.achId);
-            const card = document.createElement('div');
-            card.className = "cosmetic-card " + (isUnlocked ? "unlocked" : "locked");
-            card.innerHTML = `
-                <div class="cosmetic-info">
-                    <div class="c-name">${isUnlocked ? '✨ ' : '🔒 '}«${item.name}»</div>
-                    <div class="c-source">${isUnlocked ? 'Доступен' : 'Требуется LAB-' + String(item.achId).padStart(3, '0')}</div>
+        tBox.innerHTML = TITLES_CONFIG.map(item => {
+            const unlocked = item.canWear(userData);
+            return `
+                <div class="cosmetic-card ${unlocked ? 'unlocked' : 'locked'}" onclick="${unlocked ? `copyCmd('!титул ${item.name}')` : `copyToast('Звание заблокировано!')`}">
+                    <div class="cosmetic-info">
+                        <div class="c-name">${unlocked ? '✨' : '🔒'} «${item.name}»</div>
+                        <div class="c-source">${item.req}</div>
+                    </div>
+                    <div class="cosmetic-action">${unlocked ? 'Надеть' : 'Закрыто'}</div>
                 </div>
-                <div class="cosmetic-action">${isUnlocked ? 'Экипировать' : 'Закрыто'}</div>`;
-            if (isUnlocked) card.onclick = () => { playLabBeep('click'); copyCmd('!титул ' + item.name); };
-            tFrag.appendChild(card);
-        });
+            `;
+        }).join('');
 
-        COSMETIC_BADGES.forEach(item => {
-            const isUnlocked = userData.unlockedAchs.has(item.achId);
-            const card = document.createElement('div');
-            card.className = "cosmetic-card " + (isUnlocked ? "unlocked" : "locked");
-            card.innerHTML = `
-                <div class="cosmetic-info">
-                    <div class="c-name">${isUnlocked ? '🔰 ' : '🔒 '}[${item.name}]</div>
-                    <div class="c-source">${isUnlocked ? 'Доступен' : 'Требуется LAB-' + String(item.achId).padStart(3, '0')}</div>
+        bBox.innerHTML = BADGES_CONFIG.map(item => {
+            const unlocked = item.canWear(userData);
+            return `
+                <div class="cosmetic-card ${unlocked ? 'unlocked' : 'locked'}" onclick="${unlocked ? `copyCmd('!значок ${item.name}')` : `copyToast('Значок заблокирован!')`}">
+                    <div class="cosmetic-info">
+                        <div class="c-name">${unlocked ? '🔰' : '🔒'} ${item.name}</div>
+                        <div class="c-source">${item.desc}</div>
+                    </div>
+                    <div class="cosmetic-action">${unlocked ? 'Закрепить' : 'Закрыто'}</div>
                 </div>
-                <div class="cosmetic-action">${isUnlocked ? 'Закрепить' : 'Закрыто'}</div>`;
-            if (isUnlocked) card.onclick = () => { playLabBeep('click'); copyCmd('!значок ' + item.name); };
-            bFrag.appendChild(card);
-        });
+            `;
+        }).join('');
+    }
 
-        tBox.innerHTML = ''; tBox.appendChild(tFrag);
-        bBox.innerHTML = ''; bBox.appendChild(bFrag);
+    async function loadLeaderboard() {
+        const tbody = document.getElementById('hof-tbody');
+        if (!tbody) return;
+
+        try {
+            const resp = await fetch(`${FIREBASE_BASE_URL}users.json`);
+            const data = await resp.json();
+            if (!data) return;
+
+            const list = Object.keys(data).map(k => ({
+                user: data[k].user || k,
+                xp: Number(data[k].lab_xp || data[k].xp || 0),
+                isotopes: Number(data[k].lab_isotopes || data[k].isotopes || 0)
+            })).filter(u => !u.user.toLowerCase().includes("kriptonilya36") && u.xp > 0);
+
+            list.sort((a, b) => b.xp - a.xp);
+
+            let html = "";
+            const medals = ["🥇", "🥈", "🥉"];
+            list.slice(0, 10).forEach((item, index) => {
+                const lvl = calcLevel(item.xp);
+                const rankClass = index < 3 ? `hof-rank-${index + 1}` : '';
+                const medal = index < 3 ? medals[index] : `${index + 1}.`;
+                html += `
+                    <tr>
+                        <td class="${rankClass}">${medal}</td>
+                        <td><strong>@${item.user}</strong></td>
+                        <td>Ур.${lvl} (${RANK_TITLES[lvl - 1]})</td>
+                        <td style="color: var(--neon-green); font-weight: 700;">${item.xp} XP</td>
+                        <td style="color: var(--neon-blue); font-weight: 700;">${item.isotopes} Kr</td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        } catch {
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--neon-red);">Сбой загрузки рейтинга.</td></tr>`;
+        }
+    }
+
+    function checkCapsuleAvailability() {
+        const btn = document.getElementById('capsule-btn');
+        if (!btn) return;
+        if (!userData.username || userData.username === "Гость Лаборатории") {
+            btn.disabled = true;
+            btn.innerText = "Авторизуйтесь";
+            return;
+        }
+        btn.disabled = false;
+        btn.innerText = "Вскрыть Шлюз 🔓";
+    }
+
+    async function openCapsuleModal() {
+        const modal = document.getElementById('capsule-modal');
+        const codeDisplay = document.getElementById('modal-code-display');
+        const cmdText = document.getElementById('modal-cmd-text');
+
+        if (!userData.username || userData.username === "Гость Лаборатории") {
+            copyToast("Сначала введите ник в шапке сайта!");
+            return;
+        }
+
+        modal.style.display = 'flex';
+        codeDisplay.innerText = "ГЕНЕРАЦИЯ...";
+        cmdText.innerText = "Связь с базой...";
+
+        const cleanUser = userData.username.trim().replace(/^@/, '').toLowerCase();
+        const today = new Date().toISOString().slice(0, 10);
+
+        const array = new Uint8Array(4);
+        window.crypto.getRandomValues(array);
+        const token = Array.from(array, b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
+
+        try {
+            await fetch(`${FIREBASE_BASE_URL}capsules/${token}.json`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user: cleanUser, date: today, claimed: false })
+            });
+
+            codeDisplay.innerText = `KRP-${token}`;
+            cmdText.innerText = `!код KRP-${token}`;
+        } catch {
+            codeDisplay.innerText = "ОШИБКА";
+        }
+    }
+
+    function closeCapsuleModal() { document.getElementById('capsule-modal').style.display = 'none'; }
+    function copyModalCode() { copyCmd(document.getElementById('modal-cmd-text').innerText); }
+
+    function copyCmd(cmd) {
+        navigator.clipboard.writeText(cmd).then(() => copyToast("Скопировано: " + cmd));
+    }
+
+    function copyToast(text) {
+        const t = document.getElementById('toast-msg');
+        if (t) {
+            t.innerText = text;
+            t.style.display = 'block';
+            setTimeout(() => { t.style.display = 'none'; }, 2200);
+        }
+    }
+
+    function switchNav(tabName, btn) {
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+        document.querySelectorAll('.module-tab').forEach(t => t.style.display = 'none');
+        const tab = document.getElementById('tab-' + tabName);
+        if (tab) tab.style.display = 'block';
+        if (tabName === 'hof') loadLeaderboard();
+        if (tabName === 'wardrobe') renderWardrobe();
     }
 
     function applyUser() {
-        playLabBeep('click');
         const val = document.getElementById('username-input').value.trim();
         if (val) {
             localStorage.setItem('kripton_lab_last_user', val);
@@ -1880,31 +887,33 @@
         }
     }
 
-    // Секретный пасхальный клик по логотипу
-    let logoClicks = 0;
-    let logoTimer = null;
-    document.getElementById('main-logo')?.addEventListener('click', () => {
-        logoClicks++;
-        clearTimeout(logoTimer);
-        logoTimer = setTimeout(() => { logoClicks = 0; }, 1200);
-        if (logoClicks >= 3) {
-            logoClicks = 0;
-            playLabBeep('secret');
-            document.getElementById('classified-modal').style.display = 'flex';
-        }
-    });
+    // Canvas
+    const flaskCanvas = document.getElementById('flaskCanvas');
+    const fCtx = flaskCanvas ? flaskCanvas.getContext('2d') : null;
+    let angle = 0;
+    function animateFlask() {
+        if (!fCtx) return;
+        angle += 0.04;
+        fCtx.clearRect(0, 0, 76, 96);
+        fCtx.fillStyle = "rgba(0, 229, 255, 0.15)";
+        fCtx.beginPath();
+        fCtx.moveTo(0, 96); fCtx.lineTo(0, 35);
+        for (let x = 0; x <= 76; x += 5) fCtx.lineTo(x, 35 + Math.sin(angle + x * 0.1) * 3);
+        fCtx.lineTo(76, 96); fCtx.fill();
+
+        fCtx.fillStyle = userData.level >= 15 ? "#a855f7" : "#00e5ff";
+        fCtx.beginPath();
+        fCtx.arc(38, 55, 6 + Math.sin(angle * 1.5) * 2, 0, Math.PI * 2);
+        fCtx.fill();
+        requestAnimationFrame(animateFlask);
+    }
+    requestAnimationFrame(animateFlask);
 
     window.addEventListener('DOMContentLoaded', () => {
         const p = new URLSearchParams(window.location.search);
         const u = p.get('u') || p.get('user') || localStorage.getItem('kripton_lab_last_user');
         if (u) loadUserData(u, false);
-        else {
-            parseUrlParams();
-            updateProfileUI();
-            renderAchievements();
-        }
-        updateRerollButtonState();
-        startQuiz();
+        else { updateProfileUI(); renderAchievements(); renderWardrobe(); }
     });
 </script>
 </body>
