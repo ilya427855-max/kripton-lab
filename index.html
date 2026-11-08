@@ -49,7 +49,7 @@
         }
         .auth-bar button:hover { background: var(--neon-blue); color: #000; box-shadow: 0 0 12px rgba(0, 229, 255, 0.4); }
 
-        /* БЛОК-МАНИФЕСТ: ЗАЧЕМ ВСЯ СИСТЕМА */
+        /* Блок-манифест: назначение комплекса */
         .purpose-manifesto {
             background: linear-gradient(135deg, rgba(16, 24, 40, 0.95), rgba(10, 15, 26, 0.98));
             border: 1px solid rgba(0, 229, 255, 0.35);
@@ -104,7 +104,7 @@
         .stat-card .val { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 2px; }
         .stat-card .lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; }
 
-        /* Капсула */
+        /* Капсула дня */
         .capsule-widget {
             background: linear-gradient(135deg, rgba(10, 15, 26, 0.95), rgba(15, 23, 42, 0.9));
             border: 1px solid var(--border-highlight); border-radius: 14px; padding: 16px 20px;
@@ -132,9 +132,9 @@
 
         .module-tab { display: none; }
 
-        /* Сетка вех */
+        /* Фильтры и сетка вех */
         .cat-filters { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 14px; }
-        .cat-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-muted); padding: 7px 14px; border-radius: 6px; font-size: 11px; cursor: pointer; }
+        .cat-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-muted); padding: 7px 14px; border-radius: 6px; font-size: 11px; cursor: pointer; font-weight: 600; }
         .cat-btn.active { background: rgba(0, 229, 255, 0.12); border-color: var(--neon-blue); color: var(--neon-blue); }
 
         .search-controls { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
@@ -166,7 +166,7 @@
         .market-card { background: #0b0f19; border: 1px solid var(--border); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; }
         .market-price { color: var(--neon-blue); font-weight: 700; font-size: 13px; margin: 8px 0; }
 
-        /* Гардероб с проверкой */
+        /* Гардероб с валидацией */
         .wardrobe-block { margin-bottom: 28px; }
         .wardrobe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
         .cosmetic-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; }
@@ -186,6 +186,29 @@
         .hof-rank-1 { color: var(--neon-gold); font-weight: 800; }
         .hof-rank-2 { color: #cbd5e1; font-weight: 800; }
         .hof-rank-3 { color: #d97706; font-weight: 800; }
+
+        /* Спонсорский шлюз */
+        .sponsor-block {
+            background: linear-gradient(135deg, #090e18, #101626);
+            border: 1px dashed rgba(0, 229, 255, 0.3);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-top: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .sponsor-left { display: flex; align-items: center; gap: 12px; }
+        .sponsor-left .sp-icon { font-size: 26px; }
+        .sponsor-left h4 { font-size: 13px; color: var(--neon-blue); text-transform: uppercase; letter-spacing: 0.5px; }
+        .sponsor-left p { font-size: 12px; color: var(--text-muted); }
+        .sponsor-slot-container {
+            width: 100%; margin-top: 10px; min-height: 50px; display: flex;
+            justify-content: center; align-items: center; background: rgba(0,0,0,0.3);
+            border-radius: 8px; border: 1px solid rgba(255,255,255,0.04); font-size: 12px; color: var(--text-muted);
+        }
 
         .toast {
             position: fixed; bottom: 20px; right: 20px; background: var(--neon-blue); color: #000;
@@ -225,7 +248,7 @@
         </div>
     </header>
 
-    <!-- БЛОК-МАНИФЕСТ: ЗАЧЕМ ВСЁ ЭТО НУЖНО -->
+    <!-- Блок-манифест: назначение комплекса -->
     <section class="purpose-manifesto">
         <div class="manifesto-header">
             <h3>⚡ ДЛЯ ЧЕГО НУЖНА ЛАБОРАТОРИЯ СЕКТОРА №36</h3>
@@ -238,11 +261,11 @@
             </div>
             <div class="manifesto-card">
                 <h4>🚨 Прямое управление стримом</h4>
-                <p>Изотопы Kr-36 — это не пустые цифры. На Чёрном рынке вы лично объявляете Боевую тревогу комплексу с сиреной и стробоскопами в OBS или устраиваете диверсии в энергосети.</p>
+                <p>Изотопы Kr-36 — редкий ресурс. На Чёрном рынке вы можете лично объявить Боевую тревогу комплексу с сиреной и стробоскопами в OBS или устроить звуковую диверсию в энергосети.</p>
             </div>
             <div class="manifesto-card">
                 <h4>🐾 Живой био-маскот в эфире</h4>
-                <p>Кот в наушниках в нижнем углу экрана реагирует на ваши команды: ест, урчит, пугается аварий реактора и может выкатить лапой редкий изотоп за заботу.</p>
+                <p>Кот в наушниках в нижнем углу экрана реагирует на ваши команды: ест, урчит, пугается аварий реактора и может выкатить лапой редкий изотоп Kr-36 за заботу.</p>
             </div>
             <div class="manifesto-card">
                 <h4>🏷️ Личный статус без донатов</h4>
@@ -251,7 +274,7 @@
         </div>
     </section>
 
-    <!-- Профиль -->
+    <!-- Профиль лаборанта -->
     <section class="profile-plaque">
         <div class="profile-header">
             <div class="profile-identity">
@@ -347,7 +370,7 @@
         <div class="ach-grid" id="achievements-container"></div>
     </main>
 
-    <!-- Вкладка 2: Гардероб с честной валидацией -->
+    <!-- Вкладка 2: Гардероб с валидацией -->
     <section id="tab-wardrobe" class="module-tab">
         <div class="wardrobe-block">
             <h3 style="color: var(--neon-blue); margin-bottom: 8px;">🏷️ Доступные Титулы (Звания)</h3>
@@ -474,6 +497,20 @@
         </div>
     </section>
 
+    <!-- Спонсорский блок -->
+    <div class="sponsor-block">
+        <div class="sponsor-left">
+            <div class="sp-icon">🛡️</div>
+            <div>
+                <h4>КОРПОРАТИВНЫЙ СЕКТОР СНАБЖЕНИЯ</h4>
+                <p>Партнёрские контракты и поддержка исследовательской станции Сектора №36</p>
+            </div>
+        </div>
+        <div class="sponsor-slot-container" id="ad-container">
+            <span>[ ШЛЮЗ СНАБЖЕНИЯ: Место для нативного баннера или ссылки Boosty ]</span>
+        </div>
+    </div>
+
     <!-- Футер -->
     <footer style="margin-top: 30px; text-align: center; font-size: 11px; color: var(--text-muted); font-family: monospace;">
         ЭЛЕМЕНТ: Kr-36 • СЕКТОР №36 • KRIPTON LAB PROTOCOL
@@ -514,7 +551,7 @@
         "Хранитель изотопа", "Заместитель директора", "Директор комплекса", "Верховный Архитектор Сингулярности"
     ];
 
-    // 36 ВЕХ
+    // 36 Каноничных Вех Сектора №36
     const ACHIEVEMENTS_36 = [
         { id: 1, code: "KR-01", group: "COMMON", name: "Первая смена", desc: "Начать путь в комплексе Сектора №36.", reward: "+15 XP", check: u => u.xp >= 0 },
         { id: 2, code: "KR-02", group: "COMMON", name: "Чистый синтез", desc: "Провести свой первый эксперимент в реакторе.", reward: "+20 XP", check: u => u.exp >= 1 },
@@ -556,7 +593,7 @@
         { id: 36, code: "KR-36", group: "SPECIAL", name: "Верховный Архитектор", desc: "Достичь наивысшего 20-го ранга Сектора №36!", reward: "+500 XP", isSecret: true, check: u => u.level >= 20 }
     ];
 
-    // ГАРДЕРОБ С ПРАВИЛАМИ ДОСТУПА
+    // Гардероб с проверкой условий
     const TITLES_CONFIG = [
         { name: "Стажёр", req: "Базовый допуск", canWear: u => true },
         { name: "Следопыт бункера", req: "10 дней на вахте", canWear: u => u.days >= 10 },
@@ -595,7 +632,8 @@
         setSyncStatus("⏳ Запрос из базы Firebase...");
 
         try {
-            const endpoint = `${FIREBASE_BASE_URL}users/${encodeURIComponent(cleanUser)}.json`;
+            // Анти-кэш параметр гарантирует свежие данные
+            const endpoint = `${FIREBASE_BASE_URL}users/${encodeURIComponent(cleanUser)}.json?t=${Date.now()}`;
             const response = await fetch(endpoint, { cache: 'no-cache' });
             if (!response.ok) throw new Error();
 
@@ -734,7 +772,6 @@
         document.getElementById('stat-ach').innerText = `${unlockedCount} / 36`;
     }
 
-    // РЕНДЕР ГАРДЕРОБА С ПРОВЕРКОЙ
     function renderWardrobe() {
         const tBox = document.getElementById('titles-container');
         const bBox = document.getElementById('badges-container');
@@ -772,7 +809,8 @@
         if (!tbody) return;
 
         try {
-            const resp = await fetch(`${FIREBASE_BASE_URL}users.json`);
+            // Анти-кэш параметр исключает чтение старого кэша
+            const resp = await fetch(`${FIREBASE_BASE_URL}users.json?t=${Date.now()}`, { cache: 'no-cache' });
             const data = await resp.json();
             if (!data) return;
 
